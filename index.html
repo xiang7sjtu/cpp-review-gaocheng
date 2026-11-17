@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="可公开分享的 C/C++ 高程知识复习网站，覆盖到期中范围"
+    />
+    <title>C/C++ 高程知识复习台</title>
+    <meta name="theme-color" content="#0f2f56" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#main" aria-label="返回主内容">
+        <span class="brand-mark" aria-hidden="true">C++</span>
+        <span>
+          <strong>高程复习台</strong>
+          <small>会判断、会安排、会巩固</small>
+        </span>
+      </a>
+      <div class="top-actions">
+        <span class="judge-mode-badge" id="judgeModeBadge" data-mode="checking">
+          共享版 · 结构判题
+        </span>
+        <button class="ghost-button" id="remoteJudgeButton" type="button">
+          开启联网编译
+        </button>
+        <button class="ghost-button" id="openDashboardButton" type="button">
+          学习概览
+        </button>
+        <button class="ghost-button danger-ghost" id="resetButton" type="button">
+          重置进度
+        </button>
+      </div>
+    </header>
+
+    <div class="layout" id="main">
+      <aside class="sidebar" aria-label="课程与筛选">
+        <section class="panel intro-panel">
+          <p class="eyebrow">C/C++ COURSE LAB</p>
+          <h1 id="appTitle">C/C++ 高程知识复习台</h1>
+          <p id="appSubtitle"></p>
+          <div class="source-note" id="sourceNote"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>复习状态</h2>
+            <span class="live-dot">自动保存</span>
+          </div>
+          <div class="progress-block">
+            <div class="progress-copy">
+              <span>已掌握</span>
+              <strong id="masteredRatio">0 / 0</strong>
+            </div>
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-label="知识点掌握进度"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              id="progressBar"
+            >
+              <span id="progressFill"></span>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="stat">
+              <span id="reviewQueueCount">0</span>
+              <small>待复习</small>
+            </div>
+            <div class="stat">
+              <span id="todayReviewCount">0</span>
+              <small>今日复习</small>
+            </div>
+            <div class="stat">
+              <span id="accuracyCount">--</span>
+              <small>练习正确率</small>
+            </div>
+          </div>
+        </section>
+
+        <nav class="panel lesson-nav" aria-label="课程导航">
+          <div class="panel-heading">
+            <h2>课件范围</h2>
+          </div>
+          <div id="lessonNav"></div>
+        </nav>
+
+        <section class="panel queue-panel">
+          <div class="panel-heading">
+            <h2>智能复习顺序</h2>
+          </div>
+          <p class="muted">
+            越不熟悉，优先级越高；练习答错后会进入更早的下一轮。完全掌握的知识点会从复习队列移出。
+          </p>
+          <button class="primary-button full-width" id="startReviewButton" type="button">
+            开始一轮复习
+          </button>
+        </section>
+      </aside>
+
+      <main class="content">
+        <section class="hero-card">
+          <div>
+            <p class="eyebrow">LEARN → PRACTICE → REVIEW</p>
+            <h2>先读懂，再写 C++，最后决定掌握程度</h2>
+            <p>
+              每张知识卡都包含核心概念、易错点和一道 C++ 练习。默认在浏览器内检查关键结构；需要真实编译和输出比对时，可手动开启联网编译，或复制代码到自己的编译器。
+            </p>
+          </div>
+          <div class="hero-badge" aria-label="当前复习提示">
+            <span>本轮建议</span>
+            <strong id="heroSuggestion">先复习不熟悉的知识点</strong>
+          </div>
+        </section>
+
+        <section class="toolbar" aria-label="知识点筛选">
+          <div class="segmented" role="group" aria-label="状态筛选">
+            <button class="segment active" data-filter="review" type="button">
+              待复习 <span id="reviewFilterCount">0</span>
+            </button>
+            <button class="segment" data-filter="all" type="button">
+              全部 <span id="allFilterCount">0</span>
+            </button>
+            <button class="segment" data-filter="mastered" type="button">
+              已掌握 <span id="masteredFilterCount">0</span>
+            </button>
+          </div>
+          <label class="search-box">
+            <span class="sr-only">搜索知识点</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
+              />
+            </svg>
+            <input
+              id="searchInput"
+              type="search"
+              autocomplete="off"
+              placeholder="搜索标题、标签或关键词"
+            />
+          </label>
+        </section>
+
+        <div class="result-summary" id="resultSummary" aria-live="polite"></div>
+        <section id="cardList" class="card-list" aria-label="知识点列表"></section>
+
+        <section class="empty-state" id="emptyState" hidden>
+          <div class="empty-icon" aria-hidden="true">✓</div>
+          <h2>这里暂时没有需要复习的卡片</h2>
+          <p>可以切换到“全部”继续浏览，或把某个知识点重新标记为模糊/不明白。</p>
+          <button class="primary-button" type="button" id="showAllButton">
+            查看全部知识点
+          </button>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="dashboard-dialog" id="dashboardDialog">
+      <form method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow">LEARNING PULSE</p>
+            <h2>学习概览</h2>
+          </div>
+          <button class="icon-button" value="close" aria-label="关闭概览">×</button>
+        </div>
+        <div id="dashboardContent" class="dashboard-content"></div>
+      </form>
+    </dialog>
+
+    <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+    <footer>
+      <span id="footerVersion"></span>
+      <span>共享静态版 · 进度只保存在当前浏览器 · 默认不发送代码；开启联网编译后会发送至 ce.judge0.com</span>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "C/C++ 高程知识复习台",
+  "short_name": "C++ 高程复习",
+  "description": "按知识点分块、练习、判题与复习 C/C++，覆盖到期中范围。",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#0f2f56",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

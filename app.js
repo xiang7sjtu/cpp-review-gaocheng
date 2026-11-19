@@ -643,13 +643,21 @@
 
   function cardMatchesSearch(card) {
     if (!searchTerm) return true;
+    const example = card.example || {};
+    const noteText = Array.isArray(example.notes)
+      ? example.notes.map((note) => note.text)
+      : [];
     const haystack = [
       card.title,
       card.overview,
       ...card.tags,
       ...card.keyPoints,
       ...card.pitfalls,
-      card.exercise.prompt
+      card.exercise ? card.exercise.prompt : "",
+      example.title || "",
+      example.code || "",
+      example.explanation || "",
+      ...noteText
     ]
       .join(" ")
       .toLocaleLowerCase("zh-CN");
@@ -814,6 +822,148 @@
     return `共显示 ${count} 张知识点卡片。`;
   }
 
+  function renderAnnotatedCode(code, notes) {
+    const keyLines = new Set(notes.map((note) => note.line).filter((line) => line > 0));
+    const codeLines = String(code || "").split("\n");
+    const codeHtml = codeLines
+      .map((line, index) => {
+        const lineNo = index + 1;
+        const cls = keyLines.has(lineNo) ? "code-line key-line" : "code-line";
+        return `<span class="${cls}"><span class="line-no">${lineNo}</span><span class="line-text">${
+          escapeHtml(line) || " "
+        }</span></span>`;
+      })
+      .join("");
+    const notesHtml = notes.length
+      ? `<div class="key-notes">
+          <h4>关键行讲解</h4>
+          <ol>${notes
+            .map(
+              (note) =>
+                `<li>${
+                  note.line > 0 ? `<span class="note-line">第 ${note.line} 行</span>` : ""
+                }<span>${escapeHtml(note.text)}</span></li>`
+            )
+            .join("")}</ol>
+        </div>`
+      : "";
+    return `<div class="code-wrap"><pre class="annotated-code">${codeHtml}</pre></div>${notesHtml}`;
+  }
+
+  function renderExampleSection(card) {
+    const ex = card.example;
+    if (!ex) return "";
+    const allNotes = Array.isArray(ex.notes) ? ex.notes : [];
+    const sections =
+      Array.isArray(ex.sections) && ex.sections.length
+        ? ex.sections
+        : [{ code: ex.code || "", notes: allNotes }];
+    const hasSections = Array.isArray(ex.sections) && ex.sections.length > 0;
+    const sectionsHtml = sections
+      .map((section, index) => {
+        const notes = hasSections
+          ? allNotes.filter((note) => (note.section || 0) === index)
+          : allNotes;
+        return `
+          ${
+            section.label
+              ? `<h4 class="code-section-label">${escapeHtml(section.label)}</h4>`
+              : ""
+          }
+          ${renderAnnotatedCode(section.code, notes)}`;
+      })
+      .join("");
+    const hints = Array.isArray(ex.blankHints) ? ex.blankHints : [];
+    const hintsHtml = hints.length
+      ? `<div class="blank-hints"><h4>课件填空答案</h4><ul>${hints
+          .map((hint) => `<li>${escapeHtml(hint)}</li>`)
+          .join("")}</ul></div>`
+      : "";
+    return `
+      <section class="example-block">
+        <div class="block-title">
+          <h3>${escapeHtml(ex.title)}</h3>
+          <span class="source-badge">${escapeHtml(ex.source || "参考示例")}</span>
+        </div>
+        ${sectionsHtml}
+        ${
+          ex.output
+            ? `<div class="code-wrap"><div class="output-line"><strong>结果</strong><span>${escapeHtml(
+                ex.output
+              )}</span></div></div>`
+            : ""
+        }
+        <p class="example-explanation">${escapeHtml(ex.explanation)}</p>
+        ${hintsHtml}
+      </section>`;
+  }
+
+  function renderExerciseSection(card, draft, stdinValue, feedback) {
+    return `
+      <section class="exercise-block">
+        <div class="block-title">
+          <h3>轮到你来写</h3>
+          <span>${exactJudgeAvailable ? "联网编译" : "结构检查"}</span>
+        </div>
+        <div class="exercise-content">
+          <p class="exercise-prompt">${escapeHtml(card.exercise.prompt)}</p>
+          ${
+            exactJudgeAvailable
+              ? `<div class="code-editor-label stdin-label">
+                  <span>测试输入（可选）</span>
+                  <span>会与参考解使用同一输入比对输出</span>
+                </div>
+                <textarea
+                  class="stdin-editor"
+                  data-stdin="${escapeHtml(card.id)}"
+                  spellcheck="false"
+                  rows="3"
+                  aria-label="${escapeHtml(card.title)}测试输入"
+                >${escapeHtml(stdinValue)}</textarea>`
+              : ""
+          }
+          <div class="code-editor-label">
+            <span>使用 C++ 作答</span>
+            <span>Tab 可插入缩进</span>
+          </div>
+          <textarea
+            class="code-editor"
+            data-code="${escapeHtml(card.id)}"
+            spellcheck="false"
+            aria-label="${escapeHtml(card.title)}练习代码"
+          >${escapeHtml(draft)}</textarea>
+          <div class="exercise-actions">
+            <button
+              class="primary-button"
+              type="button"
+              data-action="submit"
+              data-card="${escapeHtml(card.id)}"
+            >检查答案</button>
+            <button
+              class="secondary-button"
+              type="button"
+              data-action="copy-code"
+              data-card="${escapeHtml(card.id)}"
+            >复制 C++ 代码</button>
+            <button
+              class="secondary-button"
+              type="button"
+              data-action="restore"
+              data-card="${escapeHtml(card.id)}"
+            >恢复起始代码</button>
+          </div>
+          <p class="exercise-hint">提示：${escapeHtml(card.exercise.hint)}</p>
+          <div
+            class="feedback ${feedback ? (feedback.correct ? "success" : feedback.partial ? "partial" : "error") : ""}"
+            data-feedback="${escapeHtml(card.id)}"
+            ${feedback ? "" : "hidden"}
+          >
+            ${feedback ? renderFeedbackMarkup(card, feedback) : ""}
+          </div>
+        </div>
+      </section>`;
+  }
+
   function renderCard(card) {
     const cardState = getCardState(card.id);
     const lesson = lessonById(card.lessonId);
@@ -824,9 +974,9 @@
         : "";
     const focusedClass = lastFocusedCardId === card.id ? " focused" : "";
     const masteredClass = isMasteredCard ? " mastered" : "";
-    const draft = cardState.draft || card.exercise.starter;
+    const draft = cardState.draft || (card.exercise ? card.exercise.starter : "");
     const stdinValue =
-      cardState.stdin ?? card.exercise.sampleInput ?? "";
+      cardState.stdin ?? (card.exercise ? card.exercise.sampleInput : "") ?? "";
     const feedback = state.exercises[card.id];
 
     return `
@@ -881,89 +1031,12 @@
               <ul>${card.pitfalls.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
             </section>
           </div>
-          <section class="example-block">
-            <div class="block-title">
-              <h3>${escapeHtml(card.example.title)}</h3>
-              <span>C++ 示例</span>
-            </div>
-            <div class="code-wrap">
-              <pre><code>${escapeHtml(card.example.code)}</code></pre>
-              ${
-                card.example.output
-                  ? `<div class="output-line"><strong>结果</strong><span>${escapeHtml(
-                      card.example.output
-                    )}</span></div>`
-                  : ""
-              }
-            </div>
-            <p class="example-explanation">${escapeHtml(card.example.explanation)}</p>
-          </section>
-          <section class="exercise-block">
-            <div class="block-title">
-              <h3>轮到你来写</h3>
-              <span>${exactJudgeAvailable ? "g++ 编译运行" : "结构检查"}</span>
-            </div>
-            <div class="exercise-content">
-              <p class="exercise-prompt">${escapeHtml(card.exercise.prompt)}</p>
-              ${
-                exactJudgeAvailable
-                  ? `<div class="code-editor-label stdin-label">
-                      <span>测试输入（可选）</span>
-                      <span>会与参考解使用同一输入比对输出</span>
-                    </div>
-                    <textarea
-                      class="stdin-editor"
-                      data-stdin="${escapeHtml(card.id)}"
-                      spellcheck="false"
-                      rows="3"
-                      aria-label="${escapeHtml(card.title)}测试输入"
-                    >${escapeHtml(stdinValue)}</textarea>`
-                  : ""
-              }
-              <div class="code-editor-label">
-                <span>使用 C++ 作答</span>
-                <span>Tab 可插入缩进</span>
-              </div>
-              <textarea
-                class="code-editor"
-                data-code="${escapeHtml(card.id)}"
-                spellcheck="false"
-                aria-label="${escapeHtml(card.title)}练习代码"
-              >${escapeHtml(draft)}</textarea>
-              <div class="exercise-actions">
-                <button
-                  class="primary-button"
-                  type="button"
-                  data-action="submit"
-                  data-card="${escapeHtml(card.id)}"
-                >检查答案</button>
-                <button
-                  class="secondary-button"
-                  type="button"
-                  data-action="copy-code"
-                  data-card="${escapeHtml(card.id)}"
-                >复制 C++ 代码</button>
-                <button
-                  class="secondary-button"
-                  type="button"
-                  data-action="restore"
-                  data-card="${escapeHtml(card.id)}"
-                >恢复起始代码</button>
-              </div>
-              <p class="exercise-hint">提示：${escapeHtml(card.exercise.hint)}</p>
-              <div
-                class="feedback ${feedback ? (feedback.correct ? "success" : feedback.partial ? "partial" : "error") : ""}"
-                data-feedback="${escapeHtml(card.id)}"
-                ${feedback ? "" : "hidden"}
-              >
-                ${
-                  feedback
-                    ? renderFeedbackMarkup(card, feedback)
-                    : ""
-                }
-              </div>
-            </div>
-          </section>
+          ${
+            card.example
+              ? renderExampleSection(card)
+              : `<p class="example-missing">本卡是知识点归纳；课件原题见本课例题卡。</p>`
+          }
+          ${card.exercise ? renderExerciseSection(card, draft, stdinValue, feedback) : ""}
           <div class="mastery-row">
             <span>完成练习后，按真实情况评估：</span>
             ${renderStatusButton(card.id, 0, "✓ 完全掌握")}

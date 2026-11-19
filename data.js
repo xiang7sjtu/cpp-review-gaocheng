@@ -2,9 +2,9 @@ window.COURSE_DATA = {
   "meta": {
     "title": "C/C++ 高程知识复习台",
     "subtitle": "按知识点分块练习、判断掌握程度，并自动安排下一轮复习",
-    "version": 3,
-    "updatedAt": "2026-11-17",
-    "sourceNote": "根据 Canvas 课程 118150 的 lesson1-8 课件与期中知识梳理整理；支持本地精确编译判题。"
+    "version": 5,
+    "updatedAt": "2026-11-19",
+    "sourceNote": "根据 Canvas 课程 118150 的 lesson1-8 课件整理；86 道课件例题均按课件原文录入，多程序例题分块展示，课件填空保留原位置并在“课件填空答案”中给出答案；知识点卡只保留归纳与练习，不再放自编示例。"
   },
   "lessons": [
     {
@@ -64,6 +64,154 @@ window.COURSE_DATA = {
   ],
   "cards": [
     {
+      "id": "l1-ex1-1",
+      "lessonId": "lesson1",
+      "kind": "example",
+      "title": "例1.1 输入圆的半径，求面积",
+      "tags": [
+        "课件例题",
+        "程序骨架",
+        "cin/cout"
+      ],
+      "overview": "课件第一个完整程序：用 #define 定义符号常量 PI，从键盘读入半径 r，计算并输出圆面积。它同时展示了 C++ 程序最基本的骨架。",
+      "keyPoints": [
+        "#include <iostream> 把输入输出头文件内容插入源文件，cin、cout 才能使用。",
+        "using namespace std; 之后可以直接写 cin、cout，不必写 std::cin、std::cout。",
+        "#define PI 3.14 是编译预处理中的符号常量，预处理阶段直接把 PI 替换成 3.14。",
+        "main 函数是程序入口，int main() 表示返回 int，return 0 表示正常结束。"
+      ],
+      "pitfalls": [
+        "漏写 using namespace std; 时，必须写成 std::cin、std::cout。",
+        "把 #define PI 3.14 后面的分号写上，会把分号也替换进表达式。",
+        "system(\"pause\") 需要 <cstdlib>（旧式写法常由 iostream 间接带入），只用于暂停观察结果。"
+      ],
+      "example": {
+        "title": "例1.1 输入圆的半径，求面积",
+        "source": "课件 lesson1 · P4",
+        "code": "#include <iostream>    // 文件包含命令\nusing namespace std;   // 使用std命名空间\n#define PI 3.14        // 定义符号常量PI\nint main()             // 函数头\n{\n    double r;          // 说明r为double类型的变量\n    cin>>r;            // 从键盘输入数据，送到变量r中\n    double s=PI*r*r;   // 先说明s为double类型的变量，再把计算的圆面积赋值给s\n    cout<<s<<endl;     // 先输出s的值，再输出换行符\n    system(\"pause\");   // 程序暂停执行，按任意一个键继续\n    return 0;          // 返回值为0\n}",
+        "output": "输入 2 时输出：12.56",
+        "explanation": "这是全课程反复使用的程序骨架：预处理命令 → 命名空间 → 主函数 → 变量说明 → 输入 → 处理 → 输出 → 暂停 → 返回。注意课件把变量 s 的说明和计算写在同一行，并且用 PI*r*r 而不是 3.14*r*r，体现符号常量的作用。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "#include 是编译预处理命令，把 iostream 的内容插入到这一行所在位置；cin、cout 的声明都在其中。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "std 是标准库命名空间。加了这一行，cin、cout 可以直接写；不加就要写 std::cin>>r;。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "符号常量在预处理阶段做文本替换，PI 不是变量，不占存储空间，也不能被赋值。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "r 声明为 double，输入小数时不会像 int 那样被截断。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": ">> 后面必须是变量，表示把键盘输入送到 r 的存储单元。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "先说明 s 为 double，再用半径平方乘 PI 计算面积并赋给 s。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "<< 把 s 的值送到标准输出，endl 输出换行并刷新缓冲区。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "让控制台暂停，便于观察结果；这是课件为 Visual Studio 控制台程序加的辅助语句。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "main 返回 0，表示程序正常结束。"
+          }
+        ]
+      },
+      "masteryHint": "能不看课件写出这个骨架，并解释每一行的作用。",
+      "sourcePages": [
+        4
+      ]
+    },
+    {
+      "id": "l1-ex1-2",
+      "lessonId": "lesson1",
+      "kind": "example",
+      "title": "例1.2 格式控制符输出示例",
+      "tags": [
+        "课件例题",
+        "格式控制",
+        "iomanip"
+      ],
+      "overview": "用同一个整数 65 和同一个实数 123.456，演示 dec、hex、oct、ends、setprecision、setw、setfill 等格式控制符的效果。",
+      "keyPoints": [
+        "dec、hex、oct 分别按十、十六、八进制输出整数，设置后一直有效。",
+        "setprecision(n) 设置浮点数的有效数字位数，设置后对后续输出持续有效。",
+        "setw(n) 只对紧接着的一个输出项生效，默认右对齐、左边补空格。",
+        "setfill(c) 设置填充字符，通常与 setw 配合使用。",
+        "setprecision、setw、setfill 需要 #include <iomanip>。"
+      ],
+      "pitfalls": [
+        "setw 只作用一次，下一个输出项就恢复默认宽度。",
+        "setprecision(4) 是有效数字 4 位，不是小数点后 4 位。",
+        "ends 输出的是字符串结束符 '\\0'，不是空格，也不是换行。"
+      ],
+      "example": {
+        "title": "例1.2 格式控制符输出示例",
+        "source": "课件 lesson1 · P11",
+        "code": "#include \"iostream\"\n#include \"iomanip\"\nusing namespace std;\nint main()\n{\nint x=65;\ndouble f=123.456;\ncout<<\"123456789012345\"<<endl;\ncout<<dec<<x<<' '<<hex<<x<<' '<<oct<<x<<endl;\ncout<<x<<ends<<x<<endl;\ncout<<f<<endl;\ncout<<setprecision(4)<<f<<endl;\ncout<<setw(12)<<f<<endl;\ncout<<setw(12)<<setfill('#')<<f<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "123456789012345\n65 41 101\n65\\065\n123.456\n123.5\n       123.5\n#######123.5",
+        "explanation": "课件用第一行 \"123456789012345\" 当标尺，方便数出后面每行占了多少列。65 的十六进制是 41，八进制是 101；setprecision(4) 把 123.456 变成 4 位有效数字 123.5；setw(12) 补空格到 12 列，setfill('#') 后改为补 #。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "格式控制符 setw、setfill、setprecision 定义在 iomanip 中；课件用双引号形式包含。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "dec 设置十进制，hex 设置十六进制，oct 设置八进制；65 分别输出 65、41、101。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "ends 在中间输出一个 '\\0'，所以屏幕上 65 和 65 之间看起来只有一个控制字符。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "4 位有效数字：123.456 → 123.5。注意不是保留 4 位小数。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "setw(12) 只对这一项生效，不足 12 列在左边补空格。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "setfill('#') 把填充字符改为 #，于是左边补 7 个 #，总宽仍为 12。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 setw 与 setprecision 的作用范围差别，并预测输出列宽。",
+      "sourcePages": [
+        11
+      ]
+    },
+    {
       "id": "l1-program-structure",
       "lessonId": "lesson1",
       "title": "C++ 程序的基本结构",
@@ -84,12 +232,6 @@ window.COURSE_DATA = {
         "忘记包含 <iostream> 却直接使用 std::cout。",
         "把函数定义写在另一个函数内部。"
       ],
-      "example": {
-        "title": "最小控制台程序",
-        "code": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, C++!\" << std::endl;\n    return 0;\n}",
-        "output": "Hello, C++!",
-        "explanation": "std::cout 负责标准输出，<< 把字符串送入输出流，std::endl 换行并刷新缓冲区。"
-      },
       "exercise": {
         "prompt": "编写一个完整程序，输出 Hello, C++! 后换行，并正常结束。",
         "starter": "#include <iostream>\n\nint main() {\n    // 在这里完成输出\n\n    return 0;\n}",
@@ -143,12 +285,6 @@ window.COURSE_DATA = {
         "只声明函数却没有提供定义，直到链接时才报未解析外部符号。",
         "混淆运行期逻辑错误与编译期错误。"
       ],
-      "example": {
-        "title": "声明与定义必须配套",
-        "code": "#include <iostream>\n\nint add(int a, int b); // 只有声明\n\nint main() {\n    std::cout << add(2, 3);\n}",
-        "output": "编译可能通过，链接会失败：找不到 add 的定义。",
-        "explanation": "声明告诉编译器函数如何调用，定义才提供实际函数体。这里的链接器无法解析 add 的符号。"
-      },
       "exercise": {
         "prompt": "补全一个名为 add 的函数定义，接收两个 int 并返回它们的和；main 已经调用它。",
         "starter": "#include <iostream>\n\nint add(int a, int b);\n\n// 在这里补充函数定义\n\nint main() {\n    std::cout << add(2, 3);\n    return 0;\n}",
@@ -197,12 +333,6 @@ window.COURSE_DATA = {
         "int 是关键字，不能作为变量名。",
         "把大小写不同的名称当成同一个名称。"
       ],
-      "example": {
-        "title": "合法命名",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int average_score = 90;\n    int Int = 3;\n    cout << average_score << ' ' << Int << endl;\n    return 0;\n}",
-        "output": "90 3",
-        "explanation": "average_score 和 Int 都符合标识符规则；Int 不是关键字。"
-      },
       "exercise": {
         "prompt": "声明 int 变量 average_score 并赋值为 90，然后输出该变量。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 声明并输出变量\n    return 0;\n}",
@@ -257,12 +387,6 @@ window.COURSE_DATA = {
         "只写 setprecision(2) 而没有 fixed，可能表示有效数字而不是小数位。",
         "使用 setw 却忘记包含 <iomanip>。"
       ],
-      "example": {
-        "title": "读取两个整数",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << a + b << endl;\n    return 0;\n}",
-        "output": "输入 3 5 时输出 8",
-        "explanation": "两个输入可以用空格分隔，表达式 a + b 被送入 cout。"
-      },
       "exercise": {
         "prompt": "读取实数半径 r，计算圆面积（PI 取 3.14），保留两位小数输出。",
         "starter": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    // 读取半径并输出面积\n    return 0;\n}",
@@ -322,12 +446,6 @@ window.COURSE_DATA = {
         "把 #define 当成运行时赋值语句。",
         "以为宏定义具有普通变量的类型检查。"
       ],
-      "example": {
-        "title": "用宏常量计算圆周长",
-        "code": "#include <iostream>\nusing namespace std;\n#define PI 3.14\n\nint main() {\n    double r = 2;\n    cout << 2 * PI * r << endl;\n    return 0;\n}",
-        "output": "12.56",
-        "explanation": "PI 在预处理阶段被替换成 3.14，随后再参与编译和运行。"
-      },
       "exercise": {
         "prompt": "用 #define 定义 PI 为 3.14159，读取半径 r，输出圆周长。",
         "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 PI\n\nint main() {\n    double r;\n    // 完成输入与输出\n    return 0;\n}",
@@ -363,6 +481,264 @@ window.COURSE_DATA = {
       "masteryHint": "能说明预处理阶段的工作，并正确书写不带分号的预处理命令。"
     },
     {
+      "id": "l2-ex2-2",
+      "lessonId": "lesson2",
+      "kind": "example",
+      "title": "例2-2 逻辑与的短路求值",
+      "tags": [
+        "课件例题",
+        "短路求值",
+        "自增"
+      ],
+      "overview": "m=2&&n++ 中，2 为真，逻辑与继续计算右边，n++ 使 n 加 1；若改成 m=0&&n++，左边已经为假，右边不再执行。",
+      "keyPoints": [
+        "&& 从左到右计算，只要遇到 0 就停止，后面的表达式不执行。",
+        "|| 从左到右计算，只要遇到非 0 就停止，后面的表达式不执行。",
+        "n++ 作为表达式参与运算，整个表达式的值是 n 加 1 之前的值。",
+        "短路不仅影响结果，还会影响 n 是否被加 1，这是考试常考点。"
+      ],
+      "pitfalls": [
+        "以为 && 两边一定会都算一遍。",
+        "把 n++ 当成先加再用；单独成句时二者相同，参与表达式时不同。",
+        "忽略 m=0&&n++ 时 n 仍然是 10。"
+      ],
+      "example": {
+        "title": "例2-2 逻辑与的短路求值",
+        "source": "课件 lesson2 · P20",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{int m,n=10;\n  m=2&&n++;\n cout<<\"m=\" <<m<<\" ,n= \" \n<<n;\n system(\"pause\");\n return 0;\n}",
+        "output": "m=1 ,n= 11",
+        "explanation": "2 是非 0 值，逻辑与的左边为真，必须继续看右边，于是执行 n++。n++ 的值是 10（非 0，作为逻辑值就是 1），n 自身变成 11，所以 m 得到 1。改成 m=0&&n++ 时，左边为假，右边不执行，m=0、n 仍为 10。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "只给 n 初始化，m 还没有确定值；紧接着的赋值会覆盖 m。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "2 为真，继续算 n++；n++ 的值是 10，逻辑值为 1，所以 m=1，n 变为 11。逻辑与的结果只取 0 或 1，不会把 10 直接赋给 m。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "先输出 m 的值，再输出后面的 n，验证短路是否执行。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "这里没有 endl，输出后不换行，但值仍然是 11。"
+          }
+        ]
+      },
+      "masteryHint": "能分别写出 m=2&&n++ 与 m=0&&n++ 执行后 m、n 的值。",
+      "sourcePages": [
+        20
+      ]
+    },
+    {
+      "id": "l2-ex2-3",
+      "lessonId": "lesson2",
+      "kind": "example",
+      "title": "例2-3 用 C 代码表达命题",
+      "tags": [
+        "课件例题",
+        "逻辑表达式",
+        "关系运算"
+      ],
+      "overview": "把两个自然语言命题翻译成 C/C++ 逻辑表达式：m 能且只能被 2 和 3 中的一个整除；ch 是大写字母。",
+      "keyPoints": [
+        "“能且只能被 2 和 3 中的一个整除”＝两个条件一真一假。",
+        "两个条件一真一假，可写成 (条件1) != (条件2)，也可写成 (条件1)+(条件2)==1。",
+        "判断大写字母要同时满足 ch>='A' 和 ch<='Z'，中间用 && 连接。",
+        "不能写成 'A'<=ch<='Z'，关系运算从左到右结合，结果不是区间判断。"
+      ],
+      "pitfalls": [
+        "把“能被 2 或 3 整除”写成 m%2==0||m%3==0，这包含了同时被 2 和 3 整除的情况。",
+        "把区间写成 'A'<=ch<='Z'。",
+        "用 = 代替 ==。"
+      ],
+      "example": {
+        "title": "例2-3 用 C 代码表达命题",
+        "source": "课件 lesson2 · P30",
+        "code": "(m%2==0) != (m%3==0)\n\n(m%2==0) + (m%3==0) == 1\n\nch>='A' && ch<='Z'",
+        "output": "课件只给命题，未给完整程序；上面是标准答案。",
+        "explanation": "第一题的关键是“且只能一个”：能被 2 整除和被 3 整除这两个条件必须恰好一个成立。C/C++ 中关系运算的结果是 0 或 1，所以可以直接比较两个结果是否不等，或把两个结果相加看是否等于 1。第二题用两个关系表达式与 && 连接，才是数学上的闭区间。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "两个布尔结果不相等，表示恰好一个为真，排除了同时被 2、3 整除。"
+          },
+          {
+            "section": 1,
+            "line": 1,
+            "text": "关系表达式结果为 0/1，相加等于 1 也表示恰好一个成立。"
+          },
+          {
+            "section": 2,
+            "line": 1,
+            "text": "大写字母必须同时满足下界和上界，&& 不能省。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "命题 1：m 能且只能被 2 和 3 中的一个数整除",
+            "code": "(m%2==0) != (m%3==0)"
+          },
+          {
+            "label": "等价写法",
+            "code": "(m%2==0) + (m%3==0) == 1"
+          },
+          {
+            "label": "命题 2：ch 是大写字母",
+            "code": "ch>='A' && ch<='Z'"
+          }
+        ]
+      },
+      "masteryHint": "能把“恰好一个成立”翻译成 != 或求和 ==1 两种写法。",
+      "sourcePages": [
+        30
+      ]
+    },
+    {
+      "id": "l2-ex2-4",
+      "lessonId": "lesson2",
+      "kind": "example",
+      "title": "例2-4 求直角三角形另一条直角边、周长和面积",
+      "tags": [
+        "课件例题",
+        "sqrt",
+        "setw"
+      ],
+      "overview": "输入斜边 c 和一条直角边 a，用勾股定理求 b=sqrt(c*c-a*a)，再求周长 l=a+b+c 和面积 s=a*b/2。",
+      "keyPoints": [
+        "sqrt 是数学库函数，课件只包含了 iostream、iomanip，严格编译时还需要 <cmath>。",
+        "b、l、s 中 s 声明为 double，避免整数除法把面积截断。",
+        "setw(3)、setw(4)、setw(5) 分别只作用于紧随其后的一个输出项。",
+        "输入顺序是 c 再 a，别按题目文字顺序读成 a 再 c。"
+      ],
+      "pitfalls": [
+        "写成 sqrt(c*c-a*a) 时括号漏掉，或把 c、a 输反。",
+        "用 int 存 b、l、s，导致小数被截断。",
+        "以为 setw 会一直有效。"
+      ],
+      "example": {
+        "title": "例2-4 求直角三角形另一条直角边、周长和面积",
+        "source": "课件 lesson2 · P31",
+        "code": "#include <iostream>\n#include <iomanip>\nusing namespace std;\nint main()\n{  \nfloat a,b,c;\ndouble l,s;\ncout<<\" 输入斜边、直角边的长：\";\ncin>>c>>a;\nb=sqrt(c*c-a*a);\nl=a+b+c;\ns=a*b/2;\ncout<<\" 计算结果：\"<<endl;\ncout<<setw(3)<<\"b=\"<<b<<endl<<setw(4)<<\"l=\"<<l<<endl<<setw(5)<<\"s=\"<<s<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 5 3 时：b=4，l=12，s=6（每行前面按 setw 补空格）",
+        "explanation": "勾股定理先算另一条直角边，再算周长和面积。课件用 float 存三条边、double 存周长和面积，是为了让结果保留小数。setw 只负责把 \"b=\"、\"l=\"、\"s=\" 这几段文字按指定宽度右对齐，不改变数值本身。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 9,
+            "text": "先读斜边 c，再读直角边 a，顺序与提示文字一致。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "sqrt 求平方根；c*c-a*a 要先算好再开方，括号不能省。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "a、b 是 float，所以除法是浮点除法，不会像 int 那样丢掉小数。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "setw 只对 \"b=\" 这一项生效，不足 3 列在左边补空格。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "下一个输出项重新指定宽度 4。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "再下一个输出项指定宽度 5。"
+          }
+        ]
+      },
+      "masteryHint": "能独立写出勾股定理程序，并解释为什么 s 要用 double。",
+      "sourcePages": [
+        31
+      ]
+    },
+    {
+      "id": "l2-ex2-5",
+      "lessonId": "lesson2",
+      "kind": "example",
+      "title": "例2-5 输出三位整数的符号和各位数字",
+      "tags": [
+        "课件例题",
+        "整数分解",
+        "条件运算"
+      ],
+      "overview": "输入一个三位整数，先取出符号，再取绝对值，然后用 / 和 % 分解出百位、十位、个位，按表格形式输出。",
+      "keyPoints": [
+        "c4=x>=0?'+':'-' 用条件运算符把符号存成字符。",
+        "abs(x) 求整数绝对值，需要 <cstdlib>（或 <cmath>）。",
+        "x%10 取个位，x=x/10 去掉个位；再 %10 得十位，再 /10 得百位。",
+        "setw(2)、setw(8) 控制表头与数据的对齐。"
+      ],
+      "pitfalls": [
+        "先分解数字再取绝对值，负数的 % 结果可能为负。",
+        "把 x=x/10 写成 x=x%10，数字会越取越少。",
+        "忘记 abs 的头文件。"
+      ],
+      "example": {
+        "title": "例2-5 输出三位整数的符号和各位数字",
+        "source": "课件 lesson2 · P32",
+        "code": "#include <iostream>\n#include <iomanip>\nusing namespace std;\nint main()\n{    int c1,c2,c3;\nchar c4;\nint x;\ncin>>x;\nc4=x>=0?'+':'-'; //x 的符号存入c4\nx=abs(x);\n// 求整型数x 的绝对值\nc3=x%10;\n//x%10 为个位数字\nx=x/10;\nc2=x%10;\nc1=x/10;\ncout<<\"  数符百位数十位数个位数\"<<endl;\ncout<<setw(2)<<c4<<setw(8)<<c1 \n<<setw(8)<<c2<<setw(8)<<c3<<endl;\nsystem(\"pause\");\nreturn 0;  \n }",
+        "output": "输入 -123 时，第二行依次输出 -、1、2、3（各列按 setw 对齐）",
+        "explanation": "先把符号单独保存，再把 x 变成非负数，后面的 / 和 % 就只处理数字部分。取位顺序是个位 → 十位 → 百位，所以变量名 c3、c2、c1 正好倒着对应。输出时用 setw 把符号和三位数字排成表头对应的列。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 9,
+            "text": "条件运算符：x>=0 为真取 '+'，否则取 '-'，结果存入 char 变量 c4。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "取绝对值后，-123 变成 123，后续取位不会受负号影响。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "%10 取出当前最低位，第一次得到个位 3。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "整数除法去掉最低位，123 变成 12。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "对 12 取余得到十位 2。"
+          },
+          {
+            "section": 0,
+            "line": 16,
+            "text": "12/10 得到百位 1。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "符号列宽 2，setw(8) 依次控制后面三列的宽度。"
+          }
+        ]
+      },
+      "masteryHint": "能画出 x 在每一步的值，并说出 c1、c2、c3 分别对应哪一位。",
+      "sourcePages": [
+        32
+      ]
+    },
+    {
       "id": "l2-variable-init",
       "lessonId": "lesson2",
       "title": "变量、声明与初始化",
@@ -383,12 +759,6 @@ window.COURSE_DATA = {
         "认为所有未初始化变量都会自动变成 0。",
         "在变量作用域之外继续使用它。"
       ],
-      "example": {
-        "title": "安全初始化",
-        "code": "#include <iostream>\n\nint main() {\n    int count{0};\n    double average = 0.0;\n    count = count + 1;\n    std::cout << count << \" \" << average;\n}",
-        "output": "1 0",
-        "explanation": "count 和 average 在读取前已有确定值，因此行为可预测。"
-      },
       "exercise": {
         "prompt": "声明并初始化两个变量：int 类型 score 为 90，double 类型 rate 为 0.5。",
         "starter": "#include <iostream>\n\nint main() {\n    // 声明并初始化 score 和 rate\n\n    std::cout << score << \" \" << rate;\n    return 0;\n}",
@@ -436,12 +806,6 @@ window.COURSE_DATA = {
         "把字符字面量 'A' 和字符串字面量 \"A\" 混淆。",
         "把负数存入无符号整数后仍按负数理解。"
       ],
-      "example": {
-        "title": "字符与数值是不同概念",
-        "code": "#include <iostream>\n\nint main() {\n    char grade = 'A';\n    bool passed = true;\n    double ratio = 0.75;\n    std::cout << grade << \" \" << passed << \" \" << ratio;\n}",
-        "output": "A 1 0.75",
-        "explanation": "grade 保存字符 A，passed 的 true 在默认输出中显示为 1，ratio 保存浮点数。"
-      },
       "exercise": {
         "prompt": "声明 char 变量 grade 为 'A'、bool 变量 passed 为 true、double 变量 ratio 为 0.75，并输出三者。",
         "starter": "#include <iostream>\n\nint main() {\n    // 声明三个变量\n\n    // 输出它们\n    return 0;\n}",
@@ -495,12 +859,6 @@ window.COURSE_DATA = {
         "把 const 误认为“任何上下文都一定是编译期常量”。",
         "函数参数写成 const 后仍尝试修改。"
       ],
-      "example": {
-        "title": "只读配置值",
-        "code": "#include <iostream>\n\nint main() {\n    constexpr int maxStudents = 60;\n    const double passRate = 0.6;\n    std::cout << maxStudents << \" \" << passRate;\n}",
-        "output": "60 0.6",
-        "explanation": "maxStudents 是编译期常量；passRate 也是只读常量，但这里没有要求它在编译期完成所有计算。"
-      },
       "exercise": {
         "prompt": "声明编译期常量 int maxStudents 为 60，以及只读 double 变量 passRate 为 0.6。",
         "starter": "#include <iostream>\n\nint main() {\n    // 完成两个常量声明\n\n    std::cout << maxStudents << \" \" << passRate;\n    return 0;\n}",
@@ -547,12 +905,6 @@ window.COURSE_DATA = {
         "对 double 使用 %。",
         "认为负数取模在所有语言中的符号规则完全相同。"
       ],
-      "example": {
-        "title": "正确计算平均值",
-        "code": "#include <iostream>\n\nint main() {\n    int total = 7;\n    int count = 2;\n    double average = static_cast<double>(total) / count;\n    std::cout << average;\n}",
-        "output": "3.5",
-        "explanation": "先把 total 转成 double，整个除法就按浮点规则执行。"
-      },
       "exercise": {
         "prompt": "已有 int total 和 int count。请计算 double 类型平均值 average，并输出它。要求结果为浮点除法。",
         "starter": "#include <iostream>\n\nint main() {\n    int total = 7;\n    int count = 2;\n    // 计算 average 并输出\n\n    return 0;\n}",
@@ -608,12 +960,6 @@ window.COURSE_DATA = {
         "认为 i = i++ 在所有编译器中都有统一结果。",
         "为了写得短而牺牲可读性。"
       ],
-      "example": {
-        "title": "前置与后置的区别",
-        "code": "#include <iostream>\n\nint main() {\n    int x = 5;\n    int a = ++x;\n    int b = x++;\n    std::cout << x << \" \" << a << \" \" << b;\n}",
-        "output": "7 6 6",
-        "explanation": "++x 先把 x 变为 6，再把 6 赋给 a；x++ 把当时的 6 赋给 b，然后把 x 增至 7。"
-      },
       "exercise": {
         "prompt": "已有 int x = 5。请用两条独立语句：先把前置自增结果赋给 int a，再把后置自增结果赋给 int b。",
         "starter": "#include <iostream>\n\nint main() {\n    int x = 5;\n    // 分别创建 a 和 b\n\n    std::cout << x << \" \" << a << \" \" << b;\n    return 0;\n}",
@@ -666,12 +1012,6 @@ window.COURSE_DATA = {
         "用数学链式写法 0 <= x <= 100。",
         "误以为 & 和 | 与 &&、|| 完全等价。"
       ],
-      "example": {
-        "title": "正确判断区间",
-        "code": "#include <iostream>\n\nint main() {\n    int x = 72;\n    bool valid = x >= 0 && x <= 100;\n    std::cout << valid;\n}",
-        "output": "1",
-        "explanation": "两个比较分别产生 bool，再用 && 组合，不能写成数学中的链式不等式。"
-      },
       "exercise": {
         "prompt": "已有 int score。请创建 bool passed，当 score 在 0 到 100（含端点）时设为 true。",
         "starter": "#include <iostream>\n\nint main() {\n    int score = 88;\n    // 创建 passed\n\n    std::cout << passed;\n    return 0;\n}",
@@ -725,12 +1065,6 @@ window.COURSE_DATA = {
         "用 int 保存很大的计算结果导致溢出。",
         "把浮点数精度误差误认为编译器随机出错。"
       ],
-      "example": {
-        "title": "截断而不是四舍五入",
-        "code": "#include <iostream>\n\nint main() {\n    double value = 3.9;\n    int whole = static_cast<int>(value);\n    std::cout << whole;\n}",
-        "output": "3",
-        "explanation": "static_cast<int> 会向零方向截断小数部分。"
-      },
       "exercise": {
         "prompt": "已有 double value = 3.9。请使用 static_cast 把它显式转换为 int，保存到 whole 并输出。",
         "starter": "#include <iostream>\n\nint main() {\n    double value = 3.9;\n    // 显式转换并输出\n\n    return 0;\n}",
@@ -781,12 +1115,6 @@ window.COURSE_DATA = {
         "把 !x == 0 理解成 !(x == 0)。",
         "把位运算与逻辑运算的优先级混淆。"
       ],
-      "example": {
-        "title": "用括号消除歧义",
-        "code": "#include <iostream>\n\nint main() {\n    int a = 2;\n    int b = 3;\n    int c = 4;\n    int result = a + b * c;\n    int clear = a + (b * c);\n    std::cout << result << \" \" << clear;\n}",
-        "output": "14 14",
-        "explanation": "乘法先于加法。即使知道优先级，明确括号也能让维护者快速确认意图。"
-      },
       "exercise": {
         "prompt": "已有 a、b、c。请计算 (a + b) * c，保存到 int result。必须显式表达先加后乘。",
         "starter": "#include <iostream>\n\nint main() {\n    int a = 2;\n    int b = 3;\n    int c = 4;\n    // 计算 result\n\n    std::cout << result;\n    return 0;\n}",
@@ -839,12 +1167,6 @@ window.COURSE_DATA = {
         "在一条声明中使用了尚未声明的变量。",
         "只计算最终值，忘记中间变量已经改变。"
       ],
-      "example": {
-        "title": "复合赋值与条件表达式",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3;\n    a += a * 2;\n    int x = 5, p = 4, q = 3;\n    int r = (x == 0 ? p++ : q++);\n    cout << a << ' ' << p << ' ' << q << ' ' << r << endl;\n    return 0;\n}",
-        "output": "9 4 4 3",
-        "explanation": "a 先算 3+3*2 得到 9。x 不为 0，因此执行 q++，r 取得旧值 3，q 变为 4。"
-      },
       "exercise": {
         "prompt": "令 a=3，执行 a += a*2；再令 x=5、p=4、q=3，执行 r=(x==0 ? p++ : q++)。依次输出 a、p、q、r。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3;\n    // 完成复合赋值\n\n    int x = 5, p = 4, q = 3;\n    // 完成条件表达式并输出\n    return 0;\n}",
@@ -909,12 +1231,6 @@ window.COURSE_DATA = {
         "忘记包含随机函数或时间函数对应头文件。",
         "把 rand()%26+65 直接输出成整数而不是字符。"
       ],
-      "example": {
-        "title": "映射到 50 到 100",
-        "code": "#include <iostream>\n#include <cstdlib>\nusing namespace std;\n\nint main() {\n    for (int i = 0; i < 3; ++i) {\n        cout << rand() % 51 + 50 << endl;\n    }\n    return 0;\n}",
-        "output": "每次运行可得到 50 到 100 之间的整数。",
-        "explanation": "rand()%51 的范围是 0 到 50，再加 50 就得到 50 到 100。"
-      },
       "exercise": {
         "prompt": "读取整数 a、b 和 n，其中 a<b。输出 a + n%(b-a+1)，即把 n 映射到 [a,b] 的公式。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b, n;\n    cin >> a >> b >> n;\n    // 输出区间映射结果\n    return 0;\n}",
@@ -979,12 +1295,6 @@ window.COURSE_DATA = {
         "把 '\\102' 误认为十进制 102。",
         "指数中的小数点位置错误，如 1.2e0.5。"
       ],
-      "example": {
-        "title": "八进制转义与 ASCII",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char c = '\\102';\n    cout << static_cast<int>(c) << ' ' << c << endl;\n    return 0;\n}",
-        "output": "66 B",
-        "explanation": "八进制 102 等于十进制 66，对应 ASCII 字符 B。"
-      },
       "exercise": {
         "prompt": "定义 char c='\\102'，先输出它的整数值，再输出该字符本身。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 定义字符并输出整数与字符\n    return 0;\n}",
@@ -1020,6 +1330,949 @@ window.COURSE_DATA = {
       ]
     },
     {
+      "id": "l3-ex3-1",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.1 用 if 保证 x>y 后输出",
+      "tags": [
+        "课件例题",
+        "if",
+        "交换"
+      ],
+      "overview": "输入两个整数，如果 x<y 就借助中间变量 t 交换，最后按 x>y 的形式输出。",
+      "keyPoints": [
+        "交换两个变量必须借助第三个变量，三条赋值语句顺序不能乱。",
+        "if 后面如果要多条语句，必须用一对花括号组成复合语句。",
+        "课件把三条交换语句写在同一行：{ t=x; x=y; y=t;}。",
+        "if (x<y) 的判断与题目“使得 x>y”是互补的：小于才交换。"
+      ],
+      "pitfalls": [
+        "写成 x=y; y=t; 漏掉 t=x，原值丢失。",
+        "if 后不加花括号，只有第一条赋值受 if 控制。",
+        "把 if (x<y) 写成 if (x>y)，结果正好相反。"
+      ],
+      "example": {
+        "title": "例3.1 用 if 保证 x>y 后输出",
+        "source": "课件 lesson3 · P14",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{  \nint x,y,t;\ncout<<\"输入 x y\"<<endl;\ncin>>x>>y;\nif (x<y)\n{ t=x;  x=y;  y=t;}          //x与y交换\n    cout<<x<<\">\"<<y<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 3 5 时输出：5>3",
+        "explanation": "程序先读入 x、y，只有在 x<y 时才交换，交换后 x 一定不小于 y，所以输出一定是“大>小”。三条赋值必须按 t=x、x=y、y=t 的顺序，否则会覆盖掉还没保存的值。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "t 是交换用的临时变量，必须与 x、y 同类型。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "条件成立才需要交换；如果 x 已经大于 y，就跳过整个复合语句。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "花括号把三条语句组成一个整体；先保存 x，再让 x 取 y，最后让 y 取原来的 x。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "输出时用字符 '>' 连接，保证显示成 x>y 的形式。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "按 x、y 的顺序读入两个整数；输入 3 5 时 x=3、y=5。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "提示语只是方便用户，不参与计算。"
+          }
+        ]
+      },
+      "masteryHint": "能默写交换三条语句，并解释每条语句执行后两个变量的值。",
+      "sourcePages": [
+        14
+      ]
+    },
+    {
+      "id": "l3-ex3-3",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.3 百分制成绩转五级制",
+      "tags": [
+        "课件例题",
+        "多分支",
+        "else if"
+      ],
+      "overview": "用 if / else if 把百分制成绩 mark 转成优、良、中、及格、不及格。课件同时给出正确写法与“逻辑有问题”的写法，用来说明多分支的判断顺序。",
+      "keyPoints": [
+        "多分支从上到下判断，一旦某个条件成立，后面的分支不再执行。",
+        "正确写法用 mark>=90、80<=mark&&mark<90 等明确区间，互不重叠。",
+        "错误写法把 mark>=60 放在最前面，所有 60 分以上都会被它截住。",
+        "判断区间不能写成 80<=mark<90，必须用 && 连接两个关系表达式。"
+      ],
+      "pitfalls": [
+        "把范围宽的判断放在范围窄的判断前面。",
+        "把 else if 连写成 elseif。",
+        "漏掉 else 分支，导致低分没有输出。"
+      ],
+      "example": {
+        "title": "例3.3 百分制成绩转五级制",
+        "source": "课件 lesson3 · P18",
+        "code": "if (mark >= 90)\n    cout<< \"优\";\nelse if (80 <= mark && mark < 90)\n    cout<< \"良\";\nelse if (60 <= mark && mark < 70)\n    cout<< \"及格\";\nelse if (70 <= mark && mark < 80)\n    cout<< \"中\";\nelse\n    cout<< \"不及格\";\n\nif  (mark >= 60)  \n    cout<< \"及格\";\nelse if( mark >= 70)  \n    cout<< \"中\";\nelse if (mark >= 80)  \n    cout<< \"良\";\nelse if (mark >=90)  \n    cout<< \"优\";\nelse\n    cout<< \"不及格\";",
+        "output": "mark=85 时输出“良”；错误写法对 85 也输出“及格”",
+        "explanation": "正确写法把每个分数段写成互不重叠的区间，任何分数只会命中一个分支。错误写法从低到高判断，mark>=60 最先成立，后面的 70、80、90 永远轮不到，所以 90 分也会被输出成“及格”。这说明多分支的顺序本身就是逻辑的一部分。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "最高分段先判断，命中后整个多分支结束。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "用 && 写出真正的闭开区间；不能写 80<=mark<90。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "及格段与中段分开写，顺序不影响正确性，但区间必须互斥。"
+          },
+          {
+            "section": 1,
+            "line": 1,
+            "text": "错误示范：这个条件最宽，放在最前面会截住所有 60 分以上。"
+          },
+          {
+            "section": 1,
+            "line": 3,
+            "text": "由于上一分支已经命中，这一行对 70 分以上永远不会执行。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "正确写法：区间互不重叠",
+            "code": "if (mark >= 90)\n    cout<< \"优\";\nelse if (80 <= mark && mark < 90)\n    cout<< \"良\";\nelse if (60 <= mark && mark < 70)\n    cout<< \"及格\";\nelse if (70 <= mark && mark < 80)\n    cout<< \"中\";\nelse\n    cout<< \"不及格\";"
+          },
+          {
+            "label": "错误写法：mark>=60 放在最前面（课件标注“逻辑有问题”）",
+            "code": "if  (mark >= 60)  \n    cout<< \"及格\";\nelse if( mark >= 70)  \n    cout<< \"中\";\nelse if (mark >= 80)  \n    cout<< \"良\";\nelse if (mark >=90)  \n    cout<< \"优\";\nelse\n    cout<< \"不及格\";"
+          }
+        ]
+      },
+      "masteryHint": "能说明为什么 mark>=60 不能放在多分支的最前面。",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "id": "l3-ex3-5",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.5 用 switch 求分段函数",
+      "tags": [
+        "课件例题",
+        "switch",
+        "case"
+      ],
+      "overview": "分段函数在 1<=a<2 时 b=2a+1，在 2<=a<4 时 b=a*a-3，其它情况 b=a。用 (int)a 把区间映射成整数，再用 case 1、case 2、case 3 共用语句组。",
+      "keyPoints": [
+        "switch 的表达式必须是整型、字符型或枚举型，不能是实数。",
+        "case 后面必须是确定值，不能写 a>=1&&a<2 这样的范围。",
+        "case 2: 后面不写语句，直接跟 case 3:，表示两个值共用同一组语句。",
+        "每个分支末尾的 break 用来跳出 switch，否则会继续执行后面的 case。"
+      ],
+      "pitfalls": [
+        "把区间直接写进 case。",
+        "忘记 break，发生 case 穿透。",
+        "switch((int)a) 只取整数部分，边界值要按题目区间核对。"
+      ],
+      "example": {
+        "title": "例3.5 用 switch 求分段函数",
+        "source": "课件 lesson3 · P21",
+        "code": "switch((int)a)\n{case 1: b=2*a+1;break;\ncase 2: \ncase 3: b=a*a-3;break;\ndefault: b=a;\n}",
+        "output": "a=1.5 时 b=4；a=2.5 时 b=3.25；a=4 时 b=4",
+        "explanation": "(int)a 把 1.x 变成 1、2.x 变成 2、3.x 变成 3，于是 1<=a<2 落在 case 1，2<=a<4 落在 case 2 和 case 3。case 2 后面没有语句，程序会继续执行 case 3 的语句，这就是“共用同一语句组”。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "把浮点区间转成整数标签；注意 (int) 是截断取整，不是四舍五入。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "1<=a<2 的 a 转成 1，执行这一段后 break 跳出。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "case 2 后面故意不写语句，让它落到 case 3。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "2<=a<4 的 a 转成 2 或 3，都执行 b=a*a-3。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "其它情况（包括 a<1 或 a>=4）执行 b=a。"
+          }
+        ],
+        "blankHints": [
+          "switch 括号内：填 (int)a。"
+        ]
+      },
+      "masteryHint": "能解释 case 2 后面为什么可以空着，以及 break 去掉会怎样。",
+      "sourcePages": [
+        21
+      ]
+    },
+    {
+      "id": "l3-ex3-6",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.6 三种循环语句求 1+2+…+100",
+      "tags": [
+        "课件例题",
+        "while",
+        "do-while",
+        "for"
+      ],
+      "overview": "同一个求和问题，分别用 while、do-while、for 三种循环实现，结果都是 5050。",
+      "keyPoints": [
+        "while 先判断后执行，循环体可能一次都不执行。",
+        "do-while 先执行后判断，循环体至少执行一次，末尾必须有分号。",
+        "for 把初值、条件、更新集中在一行，最适合计数型循环。",
+        "三种循环可以互相替换，关键是初值、条件、更新三要素齐全。"
+      ],
+      "pitfalls": [
+        "while 或 for 的条件括号后多写分号，变成空循环。",
+        "do-while 的 while(...) 后漏分号。",
+        "忘记 n++ 或 s=0 初始化，导致死循环或结果错误。"
+      ],
+      "example": {
+        "title": "例3.6 三种循环语句求 1+2+…+100",
+        "source": "课件 lesson3 · P25",
+        "code": "n = 1 ; s = 0;\nwhile (n<=100)\n{\n    s=s+n;\n    n++; \n}\n\nn = 1; s = 0;\ndo \n{\n    s = s+n;\n    n++; \n}while(n<=100);\n\ns=0;\nfor (n = 1 ; n<=100 ; n++ )\n    s=s+n;",
+        "output": "s=5050",
+        "explanation": "三种写法都在做同一件事：让 n 从 1 变到 100，每次把 n 加到 s 上。while 和 for 先判断 n<=100，do-while 先加一次再判断。注意 for 的循环体只有一条语句时可以不加花括号，但缩进要写清楚。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "先判断 n 是否不超过 100，成立才进入循环体。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "累加当前项；s 必须在循环前清零。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "更新循环变量，缺这一句会死循环。"
+          },
+          {
+            "section": 1,
+            "line": 6,
+            "text": "do-while 的末尾分号不能省；它是先执行后判断。"
+          },
+          {
+            "section": 2,
+            "line": 2,
+            "text": "for 把初值、条件、更新写在一起，执行顺序是初值→条件→循环体→更新。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "while 语句",
+            "code": "n = 1 ; s = 0;\nwhile (n<=100)\n{\n    s=s+n;\n    n++; \n}"
+          },
+          {
+            "label": "do-while 语句",
+            "code": "n = 1; s = 0;\ndo \n{\n    s = s+n;\n    n++; \n}while(n<=100);"
+          },
+          {
+            "label": "for 语句",
+            "code": "s=0;\nfor (n = 1 ; n<=100 ; n++ )\n    s=s+n;"
+          }
+        ]
+      },
+      "masteryHint": "能不看课件写出三种循环，并说出 do-while 与 while 的执行差别。",
+      "sourcePages": [
+        25
+      ]
+    },
+    {
+      "id": "l3-ex3-7",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.7 求 e 的近似值（精度控制）",
+      "tags": [
+        "课件例题",
+        "级数",
+        "递推",
+        "精度"
+      ],
+      "overview": "e=1+1/1!+1/2!+1/3!+…，当某一项小于 0.00001 时停止。利用 t_i=t_{i-1}/i 递推每一项，避免重复计算阶乘。",
+      "keyPoints": [
+        "通项递推：t=t/i，i 从 1 开始，t 初值为 1。",
+        "循环条件是 t>=0.00001，表示“这一项还不够小，继续加”。",
+        "e 的初值为 0，每轮先加再更新 i 和 t。",
+        "不能把条件写成 t<0.00001，否则一次都不加。"
+      ],
+      "pitfalls": [
+        "把 t=t/i 写成 t=t*i，变成阶乘增长。",
+        "i 没有先加 1 就除，导致除以 0。",
+        "精度条件写反。"
+      ],
+      "example": {
+        "title": "例3.7 求 e 的近似值（精度控制）",
+        "source": "课件 lesson3 · P28",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{\nint i=0;\nfloat t=1,e=0;\nwhile( t>=0.00001 )\n{\ne=e+t;   \ni++; \nt=t/i;  \n}\ncout<<\"e=\"<< e<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "e≈2.71828",
+        "explanation": "第一项是 1/0!=1，所以 t 从 1 开始。每轮先把当前项加到 e，再让 i 加 1，然后用 t/i 得到下一项。因为 1/i! 递减很快，t 小于 0.00001 时后面的项对结果影响已经很小，循环结束。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "i 表示当前项的分母阶乘序号；先加 1 再除，避免除以 0。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "t 是当前项，初值 1（1/0!）；e 是累加和，必须从 0 开始。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "只要当前项还不小于精度，就继续累加；条件写反会一次都不执行。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "先累加当前项。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "序号加 1，为计算下一项做准备。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "利用 t_i=t_{i-1}/i 递推，避免每次重新算阶乘。"
+          }
+        ],
+        "blankHints": [
+          "while 条件：填 t>=0.00001；课件特别提醒不能写成 t<0.00001。"
+        ]
+      },
+      "masteryHint": "能解释 t、i、e 三个变量的初值和更新顺序。",
+      "sourcePages": [
+        28
+      ]
+    },
+    {
+      "id": "l3-ex3-8",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.8 打印九九乘法表",
+      "tags": [
+        "课件例题",
+        "嵌套循环",
+        "setw"
+      ],
+      "overview": "外层循环控制行 i，内层循环控制列 j，输出 i×j=i*j，每行结束换行。课件还给出用 setw 控制起始位置打印下三角的改法。",
+      "keyPoints": [
+        "外层循环执行一次，内层循环完整执行一轮。",
+        "每行输出完必须 cout<<endl，否则全部挤在一行。",
+        "setw(8*(i-1)) 用来控制第 i 行前面的空白，形成下三角。",
+        "setw 需要 <iomanip>。"
+      ],
+      "pitfalls": [
+        "内层循环条件写成 j<=i 却想打印完整表。",
+        "忘记每行换行。",
+        "把 i、j 的初值或范围写反。"
+      ],
+      "example": {
+        "title": "例3.8 打印九九乘法表",
+        "source": "课件 lesson3 · P29-P30",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{ \ncout<<\"\\t 九九乘法表\"<<endl;\ncout<<\"\\t -----------\"<<endl;\nfor(int i=1;i<=9;i++)\n{\nfor(int j=1;j<=9;j++)\ncout<<i<<\"×\"<<j<<\"=\"<<i*j<<'\\t';\ncout<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}\n\n#include <iostream>\n#include <iomanip>\nusing namespace std;\nint main()\n{  int i,j;\nfor(i=1;i<=9;i++)\n{ cout<<setw(8*(i-1))<<' ' ;//输出8*(i-1)个空格\nfor(j=i;j<=9;j++)\ncout<<i<<'*'<<j<<'='<<i*j<<'\\t';\ncout<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "第一行 1×1=1 到 1×9=9，共九行；下三角从第 i 行第 i 列开始",
+        "explanation": "完整表是 9 行 × 9 列，内层 j 从 1 到 9。下三角改法把内层起点改成 j=i，并在每行前输出 8*(i-1) 个空格，使第 i 行从第 i 列的位置开始。两个程序都靠“外层换行、内层不换行”来分行。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 7,
+            "text": "外层控制行号，共 9 行。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "内层控制列号，完整表每行 9 项。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "按“行×列=积”的顺序输出。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "内层结束后换行，进入下一行。"
+          },
+          {
+            "section": 1,
+            "line": 7,
+            "text": "第 i 行先输出 8*(i-1) 个空格，使起始位置逐行后移。"
+          },
+          {
+            "section": 1,
+            "line": 8,
+            "text": "下三角只输出 j>=i 的部分。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "完整九九表",
+            "code": "#include <iostream>\nusing namespace std;\nint main()\n{ \ncout<<\"\\t 九九乘法表\"<<endl;\ncout<<\"\\t -----------\"<<endl;\nfor(int i=1;i<=9;i++)\n{\nfor(int j=1;j<=9;j++)\ncout<<i<<\"×\"<<j<<\"=\"<<i*j<<'\\t';\ncout<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}"
+          },
+          {
+            "label": "下三角改法",
+            "code": "#include <iostream>\n#include <iomanip>\nusing namespace std;\nint main()\n{  int i,j;\nfor(i=1;i<=9;i++)\n{ cout<<setw(8*(i-1))<<' ' ;//输出8*(i-1)个空格\nfor(j=i;j<=9;j++)\ncout<<i<<'*'<<j<<'='<<i*j<<'\\t';\ncout<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}"
+          }
+        ]
+      },
+      "masteryHint": "能说出外层、内层循环各自控制什么，以及下三角为什么 j 从 i 开始。",
+      "sourcePages": [
+        29
+      ]
+    },
+    {
+      "id": "l3-ex3-9",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.9 break 与 continue 的区别",
+      "tags": [
+        "课件例题",
+        "break",
+        "continue"
+      ],
+      "overview": "两个循环都从 20 递减到 1，遇到 6 的倍数时：break 直接结束整个循环；continue 只跳过本次，继续下一次。",
+      "keyPoints": [
+        "break 强制终止本层循环，循环后面的语句也不再执行。",
+        "continue 跳过循环体中 continue 之后的语句，直接进入下一次循环。",
+        "break 在 switch 中用于跳出 switch，在循环中用于跳出本层循环。",
+        "continue 只能用于循环语句。"
+      ],
+      "pitfalls": [
+        "以为 continue 会结束循环。",
+        "在 while 中 continue 前忘记更新循环变量，导致死循环。",
+        "break 只能跳出一层，嵌套循环中不会跳出外层。"
+      ],
+      "example": {
+        "title": "例3.9 break 与 continue 的区别",
+        "source": "课件 lesson3 · P33",
+        "code": "for(m=20;m>0;m--)\n{ \n    if(m % 6==0) \n        break;\n    cout<<m<<\" \";\n}\n\nfor(m=20;m>0;m--)\n{ \n    if(m % 6==0) \n        continue;\n    cout<<m<<\" \";\n}",
+        "output": "break：20 19\ncontinue：20 19 17 16 15 14 13 11 10 9 8 7 5 4 3 2 1",
+        "explanation": "m 从 20 开始递减，第一个 6 的倍数是 18。break 在 18 处直接结束循环，所以只输出 20、19；continue 在 18 处跳过 cout，m-- 仍然执行，于是继续输出 17、16……，把所有 6 的倍数都跳过。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "判断当前 m 是否为 6 的倍数。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "立即结束整个 for 循环，18 及以下都不再处理。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "只有没被 break/continue 跳过的 m 才会输出。"
+          },
+          {
+            "section": 1,
+            "line": 4,
+            "text": "只跳过本次循环剩下的语句，for 的 m-- 仍会执行。"
+          },
+          {
+            "section": 0,
+            "line": 1,
+            "text": "从 20 开始递减到 1；两个程序循环头完全相同。"
+          },
+          {
+            "section": 1,
+            "line": 3,
+            "text": "第二个程序同样的判断，但这里执行 continue。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "break：遇到第一个 6 的倍数就结束",
+            "code": "for(m=20;m>0;m--)\n{ \n    if(m % 6==0) \n        break;\n    cout<<m<<\" \";\n}"
+          },
+          {
+            "label": "continue：遇到 6 的倍数只跳过本次",
+            "code": "for(m=20;m>0;m--)\n{ \n    if(m % 6==0) \n        continue;\n    cout<<m<<\" \";\n}"
+          }
+        ]
+      },
+      "masteryHint": "能分别写出两个循环的输出序列，并解释 continue 为什么不会死循环。",
+      "sourcePages": [
+        33
+      ]
+    },
+    {
+      "id": "l3-ex3-10",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.10 辗转相除法求最大公约数",
+      "tags": [
+        "课件例题",
+        "gcd",
+        "while"
+      ],
+      "overview": "先保证 m>n，然后反复用 m 除以 n 取余数 r，再令 m=n、n=r，直到余数为 0，此时的 n 就是最大公约数。",
+      "keyPoints": [
+        "循环条件 (r=m%n)!=0：先求余并赋给 r，再判断是否为 0。",
+        "循环体 m=n; n=r; 构造新数对。",
+        "内层括号不能去：r=m%n!=0 会先算 m%n!=0，再把 0/1 赋给 r。",
+        "循环结束时 n 存放最大公约数。"
+      ],
+      "pitfalls": [
+        "忘记先交换使 m>n。",
+        "把 r=m%n 写在循环外，导致死循环。",
+        "去掉 (r=m%n) 的括号。"
+      ],
+      "example": {
+        "title": "例3.10 辗转相除法求最大公约数",
+        "source": "课件 lesson3 · P34-P35",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{   \nint m, n, t, r;\ncout<<\"请输入 m n \"<<endl;\ncin>>m>>n;\nif(m<n) \n{ t=m; m=n; n=t;  }\nwhile ( (r= m % n )!=0 )\n{   m=n;  n=r;    }\ncout<<\"最大公约数为 \"<<n<<endl;\nsystem(\"pause\");\nreturn 0; \n}",
+        "output": "输入 27 15 时输出：最大公约数为 3",
+        "explanation": "27%15=12，数对变成 (15,12)；15%12=3，变成 (12,3)；12%3=0，循环结束，n=3 就是最大公约数。循环条件里同时完成“求余”和“判断”，所以括号必须把赋值包住。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 8,
+            "text": "保证 m 是较大的数，方便后续辗转相除。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "先执行 r=m%n，再用 r!=0 判断；外层括号保证赋值先做。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "用余数构造新数对：原来的除数变成被除数，余数变成除数。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "循环结束时余数为 0，此时的除数 n 就是最大公约数。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "m、n 是不断缩小的数对，r 存余数，t 只在交换时用。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "读入两个自然数；后面的 if 保证 m>=n。"
+          }
+        ],
+        "blankHints": [
+          "while 条件：填 (r=m%n)!=0；内层括号不能去掉。"
+        ]
+      },
+      "masteryHint": "能手工模拟 27、15 的每一步，并解释条件里的括号为什么不能省。",
+      "sourcePages": [
+        34
+      ]
+    },
+    {
+      "id": "l3-ex3-11",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.11 求 2~100 的素数，每行 8 个",
+      "tags": [
+        "课件例题",
+        "素数",
+        "break",
+        "计数换行"
+      ],
+      "overview": "对每个 m，用 j 从 2 到 m-1 试除；若能整除就 break。内层循环结束后若 j==m，说明没有提前退出，m 是素数。再用 countm 计数，每 8 个换行。",
+      "keyPoints": [
+        "for(j=2;j<=m-1;j++) if(m%j==0) break; 找到因子就提前退出。",
+        "循环结束后 j==m 表示内层是“正常走完”的，没有找到因子。",
+        "countm 统计已输出素数个数，countm%8==0 时换行。",
+        "课件用复合语句把输出和计数包在 if(j==m) 里。"
+      ],
+      "pitfalls": [
+        "把 if(j==m) 写成 if(j=m)。",
+        "在 if(m%j==0) 后忘记 break，j 会继续加到 m。",
+        "换行判断写成 countm==8，只会换一次。"
+      ],
+      "example": {
+        "title": "例3.11 求 2~100 的素数，每行 8 个",
+        "source": "课件 lesson3 · P36-P37",
+        "code": "#include <math.h>\n#include <iostream>\nusing namespace std;\nint main()\n{  \nint m,j,countm(0);\nfor(m = 2;m<=100;m++)\n{  \nfor (j = 2; j <=m - 1; j++)    \nif (m% j == 0)         \nbreak;          \nif (j==m)        \n{ \ncout<<m<<'\\t';\ncountm++; \nif (countm % 8 ==0) cout<<endl;\n}\n}\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "2 3 5 7 11 13 17 19（换行）23 29 31 37 41 43 47 53（换行）…",
+        "explanation": "内层 j 从 2 试到 m-1。如果 m 有因子，break 会让 j 停在小于 m 的位置；如果一直没有因子，j 会加到 m 才退出。所以 j==m 是“素数”的判据。countm 每输出一个素数加 1，模 8 为 0 时换行。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 9,
+            "text": "用 2 到 m-1 的所有整数试除。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "能整除说明 m 不是素数。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "找到第一个因子就提前退出内层循环，j 会停在小于 m 的位置。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "内层正常走完，j 才会等于 m，说明没有因子，m 是素数。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "统计已经输出的素数个数。"
+          },
+          {
+            "section": 0,
+            "line": 16,
+            "text": "每 8 个换一行；用 %8 而不是 ==8，才能反复换行。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 j==m 为什么能判断素数，以及 countm%8 的作用。",
+      "sourcePages": [
+        36
+      ]
+    },
+    {
+      "id": "l3-ex3-12",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.12 百元买百鸡（穷举法）",
+      "tags": [
+        "课件例题",
+        "穷举",
+        "循环优化"
+      ],
+      "overview": "母鸡 3 元、公鸡 2 元、小鸡 0.5 元，100 元买 100 只。课件先给三重循环，再利用 x+y+z=100 把 z 表示成 100-x-y，降为双重循环。",
+      "keyPoints": [
+        "三重循环把 x、y、z 都从 0 枚举到 100，条件同时满足数量 100 和金额 100。",
+        "利用 x+y+z=100 消去 z，循环层数从三层降为两层。",
+        "x 最多 100/3 只，y 最多 100/2 只，循环上界可以缩小。",
+        "0.5*z 是浮点运算，比较 ==100 时要小心精度；本题数值都能精确表示。"
+      ],
+      "pitfalls": [
+        "只判断金额，忘记判断总数 100。",
+        "把 z 的循环上界写成 100 却没利用等式，效率低。",
+        "把 0.5*z 写成 z/2 且 z 为整数时，虽然本题可行，但要清楚整数除法的含义。"
+      ],
+      "example": {
+        "title": "例3.12 百元买百鸡（穷举法）",
+        "source": "课件 lesson3 · P38-P39",
+        "code": "for(x=0;x<=100;x++)\nfor(y=0;y<=100;y++)\nfor(z=0;z<=100;z++)\n{\nif(((3*x+2*y+0.5*z)==100)&&((x+y+z)==100))\ncout<<setw(9)<<x<<setw(9)<<y<<setw(9)<<z<<endl;\n}\n\nfor(x=0;x<=100/3;x++)\nfor(y=0;y<=100/2;y++)\n{\nz=100-x-y;\nif((3*x+2*y+0.5*z)==100)\ncout<<setw(9)<<x<<setw(9)<<y<<setw(9)<<z<<endl;\n}",
+        "output": "课件未列结果；满足条件的方案有多组，例如 x=5、y=32、z=63",
+        "explanation": "三重循环是最直接的穷举：三种鸡各有多少只都试一遍，两个条件同时成立才输出。双重循环利用“总数为 100”把 z 直接算出来，只需枚举 x、y，循环次数大幅减少。这是穷举法中常用的“用等式降维”技巧。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "母鸡最多 100 只，先粗放地枚举。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "小鸡也枚举，三层循环组合数很大。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "金额条件：3x+2y+0.5z 必须等于 100。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "数量条件：三种鸡一共 100 只，两个条件缺一不可。"
+          },
+          {
+            "section": 1,
+            "line": 1,
+            "text": "母鸡最多 33 只，上界可以缩小到 100/3。"
+          },
+          {
+            "section": 1,
+            "line": 4,
+            "text": "用总数等式直接算出 z，省掉一层循环。"
+          },
+          {
+            "section": 1,
+            "line": 5,
+            "text": "只剩金额条件需要判断。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "三重循环",
+            "code": "for(x=0;x<=100;x++)\nfor(y=0;y<=100;y++)\nfor(z=0;z<=100;z++)\n{\nif(((3*x+2*y+0.5*z)==100)&&((x+y+z)==100))\ncout<<setw(9)<<x<<setw(9)<<y<<setw(9)<<z<<endl;\n}"
+          },
+          {
+            "label": "双重循环：利用 x+y+z=100 消去 z",
+            "code": "for(x=0;x<=100/3;x++)\nfor(y=0;y<=100/2;y++)\n{\nz=100-x-y;\nif((3*x+2*y+0.5*z)==100)\ncout<<setw(9)<<x<<setw(9)<<y<<setw(9)<<z<<endl;\n}"
+          }
+        ]
+      },
+      "masteryHint": "能说出为什么可以用 z=100-x-y 把三重循环降为两重。",
+      "sourcePages": [
+        38
+      ]
+    },
+    {
+      "id": "l3-ex3-13",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.13 公安人员审问四名窃贼",
+      "tags": [
+        "课件例题",
+        "穷举",
+        "逻辑推理"
+      ],
+      "overview": "四人中仅一人是窃贼，每人要么全说真话、要么全说假话。把四人的话抽象成 b+d==1、b+c==1、a+b==1，再用四重循环枚举 0/1。",
+      "keyPoints": [
+        "用 a、b、c、d 表示四人是否为窃贼，1 是、0 否。",
+        "甲说“乙没偷，丁偷了”抽象为 b+d==1；乙、丙同理。",
+        "四人中仅一人为窃贼：a+b+c+d==1。",
+        "方法二用字符 thief 枚举 'A'~'D'，把两句话的真假相加，和不为 1 表示两句话同真同假。"
+      ],
+      "pitfalls": [
+        "把“仅一人”漏掉，得到多组解。",
+        "把 b+d==1 写成 b+d=1。",
+        "方法二中把 !=1 写成 ==1，含义正好相反。"
+      ],
+      "example": {
+        "title": "例3.13 公安人员审问四名窃贼",
+        "source": "课件 lesson3 · P40-P42",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{    int a,b,c,d;\nfor(a=0;a<2;a++)\nfor(b=0;b<2;b++)\nfor(c=0;c<2;c++)\nfor(d=0;d<2;d++)\nif( b+d==1&&b+c==1&&a+b==1&&a+b+c+d==1 )\n{    cout<<\"以下值为1者为窃贼\"<<endl;\ncout<<\"a=\"<<a<<endl;\ncout<<\"b=\"<<b<<endl;\ncout<<\"c=\"<<c<<endl;\ncout<<\"d=\"<<d<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}\n\n#include <iostream>\nusing namespace std;\nint main()\n{  \nchar thief;\nfor(thief='A';thief<='D';thief++)\nif( ((thief!='B')+(thief=='D'))!=1&&((thief!='B')+(thief=='C'))!=1&&((thief!='A')+(thief=='B'))!=1 )\ncout<<\"The thief is:\"<<thief<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "b=1，即乙是窃贼；方法二输出 The thief is:B",
+        "explanation": "甲、乙、丙都说了两句“X 没偷、Y 偷了”，无论他们说真话还是假话，这两句中必有一句真、一句假，所以两个人的“是否偷”之和为 1。再加上“四人中仅一人”这个条件，就能唯一确定 b=1。方法二把两句话的真假值相加，同真同假时和为 0 或 2，不等于 1。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "a 取 0 或 1，1 表示 a 是窃贼，0 表示不是。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "b 同样取 0 或 1。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "c 取 0 或 1。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "d 取 0 或 1；四重循环枚举全部 16 种真假组合。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "把四句话翻译成条件：b、d 中恰有一个为真，b、c 中恰有一个为真，a、b 中恰有一个为真，且只有一个人是窃贼。"
+          },
+          {
+            "section": 1,
+            "line": 5,
+            "text": "方法二把窃贼直接设成字符 A~D，只需一层循环。"
+          },
+          {
+            "section": 1,
+            "line": 6,
+            "text": "依次假设 A、B、C、D 是窃贼。"
+          },
+          {
+            "section": 1,
+            "line": 7,
+            "text": "关系运算结果为 0 或 1，相加表示两句话中恰有一句为真，三个条件同时满足才输出。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "方法一：四重循环枚举 a、b、c、d",
+            "code": "#include <iostream>\nusing namespace std;\nint main()\n{    int a,b,c,d;\nfor(a=0;a<2;a++)\nfor(b=0;b<2;b++)\nfor(c=0;c<2;c++)\nfor(d=0;d<2;d++)\nif( b+d==1&&b+c==1&&a+b==1&&a+b+c+d==1 )\n{    cout<<\"以下值为1者为窃贼\"<<endl;\ncout<<\"a=\"<<a<<endl;\ncout<<\"b=\"<<b<<endl;\ncout<<\"c=\"<<c<<endl;\ncout<<\"d=\"<<d<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}"
+          },
+          {
+            "label": "方法二：枚举 thief='A'~'D'",
+            "code": "#include <iostream>\nusing namespace std;\nint main()\n{  \nchar thief;\nfor(thief='A';thief<='D';thief++)\nif( ((thief!='B')+(thief=='D'))!=1&&((thief!='B')+(thief=='C'))!=1&&((thief!='A')+(thief=='B'))!=1 )\ncout<<\"The thief is:\"<<thief<<endl;\nsystem(\"pause\");\nreturn 0;\n}"
+          }
+        ],
+        "blankHints": [
+          "方法一 if 条件：b+d==1&&b+c==1&&a+b==1&&a+b+c+d==1。",
+          "方法二 for 循环：for(thief='A';thief<='D';thief++)。"
+        ]
+      },
+      "masteryHint": "能把四句话翻译成逻辑表达式，并说明为什么结果唯一。",
+      "sourcePages": [
+        40
+      ]
+    },
+    {
+      "id": "l3-ex3-14",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.14 牛顿迭代法求方程根",
+      "tags": [
+        "课件例题",
+        "迭代",
+        "fabs"
+      ],
+      "overview": "用牛顿迭代公式 x1=x0-f(x0)/f'(x0) 反复迭代，直到 |x1-x0|<1e-5。方程 f(x)=3x^3-4x^2-5x+13。",
+      "keyPoints": [
+        "迭代公式：x1=x0-(3x0^3-4x0^2-5x0+13)/(9x0^2-8x0-5)。",
+        "每轮先算 x1，再算 d=x1-x0，再令 x0=x1。",
+        "循环条件 fabs(d)>1e-5，表示精度还不够就继续。",
+        "fabs 用于浮点绝对值，abs 用于整数绝对值。"
+      ],
+      "pitfalls": [
+        "先令 x0=x1 再算 d，d 永远为 0。",
+        "分母导数算错：f'(x)=9x^2-8x-5。",
+        "用 abs 求浮点绝对值导致精度丢失。"
+      ],
+      "example": {
+        "title": "例3.14 牛顿迭代法求方程根",
+        "source": "课件 lesson3 · P43-P44",
+        "code": "cin>>x0;\ndo \n{\nx1=x0-(3*x0*x0*x0-4*x0*x0-5*x0+13)/(9*x0*x0-8*x0-5); \nd=x1-x0 ;\nx0=x1;\n}while( fabs(d)>1e-5 );",
+        "output": "课件未给固定输入；迭代到 |x1-x0|<=1e-5 时停止",
+        "explanation": "牛顿迭代用切线逼近根：从 x0 出发，用 f(x0)/f'(x0) 修正得到 x1，再把 x1 当作新的 x0 继续。d 必须在 x0 被覆盖之前算出来，否则无法判断两次迭代的差。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "输入初始近似值，要求它在根附近。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "牛顿公式 x1=x0-f(x0)/f'(x0)，分子是 f(x0)。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "分母是导数 f'(x)=9x^2-8x-5。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "先保存本次修正量，供精度判断。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "用新值覆盖旧值，进入下一轮。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "两次迭代差还大于精度就继续；fabs 用于浮点数。"
+          }
+        ],
+        "blankHints": [
+          "迭代式：x1=x0-(3*x0*x0*x0-4*x0*x0-5*x0+13)/(9*x0*x0-8*x0-5)。",
+          "更新与条件：x0=x1；while(fabs(d)>1e-5)。"
+        ]
+      },
+      "masteryHint": "能写出 f(x) 与 f'(x)，并解释 d 为什么要在 x0=x1 之前算。",
+      "sourcePages": [
+        43
+      ]
+    },
+    {
+      "id": "l3-ex3-15",
+      "lessonId": "lesson3",
+      "kind": "example",
+      "title": "例3.15 分类统计字符",
+      "tags": [
+        "课件例题",
+        "getchar",
+        "EOF",
+        "字符分类"
+      ],
+      "overview": "用 getchar 逐字符读入，直到 EOF（Ctrl+Z）。统计单词数（空白符个数）、字母数、数字数和其它字符数。",
+      "keyPoints": [
+        "cin 会把空白符当分隔符，所以这里必须用 getchar 逐字符读。",
+        "EOF 表示输入结束，Windows 控制台按 Ctrl+Z 再回车。",
+        "单词之间用一个空白符分隔，所以统计空白符个数即可得到单词数。",
+        "字母判断要同时包含大小写：c>='a'&&c<='z' || c>='A'&&c<='Z'。"
+      ],
+      "pitfalls": [
+        "用 cin>>c 读字符，空格和换行会被跳过。",
+        "判断字母时漏掉大写或小写。",
+        "把 EOF 当成某个普通字符。"
+      ],
+      "example": {
+        "title": "例3.15 分类统计字符",
+        "source": "课件 lesson3 · P45",
+        "code": "int alpha(0), num(0),ch(0),word(0);\nwhile((c=getchar( ))!=EOF)     // EOF代表文本结束符，对应输入CTRL+Z \n{ if( c==' '||c=='\\t'||c=='\\n' )  word++;\nif( c>='a' && c<='z' || c>='A' && c<='Z' )\nalpha++;\nelse if ( c>='0' && c<='9' )\nnum++;\nelse \nch++; \n}",
+        "output": "输入 hello 123! 后按 Ctrl+Z：word=2，alpha=5，num=3，ch=1（不含空白符的其它字符）",
+        "explanation": "getchar 每次从标准输入取一个字符，包括空格、制表符和换行，所以能统计空白符。每遇到一个空白符就把 word 加 1；然后按字母、数字、其它三类互斥地统计。注意字母判断用了 ||，数字判断用 else if，保证一个字符只归入一类。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "先读一个字符赋给 c，再判断是否到达文件尾；括号不能省。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "空白符包括空格、水平制表符和换行符，遇到就说明一个单词结束。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "字母包括小写和大写两部分，&& 优先级高于 ||，所以先算两个区间。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "不是字母再判断是否为数字。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "既不是空白、字母、数字的字符归入其它。"
+          }
+        ],
+        "blankHints": [
+          "空白符：c==' '||c=='\\t'||c=='\\n'。",
+          "字母：c>='a'&&c<='z'||c>='A'&&c<='Z'。",
+          "数字：c>='0'&&c<='9'。"
+        ]
+      },
+      "masteryHint": "能说明为什么这里不能用 cin>>c，以及 EOF 怎么输入。",
+      "sourcePages": [
+        45
+      ]
+    },
+    {
       "id": "l3-basic-structures",
       "lessonId": "lesson3",
       "title": "三种基本结构与复合语句",
@@ -1042,12 +2295,6 @@ window.COURSE_DATA = {
         "多个分支语句忘记加花括号。",
         "把复合语句当成函数体，误以为内部变量在花括号外仍可使用。"
       ],
-      "example": {
-        "title": "复合语句保证两个赋值同时受 if 控制",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 3, y = 8;\n    if (x < y) {\n        int t = x;\n        x = y;\n        y = t;\n    }\n    cout << x << \" \" << y << endl;\n    return 0;\n}",
-        "output": "8 3",
-        "explanation": "花括号把三条语句组合成一个分支体，因此交换操作只会在条件成立时整体执行。"
-      },
       "exercise": {
         "prompt": "读取年份 year，判断是否为闰年。闰年条件是：能被 4 整除但不能被 100 整除，或能被 400 整除。输出 leap 或 common。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int year;\n    cin >> year;\n    // 判断并输出\n    return 0;\n}",
@@ -1104,12 +2351,6 @@ window.COURSE_DATA = {
         "嵌套 if 不使用花括号，导致 else 配错。",
         "先写宽泛条件，导致后面的精确条件永远执行不到。"
       ],
-      "example": {
-        "title": "成绩分级",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 86;\n    if (score >= 90) cout << \"A\";\n    else if (score >= 80) cout << \"B\";\n    else if (score >= 60) cout << \"C\";\n    else cout << \"D\";\n    return 0;\n}",
-        "output": "B",
-        "explanation": "条件从高分到低分排列，86 满足 score>=80 后立即结束整个分支链。"
-      },
       "exercise": {
         "prompt": "读取整数 score，按 90 及以上、80-89、60-79、60 以下分别输出 A、B、C、D。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score;\n    cin >> score;\n    // 完成多分支\n    return 0;\n}",
@@ -1166,12 +2407,6 @@ window.COURSE_DATA = {
         "在 case 中重复声明同一作用域变量而未加花括号。",
         "以为 default 必须存在。"
       ],
-      "example": {
-        "title": "共用 case",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char grade = 'B';\n    switch (grade) {\n        case 'A':\n        case 'B': cout << \"pass with honor\"; break;\n        default: cout << \"review\";\n    }\n    return 0;\n}",
-        "output": "pass with honor",
-        "explanation": "A 和 B 共用同一段输出语句，遇到 break 后退出 switch。"
-      },
       "exercise": {
         "prompt": "读取 1 到 7 的整数，用 switch 输出 Monday 到 Sunday；其他数字输出 Invalid。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day;\n    cin >> day;\n    // 使用 switch\n    return 0;\n}",
@@ -1228,12 +2463,6 @@ window.COURSE_DATA = {
         "for 的更新表达式未改变循环变量，形成死循环。",
         "把 do-while 也当成可能一次都不执行。"
       ],
-      "example": {
-        "title": "三种方式求 1 到 5 的和",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int sum = 0;\n    for (int i = 1; i <= 5; ++i) sum += i;\n    cout << sum << endl;\n    return 0;\n}",
-        "output": "15",
-        "explanation": "for 把初始化、终止条件和更新集中在一行，适合固定范围累加。"
-      },
       "exercise": {
         "prompt": "读取正整数 n，使用 while 循环计算并输出 1+2+...+n。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // 使用 while 累加\n    return 0;\n}",
@@ -1290,12 +2519,6 @@ window.COURSE_DATA = {
         "嵌套循环中忘记每行结束后输出换行。",
         "内层循环边界依赖外层变量时仍固定写同一个终点。"
       ],
-      "example": {
-        "title": "跳过 3 的倍数",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    for (int i = 1; i <= 6; ++i) {\n        if (i % 3 == 0) continue;\n        cout << i << ' ';\n    }\n    return 0;\n}",
-        "output": "1 2 4 5",
-        "explanation": "当 i 是 3 的倍数时，continue 跳过本轮输出，但循环本身继续。"
-      },
       "exercise": {
         "prompt": "计算 1 到 100 中所有不能被 3 整除的整数之和，使用 continue 跳过 3 的倍数。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int sum = 0;\n    // 使用循环与 continue\n    return 0;\n}",
@@ -1352,12 +2575,6 @@ window.COURSE_DATA = {
         "初始项与循环下标不一致。",
         "浮点精度比较直接使用 ==。"
       ],
-      "example": {
-        "title": "e 的近似值",
-        "code": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    double term = 1.0, e = 0.0;\n    for (int i = 0; i < 8; ++i) {\n        e += term;\n        term /= i + 1;\n    }\n    cout << fixed << setprecision(6) << e << endl;\n    return 0;\n}",
-        "output": "2.718254",
-        "explanation": "term 依次表示 1/i!，通过 term /= i+1 由旧项得到新项。"
-      },
       "exercise": {
         "prompt": "读取正整数 n，计算 1 + 1/1! + 1/2! + ... + 1/n!，保留 6 位小数输出。",
         "starter": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // 使用递推计算级数\n    return 0;\n}",
@@ -1414,12 +2631,6 @@ window.COURSE_DATA = {
         "试除范围包含 n 本身，导致所有数都被判为非素数。",
         "break 后仍根据旧条件误判。"
       ],
-      "example": {
-        "title": "辗转相除",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int m = 27, n = 15;\n    while (n != 0) {\n        int r = m % n;\n        m = n;\n        n = r;\n    }\n    cout << m << endl;\n    return 0;\n}",
-        "output": "3",
-        "explanation": "余数最终为 0 时，保存除数的 m 就是最大公约数。"
-      },
       "exercise": {
         "prompt": "读取两个正整数 a、b，使用辗转相除法输出它们的最大公约数。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    // 辗转相除\n    return 0;\n}",
@@ -1476,12 +2687,6 @@ window.COURSE_DATA = {
         "只在找到因子时输出，却没有处理素数情况。",
         "break 后把循环变量状态解释反。"
       ],
-      "example": {
-        "title": "标志变量判素数",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 29;\n    bool prime = n >= 2;\n    for (int i = 2; i * i <= n; ++i) {\n        if (n % i == 0) { prime = false; break; }\n    }\n    cout << (prime ? \"yes\" : \"no\") << endl;\n    return 0;\n}",
-        "output": "yes",
-        "explanation": "prime 初值先排除小于 2 的情况，找到因子后立即改为 false 并退出。"
-      },
       "exercise": {
         "prompt": "读取整数 n，判断它是否为素数，输出 prime 或 composite。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // 判断素数\n    return 0;\n}",
@@ -1538,12 +2743,6 @@ window.COURSE_DATA = {
         "只看循环体执行次数，忘记循环变量最后还会更新一次。",
         "把空循环误认为只执行一次。"
       ],
-      "example": {
-        "title": "空循环后的 i",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int i;\n    for (i = 0; i < 5; i += 2);\n    cout << i << endl;\n    return 0;\n}",
-        "output": "6",
-        "explanation": "分号使循环体为空，但 i 仍依次变为 0、2、4、6；当 i=6 时条件失败。"
-      },
       "exercise": {
         "prompt": "声明 int i，执行 for(i=0; i<5; i+=2);，然后输出循环结束后的 i。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int i;\n    // 完成空循环并输出 i\n    return 0;\n}",
@@ -1609,12 +2808,6 @@ window.COURSE_DATA = {
         "忽略行首空格，图形左对齐。",
         "把 setw 当成永久格式设置。"
       ],
-      "example": {
-        "title": "五行正三角形",
-        "code": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n = 5;\n    for (int i = 1; i <= n; ++i) {\n        cout << setw(n - i + 1) << \"\";\n        for (int j = 1; j <= 2 * i - 1; ++j) cout << '*';\n        cout << endl;\n    }\n    return 0;\n}",
-        "output": "输出五行居中的星号三角形。",
-        "explanation": "第 i 行先留出 n-i 个空格，再输出 2*i-1 个星号。"
-      },
       "exercise": {
         "prompt": "读取行数 n，用双重循环输出 n 行居中的星号三角形。样例 n=3 时输出 3 行。",
         "starter": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // 输出居中星号三角形\n    return 0;\n}",
@@ -1679,12 +2872,6 @@ window.COURSE_DATA = {
         "忘记包含 <cmath>。",
         "没有最大次数保护。"
       ],
-      "example": {
-        "title": "牛顿迭代求平方根",
-        "code": "#include <iostream>\n#include <cmath>\nusing namespace std;\n\nint main() {\n    double a = 2, x0 = 1;\n    for (int i = 0; i < 6; ++i) {\n        double x1 = (x0 + a / x0) / 2;\n        if (fabs(x1 - x0) < 1e-9) break;\n        x0 = x1;\n    }\n    cout << x0 << endl;\n    return 0;\n}",
-        "output": "1.41421",
-        "explanation": "每轮用旧近似值 x0 计算更接近根的新值 x1，再替换 x0。"
-      },
       "exercise": {
         "prompt": "读取正整数 a，从 x=1 开始执行 8 次迭代 x=(x+a/x)/2，固定输出 6 位小数。",
         "starter": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    double a, x = 1;\n    cin >> a;\n    // 执行 8 次迭代并输出\n    return 0;\n}",
@@ -1748,12 +2935,6 @@ window.COURSE_DATA = {
         "把 0.5*z 写成整数除法。",
         "计数变量没有初始化。"
       ],
-      "example": {
-        "title": "用等式减少一层循环",
-        "code": "for (int x = 0; x <= 100 / 3; ++x) {\n    for (int y = 0; y <= 100 / 2; ++y) {\n        int z = 100 - x - y;\n        if (z >= 0 && 3 * x + 2 * y + 0.5 * z == 100) {\n            ++count;\n        }\n    }\n}",
-        "output": "count 记录满足条件的方案数。",
-        "explanation": "因为 x+y+z=100，所以 z 可由 x、y 直接算出，无需再枚举 z。"
-      },
       "exercise": {
         "prompt": "公鸡 2 元、母鸡 3 元、小鸡 0.5 元，100 元买 100 只鸡。用双重循环求并输出方案数。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int count = 0;\n    // 枚举公鸡和母鸡，直接计算小鸡\n    cout << count << endl;\n    return 0;\n}",
@@ -1818,12 +2999,6 @@ window.COURSE_DATA = {
         "字符范围写成 0<=ch<=9，而不是字符字面量。",
         "统计前没有初始化计数器。"
       ],
-      "example": {
-        "title": "逐字符分类",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int letters = 0, digits = 0, other = 0;\n    char ch;\n    while (cin.get(ch)) {\n        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) ++letters;\n        else if (ch >= '0' && ch <= '9') ++digits;\n        else ++other;\n    }\n    cout << letters << ' ' << digits << ' ' << other << endl;\n}",
-        "output": "统计字母、数字和其它字符。",
-        "explanation": "每次读取一个字符后，按字符范围分类并累加对应计数器。"
-      },
       "exercise": {
         "prompt": "读取一整行，统计字母、数字和其它字符的数量，依次用空格输出。",
         "starter": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string s;\n    getline(cin, s);\n    int letters = 0, digits = 0, other = 0;\n    // 统计三类字符\n    cout << letters << ' ' << digits << ' ' << other << endl;\n    return 0;\n}",
@@ -1863,6 +3038,1026 @@ window.COURSE_DATA = {
       ]
     },
     {
+      "id": "l4-ex4-1",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.1 求100个学生的平均分并统计高于平均分的人数",
+      "tags": [
+        "课件例题",
+        "一维数组",
+        "引例"
+      ],
+      "overview": "先用一个普通变量 s 反复读成绩，发现算完平均分后必须重新输入一遍；改用数组 s[100] 把成绩存下来，就能二次遍历。",
+      "keyPoints": [
+        "数组是一组同类型元素按顺序存放构成的集合。",
+        "用单个变量存成绩，第二次统计时必须重新输入，繁琐且易错。",
+        "用数组可以先存后算，平均分算完后直接再遍历一次。",
+        "数组下标从 0 开始，100 个元素的下标是 0~99。"
+      ],
+      "pitfalls": [
+        "把 for(i=0;i<100;i++) 写成 i<=100，越界。",
+        "第二个循环忘记重新遍历数组，仍然读 cin。",
+        "sum 没有初始化为 0。"
+      ],
+      "example": {
+        "title": "例4.1 求100个学生的平均分并统计高于平均分的人数",
+        "source": "课件 lesson4 · P3",
+        "code": "int k=0;\nfloat s,ave,sum=0;\nfor(int i=0;i<100;i++)\n{  cin>>s;\n   sum=sum+s;  }\nave=sum/100;\nfor(i=0;i<100;i++)\n{  cin>>s;\n   if(s>ave) k++;\n}\n\nint k=0;\nfloat s[100],ave,sum=0;\nfor(i=0;i<100;i++)\n{   cin>>s[i];\n    sum=sum+s[i];  }\nave=sum/100;\nfor(i=0;i<100;i++)\n    if(s[i]>ave) k++;",
+        "output": "课件未给具体数据；两种写法结果相同，但数组版只需输入一次",
+        "explanation": "基本类型版把 100 个成绩都读进同一个 s，后一个覆盖前一个，所以算完平均分后想再比较，只能让用户重新输入。数组版给每个成绩一个独立位置 s[i]，第一遍求和、第二遍比较，数据只输入一次。这就是数组最直接的价值：批量保存、重复访问。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "只有一个 s，任何时刻只保存当前读入的成绩。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "第一遍读入并累加，i 从 0 到 99。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "100 是 int，sum 是 float，除法按 float 进行。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "第二个循环又要 cin>>s，因为旧成绩已经被覆盖。"
+          },
+          {
+            "section": 1,
+            "line": 2,
+            "text": "数组给 100 个成绩各分配一个元素，下标 0~99。"
+          },
+          {
+            "section": 1,
+            "line": 4,
+            "text": "第 i 个成绩存进 s[i]，不会覆盖前面的成绩。"
+          },
+          {
+            "section": 1,
+            "line": 8,
+            "text": "第二遍直接访问已保存的成绩，不再需要输入。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "用基本类型实现：只能保存当前一个成绩",
+            "code": "int k=0;\nfloat s,ave,sum=0;\nfor(int i=0;i<100;i++)\n{  cin>>s;\n   sum=sum+s;  }\nave=sum/100;\nfor(i=0;i<100;i++)\n{  cin>>s;\n   if(s>ave) k++;\n}"
+          },
+          {
+            "label": "用数组实现：先把成绩全部存下来",
+            "code": "int k=0;\nfloat s[100],ave,sum=0;\nfor(i=0;i<100;i++)\n{   cin>>s[i];\n    sum=sum+s[i];  }\nave=sum/100;\nfor(i=0;i<100;i++)\n    if(s[i]>ave) k++;"
+          }
+        ]
+      },
+      "masteryHint": "能说出数组版相比变量版省掉了哪一步，以及为什么。",
+      "sourcePages": [
+        3
+      ]
+    },
+    {
+      "id": "l4-ex4-2",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.2 选择法排序（6个数）",
+      "tags": [
+        "课件例题",
+        "选择排序",
+        "交换"
+      ],
+      "overview": "每一轮在未排序区间里找最小元素的下标 idx，再与区间起点 i 交换。6 个数只需 5 轮。",
+      "keyPoints": [
+        "外层 i 从 0 到 4，表示当前要确定的位置。",
+        "内层 j 从 i+1 到 5，找比 a[idx] 更小的元素。",
+        "idx 先假设为 i，找到更小值就更新 idx。",
+        "一轮只交换一次：i 与 idx 交换。"
+      ],
+      "pitfalls": [
+        "内层 j 从 0 开始，重复比较已排好的部分。",
+        "每找到更小值就立刻交换，变成交换次数很多的写法。",
+        "忘记 i!=idx 判断，自己和自己交换虽然不错但多余。"
+      ],
+      "example": {
+        "title": "例4.2 选择法排序（6个数）",
+        "source": "课件 lesson4 · P10",
+        "code": "for( i= 0;i<5;i++)\n{ idx= i;\n  for(j=i+1;j<6;j++)                     \n      if(a[j]<a[idx]) idx = j;\n  if(i!= idx)\n  { temp=a[i]; a[i]= a[idx];\n    a[idx]=temp; }\n}",
+        "output": "数组 a 变为递增序列",
+        "explanation": "选择排序的思路是“每轮选出剩余部分的最小值，放到本轮起点”。idx 记录最小值的下标，内层循环只更新 idx，不交换；内层结束后才把 a[i] 与 a[idx] 交换一次。这样每轮最多交换一次。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "6 个元素只需 5 轮，最后一个元素自然就位。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "先假设本轮起点就是最小元素。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "只在未排序区间 i+1~5 中找更小值。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "发现更小值只更新下标，不立即交换。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "最小值不在起点时才需要交换。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "标准的三变量交换。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 idx 的作用，以及为什么每轮只交换一次。",
+      "sourcePages": [
+        10
+      ]
+    },
+    {
+      "id": "l4-ex4-3",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.3 冒泡排序",
+      "tags": [
+        "课件例题",
+        "冒泡排序",
+        "相邻交换"
+      ],
+      "overview": "从前往后比较相邻元素，逆序就交换。每趟把当前最大值“冒”到末尾，下一趟少比一个。",
+      "keyPoints": [
+        "外层 i 控制趟数，共 5 趟（6 个元素）。",
+        "内层 j 从 1 到 5-i，比较 a[j-1] 与 a[j]。",
+        "逆序时交换相邻两个元素。",
+        "每趟结束，未排序区间的最大值固定在末尾。"
+      ],
+      "pitfalls": [
+        "内层上界写成 j<5，越界访问 a[6]。",
+        "把 a[j-1]>a[j] 写反，得到降序。",
+        "交换时漏掉 temp，两个元素变成同一个值。"
+      ],
+      "example": {
+        "title": "例4.3 冒泡排序",
+        "source": "课件 lesson4 · P11",
+        "code": "for(i=0;i<5;i++)\n    for(j=1;j< 5-i ;j++)\n        if(a[j-1]>a[j] )\n        {\n            temp=a[j-1];\n            a[j-1]=a[j];\n            a[j]=temp;\n        }",
+        "output": "数组 a 变为递增序列",
+        "explanation": "冒泡排序每趟从左到右比较相邻元素，把较大的往后换。第一趟结束，最大值到了 a[5]；第二趟只需比到 a[4]，所以内层上界随 i 减小。课件用 5-i 控制每趟的比较次数。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "6 个元素需要 5 趟。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "每趟比较次数递减，避免重复比较已排好的末尾。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "前一个比后一个大就逆序，需要交换。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "先保存前一个元素。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "后一个元素前移。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "原来的前一个元素放到后面，完成相邻交换。"
+          }
+        ]
+      },
+      "masteryHint": "能画出第一趟冒泡后数组的变化，并解释 5-i 的含义。",
+      "sourcePages": [
+        11
+      ]
+    },
+    {
+      "id": "l4-ex4-4",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.4 矩阵相加 C=A+B",
+      "tags": [
+        "课件例题",
+        "二维数组",
+        "矩阵"
+      ],
+      "overview": "两个 2×3 矩阵对应元素相加。分别输入 A、B，再逐元素相加存入 C，最后按行输出。",
+      "keyPoints": [
+        "矩阵相加要求行数、列数相同。",
+        "用双重循环遍历每个元素：c[i][j]=a[i][j]+b[i][j]。",
+        "输出时内层输出一行元素，外层每行结束换行。",
+        "二维数组下标先行后列。"
+      ],
+      "pitfalls": [
+        "把 c[i][j] 写成 c[j][i]。",
+        "输出时忘记每行换行。",
+        "行列数不一致仍强行相加。"
+      ],
+      "example": {
+        "title": "例4.4 矩阵相加 C=A+B",
+        "source": "课件 lesson4 · P14",
+        "code": "int a[2][3],b[2][3],c[2][3],i,j;\nfor ( i = 0; i<2;i++)    \n    for( j=0; j<3; j++)\n        cin>>a[i][j];\nfor ( i = 0; i<2; i++)   \n    for( j = 0; j<3; j++)\n        cin>>b[i][j];\nfor ( i = 0; i<2; i++) \n    for( j =0; j<3; j++)\n        c[i][j]=a[i][j]+b[i][j];\nfor ( i = 0; i<2; i++)    \n{   for( j=0; j<3; j++)\n        cout<<c[i][j]<<' ';\n    cout<<endl;\n}",
+        "output": "按 2 行 3 列输出相加后的矩阵",
+        "explanation": "三个双重循环分别完成输入 A、输入 B、计算 C，最后一个双重循环负责输出。计算时 i、j 必须完全对应，c[i][j] 只能由 a[i][j] 与 b[i][j] 相加得到，不能行列颠倒。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "三个 2 行 3 列的二维数组，行列数必须一致。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "按行、列顺序读入 A 的每个元素。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "同样方式读入 B。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "对应位置相加，下标 i、j 必须相同。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "同一行元素用空格分隔。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "内层结束后换行，输出下一行。"
+          }
+        ]
+      },
+      "masteryHint": "能写出矩阵相加的核心语句，并说出行列下标如何对应。",
+      "sourcePages": [
+        14
+      ]
+    },
+    {
+      "id": "l4-ex4-5",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.5 3×3 方阵求最大元素及下标",
+      "tags": [
+        "课件例题",
+        "二维数组",
+        "极值"
+      ],
+      "overview": "先假设 a[0][0] 最大，记录 imax=0、jmax=0；遍历整个方阵，遇到更大值就同时更新最大值和两个下标。",
+      "keyPoints": [
+        "最大值初值取 a[0][0]，下标初值取 0、0。",
+        "遍历所有 i、j，不能只遍历上三角。",
+        "更新最大值时必须同时更新 imax、jmax。",
+        "与一维数组求最大值的方法完全一致，只是多了一个列下标。"
+      ],
+      "pitfalls": [
+        "max 初值取 0，数组全为负数时结果错误。",
+        "只更新 max 忘记更新下标。",
+        "循环条件写成 i<=3，越界。"
+      ],
+      "example": {
+        "title": "例4.5 3×3 方阵求最大元素及下标",
+        "source": "课件 lesson4 · P15",
+        "code": "max=a[0][0]; imax=0; jmax=0;\nfor ( i = 0; i<3; i++)    \n    for( j=0; j<3; j++)\n        if( a[i][j]>max)\n        { \n            max=a[i][j]; \n            imax=i; \n            jmax=j;\n        }",
+        "output": "max 为最大元素，imax、jmax 为其行、列下标",
+        "explanation": "先假设左上角元素最大，然后逐个比较。只有遇到严格更大的元素才更新，这样相同最大值会保留第一次出现的下标。max 的初值必须来自数组本身，不能想当然设为 0。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "用第一个元素作为初始最大值，同时记录它的下标。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "遍历 3 行。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "遍历 3 列，覆盖整个方阵。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "严格大于才更新，保证相同值时保留先出现的下标。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "更新最大值所在行。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "更新最大值所在列。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 max 为什么不能初始化为 0，以及三个变量为什么要一起更新。",
+      "sourcePages": [
+        15
+      ]
+    },
+    {
+      "id": "l4-ex4-6",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.6 3×3 方阵转置",
+      "tags": [
+        "课件例题",
+        "矩阵转置",
+        "对角线"
+      ],
+      "overview": "沿主对角线交换 a[i][j] 与 a[j][i]。内层 j 只取到 i-1，只处理对角线一侧，避免交换两次又换回去。",
+      "keyPoints": [
+        "转置就是行列互换：a[i][j] ↔ a[j][i]。",
+        "只需处理 j<i 的下三角（或 j>i 的上三角）一侧。",
+        "如果 j 取到 3，每对元素会被交换两次，矩阵恢复原样。",
+        "对角线元素 i==j 不需要交换。"
+      ],
+      "pitfalls": [
+        "内层 j<3，导致交换两次。",
+        "交换时没有用临时变量 t。",
+        "把 a[i][j] 与 a[j][i] 写反。"
+      ],
+      "example": {
+        "title": "例4.6 3×3 方阵转置",
+        "source": "课件 lesson4 · P16",
+        "code": "for ( i = 0; i<3; i++) \n    for( j=0; j<i ; j++)\n    {  t=a[i][j]; \n       a[i][j]=a[j][i]; \n       a[j][i]=t;\n    }",
+        "output": "原矩阵 [[1,2,3],[4,5,6],[7,8,9]] 变为 [[1,4,7],[2,5,8],[3,6,9]]",
+        "explanation": "转置只交换对角线两侧的对称元素。j<i 表示只看下三角：a[1][0] 与 a[0][1] 换一次，a[2][0] 与 a[0][2] 换一次，a[2][1] 与 a[1][2] 换一次。如果 j 取满 0~2，同一对元素会被换两次，等于没换。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "逐行处理。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "只取对角线左侧，保证每对元素只交换一次。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "保存左下角元素。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "把右上角元素写到左下角。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "把保存的左下角元素写到右上角。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 j<i 的作用，以及 j<3 为什么会出错。",
+      "sourcePages": [
+        16
+      ]
+    },
+    {
+      "id": "l4-ex4-7",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.7 矩阵相乘 C=A×B",
+      "tags": [
+        "课件例题",
+        "矩阵乘法",
+        "三重循环"
+      ],
+      "overview": "A 是 M×N，B 是 N×P，C 是 M×P。C 的每个元素 c[i][j] 等于 A 的第 i 行与 B 的第 j 列对应元素乘积之和。",
+      "keyPoints": [
+        "矩阵相乘要求 A 的列数等于 B 的行数。",
+        "c[i][j] 由三重循环计算：i 行、j 列、k 遍历求和。",
+        "s 必须在每个 c[i][j] 计算前清零。",
+        "课件用 #define 定义 M、N、P，便于修改规模。"
+      ],
+      "pitfalls": [
+        "s 在 i、j 循环外清零，导致累加错误。",
+        "把 b[k][j] 写成 b[j][k]。",
+        "输出时忘记每行换行。",
+        "课件原文初始化语句末尾是全角分号，直接编译会报错。"
+      ],
+      "example": {
+        "title": "例4.7 矩阵相乘 C=A×B",
+        "source": "课件 lesson4 · P17-P18",
+        "code": "#include  <iostream>\nusing namespace std;\n#define  M  2\n#define  N  3\n#define  P  4\nint main()\n{ int a[M][N]={{3,5,7},{4,6,8}},b[N][P]={{1,4,7,10},{2,5,8,11},{3,6,9,12}}； \n  int c[M][P],i, j, k, s;\n  for(i=0; i<M; i++)\n    for(j=0; j<P; j++)\n    {  s=0;\n       for(k=0; k<N; k++) \n           s+=a[i][k]*b[k][j];\n       c[i][j] = s;\n    }\n  for(i=0;i<M;i++) \n  {   for(j=0;j<P;j++)  \n          cout<<c[i][j]<<\"  \";     \n      cout<<endl;       \n  }\n  system(\"pause\");\n  return 0;\n}",
+        "output": "C = [[31,45,59,73],[34,50,66,82]]",
+        "explanation": "计算 c[i][j] 时，k 从 0 到 N-1，把 A 第 i 行的第 k 个元素与 B 第 k 行的第 j 个元素相乘并累加。s 是累加器，必须在每个新的 i、j 组合开始时清零。课件原文初始化语句末尾用了全角“；”，录入编译器时要改成半角“;”。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "A 的行数、C 的行数。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "A 的列数、B 的行数，必须相等。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "B 的列数、C 的列数。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "课件原文这里是全角分号，编译前必须改成半角分号。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "每算一个 c[i][j] 前都要把累加器清零。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "k 遍历 A 的列和 B 的行。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "A 的第 i 行第 k 个 × B 的第 k 行第 j 个，累加到 s。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "三重循环结束后把累加结果存入 C。"
+          }
+        ]
+      },
+      "masteryHint": "能写出 c[i][j] 的求和公式，并指出 s 应该在哪里清零。",
+      "sourcePages": [
+        17
+      ]
+    },
+    {
+      "id": "l4-ex4-8",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.8 字符串的输入/输出",
+      "tags": [
+        "课件例题",
+        "字符数组",
+        "puts"
+      ],
+      "overview": "字符数组 c 逐个字符初始化，没有 '\\0'；字符数组 b 用字符串初始化，末尾自动带 '\\0'。分别用循环、puts、逐字符循环输出。",
+      "keyPoints": [
+        "char c[5]={'C','h','i','n','a'} 只是字符数组，不是字符串，末尾没有 '\\0'。",
+        "char b[]=\"China\" 是字符串，数组长度 6，末尾自动补 '\\0'。",
+        "puts 输出字符串并自动换行，遇到 '\\0' 停止。",
+        "用 b[i]!='\\0' 控制循环，是遍历字符串的常用写法。"
+      ],
+      "pitfalls": [
+        "对没有 '\\0' 的 c 使用 puts(c) 或 cout<<c，会越界。",
+        "把 '\\0' 写成 '0'，后者是字符 0，ASCII 48。",
+        "数组长度不够，字符串初始化时没有空间放 '\\0'。"
+      ],
+      "example": {
+        "title": "例4.8 字符串的输入/输出",
+        "source": "课件 lesson4 · P23",
+        "code": "#include <iostream>\nusing namespace std;\nint main( ) \n{\nint i;\nchar  c[5] = {'C', 'h', 'i', 'n', 'a'};\nchar  b[ ] = \"China\";\nfor ( i = 0; i<5; i++)  \n    cout<<c[i];                               \nputs(b);\nfor (i = 0; b[i] !='\\0'; i++)   \n    cout<< b[i];\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "ChinaChinaChina（puts 后换行）",
+        "explanation": "c 是 5 个字符的数组，只能逐字符输出；b 是字符串，长度 6，最后一个元素是 '\\0'，所以可以用 puts 或 cout<<b。课件提问“能否把循环改为 puts(c) 或 cout<<c”，答案是：c 没有 '\\0'，这样做会越界，不能保证正确。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 6,
+            "text": "逐个字符初始化，5 个元素刚好放满，没有位置放 '\\0'。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "用字符串常量初始化，编译器自动分配 6 个字符，末尾补 '\\0'。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "c 没有结束符，只能按已知长度 5 循环。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "puts 从 b 开始输出，遇到 '\\0' 停止，并自动换行。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "用结束符控制循环，是字符串遍历的标准写法。"
+          }
+        ]
+      },
+      "masteryHint": "能说出字符数组与字符串的区别，以及 c 为什么不能用 puts。",
+      "sourcePages": [
+        23
+      ]
+    },
+    {
+      "id": "l4-ex4-9",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.9 把一个字符串复制到另一个字符串",
+      "tags": [
+        "课件例题",
+        "字符串复制",
+        "结束符"
+      ],
+      "overview": "用 while(s[i]!='\\0') 逐字符复制，循环结束后必须手动补 t[i]='\\0'，否则 t 不是合法字符串。",
+      "keyPoints": [
+        "循环条件 s[i]!='\\0' 表示复制到结束符之前。",
+        "每复制一个字符，i 加 1。",
+        "循环结束后 t[i]='\\0' 是必须的，否则 puts(t) 会越界。",
+        "gets 读取一行字符串，但它是危险函数，现代编译器会警告。"
+      ],
+      "pitfalls": [
+        "漏掉 t[i]='\\0'。",
+        "把 while 条件写成 s[i]=='\\0'。",
+        "数组 t 空间不够。"
+      ],
+      "example": {
+        "title": "例4.9 把一个字符串复制到另一个字符串",
+        "source": "课件 lesson4 · P24",
+        "code": "#define N 100\n#include <iostream>\nint main( ) \n{\nint i;\nchar s[N], t[N];\ngets(s);\ni=0;\nwhile(s[i]!='\\0') //注意循环条件的表达\n \n{\nt[i]=s[i];\ni++;\n}\nt[i]='\\0'; //注意字符串的末尾一定要有'\\0'\nputs(t);\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 China 时输出 China",
+        "explanation": "复制过程只复制可见字符，不复制 s 的结束符。因此循环结束后 t 的当前位置 i 还没有结束符，必须补上 '\\0'，puts 才知道在哪里停。课件特别用注释强调这一点，缺少它结果可能多出乱码。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 6,
+            "text": "源串和目标串都要有足够空间；t 至少要比 s 的实际长度多 1。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "读取一整行到 s；gets 不检查边界，现代 C++ 已移除，可用 fgets 替代。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "只要当前字符不是结束符就继续复制。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "把 s 的第 i 个字符复制到 t 的同一位置。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "移动到下一个字符。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "循环结束时手动补结束符，t 才成为合法字符串。"
+          }
+        ]
+      },
+      "masteryHint": "能解释为什么复制循环结束后还要补 '\\0'。",
+      "sourcePages": [
+        24
+      ]
+    },
+    {
+      "id": "l4-ex4-10",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.10 字符串处理函数示例（密码判断）",
+      "tags": [
+        "课件例题",
+        "strcmp",
+        "while(1)"
+      ],
+      "overview": "循环读入密码，用 strcmp(s,\"pass\") 判断。strcmp 返回 0 表示相等，非 0 表示不等；相等时 break 结束循环。",
+      "keyPoints": [
+        "strcmp(str1,str2) 按 ASCII 逐个比较，相等返回 0。",
+        "if(strcmp(s,\"pass\")) 等价于 if(strcmp(s,\"pass\")!=0)。",
+        "while(1) 是无限循环，靠 break 退出。",
+        "字符串比较不能用 ==，== 比较的是地址。"
+      ],
+      "pitfalls": [
+        "写成 if(s==\"pass\")。",
+        "把 strcmp 返回 0 当成“假”而写成 if(!strcmp(...)) 时逻辑反了。",
+        "忘记包含 <cstring>。"
+      ],
+      "example": {
+        "title": "例4.10 字符串处理函数示例（密码判断）",
+        "source": "课件 lesson4 · P27",
+        "code": "#include <iostream>\nusing namespace std;\nint main( ) \n{\nchar  s[80];\nwhile(1) \n{  \ngets(s);\nif(strcmp(s,\"pass\")) \n    puts(\"Invalid password.\");\nelse\n    break;\n}\nputs(\"pass\");\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 pass 时输出 pass 并结束；其它输入反复提示 Invalid password.",
+        "explanation": "strcmp 相等时返回 0，0 在 if 中为假，所以 if(strcmp(...)) 的意思是“不相等”。不相等就提示并继续循环，相等时走 else 的 break。课件还给出等价写法 if(strcmp(s,\"pass\")!=0)。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 6,
+            "text": "无限循环，只有输入正确密码时才 break。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "读入一行密码；同样要注意 gets 的边界问题。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "strcmp 返回 0 表示相等；非 0 表示不等，条件为真。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "不相等时提示，循环继续。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "相等时跳出 while(1)。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 if(strcmp(...)) 为什么表示“不相等”。",
+      "sourcePages": [
+        27
+      ]
+    },
+    {
+      "id": "l4-ex4-11",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.11 在有序数组中插入数值 x",
+      "tags": [
+        "课件例题",
+        "插入",
+        "数组平移"
+      ],
+      "overview": "先找插入位置 k，再从最后一个元素开始依次后移，最后把 x 放到 a[k]。移动方向必须从后往前。",
+      "keyPoints": [
+        "for(k=0;k<9;k++) if(x<a[k]) break; 找到第一个比 x 大的位置。",
+        "从 i=8 开始向前遍历，a[i+1]=a[i] 后移。",
+        "必须从后往前移，否则前面的值会覆盖后面的值。",
+        "最后 a[k]=x 完成插入。"
+      ],
+      "pitfalls": [
+        "从前往后移，数据被覆盖。",
+        "循环条件写成 i>=k 但 i 初值不是 8。",
+        "插入后忘记把数组长度加 1（课件片段只处理 9 个元素）。"
+      ],
+      "example": {
+        "title": "例4.11 在有序数组中插入数值 x",
+        "source": "课件 lesson4 · P29",
+        "code": "for(k=0;k<9;k++) if (x<a[k]) break;    // 找到插入的位置下标为k\nfor(i=8;i>=k;i--) \n    a[i + 1] = a[i];       \n    a[k] = x;",
+        "output": "在 1 4 7 10 13 16 19 22 25 中插入 14，结果为 1 4 7 10 13 14 16 19 22 25",
+        "explanation": "插入位置 k 是第一个大于 x 的元素下标；如果 x 比所有元素都大，k 会等于 9，正好插在末尾。后移必须从最后一个元素开始，先把 a[8] 移到 a[9]，再把 a[7] 移到 a[8]，这样不会覆盖还没移动的数据。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "在已有的 9 个元素中找插入位置。"
+          },
+          {
+            "section": 0,
+            "line": 1,
+            "text": "第一个比 x 大的元素位置就是 k；找不到则 k=9。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "从最后一个元素开始向前处理，方向不能反。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "把第 i 个元素后移一位，为 x 腾出位置。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "把 x 放到空出来的 a[k]。"
+          }
+        ]
+      },
+      "masteryHint": "能解释为什么插入的后移必须从后往前。",
+      "sourcePages": [
+        29
+      ]
+    },
+    {
+      "id": "l4-ex4-12",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.12 从数组中删除某数",
+      "tags": [
+        "课件例题",
+        "删除",
+        "数组平移"
+      ],
+      "overview": "先查找 key 所在下标 i，找到后从 i 开始把后面的元素依次前移，覆盖被删除元素。",
+      "keyPoints": [
+        "for(i=0;i<10;i++) if(key==a[i]) break; 找到待删除元素。",
+        "for(j=i;j<9;j++) a[j]=a[j+1]; 从删除位置开始前移。",
+        "删除的移动方向与插入相反：从前往后。",
+        "课件片段没有处理“未找到”的情况。"
+      ],
+      "pitfalls": [
+        "从后往前移，无法覆盖删除位置。",
+        "循环上界写成 j<10，访问 a[10] 越界。",
+        "未找到时 i==10，仍然执行移动，越界。"
+      ],
+      "example": {
+        "title": "例4.12 从数组中删除某数",
+        "source": "课件 lesson4 · P30",
+        "code": "for(i=0;i<10;i++)\n    if(key==a[i])\n        break;\nfor(j=i;j<9;j++)\n    a[j]=a[j+1];",
+        "output": "删除后数组长度减 1，后面的元素依次前移",
+        "explanation": "找到 key 后，i 就是空出来的位置。把 a[i+1] 写到 a[i]，a[i+2] 写到 a[i+1]，依此类推，最后 a[9] 被 a[9] 后面的值覆盖（课件假定数组还有空间）。删除必须从前往后移，因为目标位置在左边。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "在 10 个元素中查找 key。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "找到待删除元素，i 记录其下标。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "找到后立即停止查找。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "从删除位置开始，把后一个元素前移。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "用后一个元素覆盖当前元素，相当于删除 a[i]。"
+          }
+        ]
+      },
+      "masteryHint": "能对比插入与删除的移动方向，并说出原因。",
+      "sourcePages": [
+        30
+      ]
+    },
+    {
+      "id": "l4-ex4-14a",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.14（一）随机布雷的扫雷游戏板",
+      "tags": [
+        "课件例题",
+        "二维数组",
+        "随机数",
+        "填空"
+      ],
+      "overview": "用 6×6 的 board 表示游戏板，'-' 表示非雷，'*' 表示雷。随机生成 10 个位置布雷，若该位置已有雷则重新抽（k--）。",
+      "keyPoints": [
+        "先把整个 board 初始化为 '-'。",
+        "srand(time(0)) 用当前时间做随机种子。",
+        "rand()%ROWS、rand()%COLS 把随机数映射到行列下标。",
+        "若随机位置已经是 '*'，执行 k--，使本轮不算数，重新抽。"
+      ],
+      "pitfalls": [
+        "初始化时漏掉 board[i][j]='-'。",
+        "随机下标写成 rand()%ROW 或 rand()%COL（宏名拼错）。",
+        "重复布雷时忘记 k--，导致实际雷数少于 MINES。"
+      ],
+      "example": {
+        "title": "例4.14（一）随机布雷的扫雷游戏板",
+        "source": "课件 lesson4 · P32-P33",
+        "code": "#define ROWS 6\n#define COLS 6\n#define MINES 10\n#include <time.h>\n#include <iostream>\nusing namespace std;\nint main()\n{\nchar board[ROWS][COLS];\nint i,j,k;\nfor(i=0;i<ROWS;i++)\n    for(j=0;j<COLS;j++)\n        ____;\n\nsrand(time(0));\nfor(k=0;k<MINES;k++)\n{\n    i=____;\n    j=____;\n    if(board[i][j]=='-')\n        board[i][j]='*';\n    else\n        ____;\n}\nfor(i=0;i<ROWS;i++)\n{\n    for(j=0;j<COLS;j++)\n        cout<<board[i][j];\n    cout<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "6 行 6 列的 '-'/'*' 棋盘，其中 '*' 恰好 10 个",
+        "explanation": "初始化必须把每个位置都设为 '-'，否则 board 里是随机值，后面判断“是否已有雷”就不可靠。随机抽到已布雷的位置时，这一轮不能算作有效布雷，所以用 k-- 抵消 for 的 k++，保证最终正好 10 个雷。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 9,
+            "text": "棋盘用二维字符数组表示，ROWS 行 COLS 列。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "填空①：board[i][j]='-'; 先把每个位置都设成非雷。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "用当前时间做随机种子，保证每次运行雷区不同。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "填空②：i=rand()%ROWS，得到 0~ROWS-1 的行下标。"
+          },
+          {
+            "section": 0,
+            "line": 19,
+            "text": "填空③：j=rand()%COLS，得到 0~COLS-1 的列下标。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "只有该位置还不是雷，才允许布雷。"
+          },
+          {
+            "section": 0,
+            "line": 23,
+            "text": "填空④：k--; 本次抽到重复位置，抵消本轮，保证最终正好 MINES 颗雷。"
+          },
+          {
+            "section": 0,
+            "line": 28,
+            "text": "双重循环按行、按列输出棋盘。"
+          }
+        ],
+        "blankHints": [
+          "① board[i][j]='-'；② i=rand()%ROWS；③ j=rand()%COLS；④ k--（重复位置重新抽）。"
+        ]
+      },
+      "masteryHint": "能填出四个空，并解释 k-- 为什么能保证雷数正好是 10。",
+      "sourcePages": [
+        32
+      ]
+    },
+    {
+      "id": "l4-ex4-14b",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.14（二）Floyd 算法求任意两城市最短路",
+      "tags": [
+        "课件例题",
+        "Floyd",
+        "最短路径",
+        "填空"
+      ],
+      "overview": "用 4×4 的 e 数组存城市间距离，不连通用 MAX 表示无穷。三重循环枚举中转点 k、起点 i、终点 j，若 e[i][k]+e[k][j] 更短就更新 e[i][j]。",
+      "keyPoints": [
+        "e[i][j] 表示 i 到 j 的当前最短距离。",
+        "初始化：i==j 时距离为 0，否则先设为 MAX。",
+        "读入 8 条边：e[st][en]=d。",
+        "Floyd 核心：if(e[i][j]>e[i][k]+e[k][j]) e[i][j]=e[i][k]+e[k][j];"
+      ],
+      "pitfalls": [
+        "初始化时没有把 i==j 设为 0。",
+        "没有把非对角线元素先设为 MAX。",
+        "三重循环顺序写成 i、j、k 中的其它顺序（k 必须在最外层）。",
+        "课件输出语句末尾有全角分号。"
+      ],
+      "example": {
+        "title": "例4.14（二）Floyd 算法求任意两城市最短路",
+        "source": "课件 lesson4 · P34-P38",
+        "code": "#define N 4//N表示顶点数\n#define M 8//M表示路径数\n#include <iostream>  \nusing namespace std;\n#define MAX 1000000//定义MAX是个大数，代表无穷远\nint main()\n{\nint e[N][N],i,j,k,st,en,d;\nfor (i=0; i<N; i++)//以下初始化路径距离\n    for (j=0; j <N; j++)\n        if( ____ ) \n            e[i][j] = 0;\n        else \n            ____;  \nfor (i = 1; i <= M; i++)//输入起终点及路径距离 \n{\n    cin>>st>>en>>d;//依次输入起终点下标和路径长度\n    ____;\n}\nfor (k = 0; k < N; k++)//在i和j两点间插入点k,更新其最短距离  \n    for (i = 0; i < N; i++)\n        for (j = 0; j < N; j++)\n            if (e[i][j] > e[i][k] + e[k][j])\n                e[i][j] = e[i][k] + e[k][j];\nfor (i = 0; i < N; i++)\n{\n    for (j = 0; j < N; j++)\n        cout << (char)('A'+i) << \"->\" << (char)('A'+j) << \":\" << \n        e[i][j]<<'\\t’;\n    cout<<endl;\n}\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "按 A->A、A->B … D->D 输出 4×4 最短距离表",
+        "explanation": "初始化时，城市到自己的距离为 0，到其它城市先当作无穷远；读入 8 条单向公路后，Floyd 用每个城市 k 作为中转点，尝试把 i->k->j 的长度与当前 e[i][j] 比较，更短就更新。k 必须在最外层，这样每一轮都能利用已经更新过的更短路径。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 11,
+            "text": "填空①：i==j，城市到自己的距离为 0。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "填空②：e[i][j] = MAX，非对角线先设为无穷远。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "填空③：e[st][en] = d，读入一条边的距离。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "中转点 k 必须在最外层，Floyd 才能逐步利用所有中转。"
+          },
+          {
+            "section": 0,
+            "line": 23,
+            "text": "比较“直接走”与“经 k 中转”的长度。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "经 k 更短就更新。"
+          },
+          {
+            "section": 0,
+            "line": 29,
+            "text": "课件原文这里混入了全角分号，编译前要改成 '\\t';"
+          }
+        ],
+        "blankHints": [
+          "① i==j；② e[i][j]=MAX；③ e[st][en]=d。"
+        ]
+      },
+      "masteryHint": "能填出三个空，并解释 k 为什么必须在最外层。",
+      "sourcePages": [
+        34
+      ]
+    },
+    {
+      "id": "l4-ex4-15",
+      "lessonId": "lesson4",
+      "kind": "example",
+      "title": "例4.15 古诗接句游戏",
+      "tags": [
+        "课件例题",
+        "二维字符数组",
+        "随机不重复"
+      ],
+      "overview": "二维字符数组每行存一句诗，随机产生 0~N-1 的不重复行下标，显示上句，用户输入下句，用 strcmp 判断对错。",
+      "keyPoints": [
+        "s[N][30] 每行存放一条完整诗句。",
+        "用 a[N] 存放不重复的随机行下标，i==m 表示新随机数与已有 m 个都不同。",
+        "len=strlen(s[a[n]]) 求当前诗句长度，前一半是上句，后一半是下句。",
+        "strcpy(key, s[a[n]]+len/2) 把下句复制到答案串。"
+      ],
+      "pitfalls": [
+        "随机数去重时忘记 i==m 判断，导致重复。",
+        "上句长度用 len/2，七言诗和五言诗都能对半分成上下句。",
+        "strcmp 相等返回 0，判断条件写成 if(strcmp(...)) 会反。"
+      ],
+      "example": {
+        "title": "例4.15 古诗接句游戏",
+        "source": "课件 lesson4 · P39-P41",
+        "code": "#define N 5\n#include <time.h>\n#include <iostream>\nusing namespace std;\nint main()\n{\nchar ans[15], key[15];\nchar s[N][30] = { \"晴川历历汉阳树芳草萋萋鹦鹉洲\",\"愿君多采撷此物最相思\",\"洛阳亲友如相问一片冰心在玉壶\",\"随风潜入夜润物细无声\",\"晓看红湿处花重锦官城\" };\nint i, m, n,len, a[N]; //a数组存放s的行下标，其取值范围为0~N-1\nsrand(time(NULL));\nfor (m = 0; m < N;)               //该循环产生0~N-1之间不重复的随机数并存放于a中\n{\n    n = rand() % N;\n    for (i = 0; i < m; i++)         //判新产生的随机数n与a中原有的m个数是否相同\n        if (a[i] == n)\n            break;\n    if (i == m)                 //新产生的随机数若与原m个数皆不同，则存入数组a\n    {  a[m] = n;\n       m++;\n    }\n}\nfor (n = 0; n < N; n++)            //循环进行N条接句游戏测试\n{\n    len = strlen(s[a[n]]);         //求第a[n]条诗中所含的字符数。\n    for (i = 0; i < len / 2; i++)     //将s[a[n]]的上句显示在屏幕上\n        cout << s[a[n]][i]; \n    strcpy(key, s[a[n]] + len / 2);   //将s[a[n]]的下句复制到答案字符串key中\n    cout << \"\\n请输入下句:\" << endl;\n    cin >> ans;                 //输入用户的接句\n    if (strcmp(ans, key) == 0)     //比较用户的接句与答案\n        cout << \"答对了，你真棒!\" << endl;\n    else\n    {\n        cout << \"很遗憾，继续努力!\" << endl;\n        cout << \"正确的应为:\" << endl;\n        cout << key << endl; \n    }\n}\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "随机显示一句诗的上句，用户输入下句后给出对错提示",
+        "explanation": "先用随机洗牌的方式生成 0~4 的一个排列，保证每句诗只考一次。对每条诗，长度的一半就是上句长度；从 s[a[n]] 的第 len/2 个字符开始，正好是下句，用 strcpy 复制到 key。用户输入 ans 后与 key 比较。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 8,
+            "text": "二维字符数组存 5 句诗，每句不超过 29 个字符。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "a 存放 0~N-1 的不重复行下标，m 记录已经选了几条。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "随机产生 0~N-1 之间的行下标。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "内层循环没有 break，说明新下标与已选的 m 个都不同，可以存入 a。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "求整句长度，再用 len/2 把诗句分成上下两句。"
+          },
+          {
+            "section": 0,
+            "line": 27,
+            "text": "指针加法跳过前 len/2 个字符，从中间开始复制下句作为答案。"
+          },
+          {
+            "section": 0,
+            "line": 30,
+            "text": "字符串比较必须用 strcmp，不能用 ==。"
+          }
+        ]
+      },
+      "masteryHint": "能解释随机数去重的判断，以及为什么 len/2 能分出上下句。",
+      "sourcePages": [
+        39
+      ]
+    },
+    {
       "id": "l4-array-basics",
       "lessonId": "lesson4",
       "title": "一维数组的定义、初始化与下标",
@@ -1886,12 +4081,6 @@ window.COURSE_DATA = {
         "执行 a = b; 试图整体赋值数组。",
         "输入或输出数组名却期待得到全部元素。"
       ],
-      "example": {
-        "title": "数组求和",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[5] = {1, 2, 3, 4, 5};\n    int sum = 0;\n    for (int i = 0; i < 5; ++i) sum += a[i];\n    cout << sum << endl;\n    return 0;\n}",
-        "output": "15",
-        "explanation": "循环下标从 0 到 4，正好覆盖全部 5 个元素。"
-      },
       "exercise": {
         "prompt": "读取 5 个整数存入一维数组，然后按相反顺序输出，数字之间用空格分隔。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 定义数组并逆序输出\n    return 0;\n}",
@@ -1948,12 +4137,6 @@ window.COURSE_DATA = {
         "把 N 当成有效下标。",
         "求和变量在循环内重复初始化。"
       ],
-      "example": {
-        "title": "同时记录最大值和下标",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[5] = {7, 3, 9, 1, 9};\n    int index = 0;\n    for (int i = 1; i < 5; ++i)\n        if (a[i] > a[index]) index = i;\n    cout << a[index] << ' ' << index << endl;\n    return 0;\n}",
-        "output": "9 2",
-        "explanation": "index 始终指向当前最大元素；只有遇到严格更大的元素才更新，因此并列时保留第一次出现的位置。"
-      },
       "exercise": {
         "prompt": "读取 6 个整数，输出最大值以及它第一次出现的下标。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 读取数组，求最大值与下标\n    return 0;\n}",
@@ -2010,12 +4193,6 @@ window.COURSE_DATA = {
         "交换时漏掉临时变量。",
         "升序与降序的比较符号写反。"
       ],
-      "example": {
-        "title": "选择排序核心",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[5] = {8, 3, 4, 9, 7};\n    for (int i = 0; i < 4; ++i) {\n        int minIndex = i;\n        for (int j = i + 1; j < 5; ++j)\n            if (a[j] < a[minIndex]) minIndex = j;\n        int t = a[i]; a[i] = a[minIndex]; a[minIndex] = t;\n    }\n    for (int x : a) cout << x << ' ';\n    return 0;\n}",
-        "output": "3 4 7 8 9",
-        "explanation": "每轮把未排序区间的最小值换到该区间起点，逐步扩大有序前缀。"
-      },
       "exercise": {
         "prompt": "读取 5 个整数到数组，使用冒泡排序按升序排列并输出。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[5];\n    // 读入并使用冒泡排序\n    return 0;\n}",
@@ -2072,12 +4249,6 @@ window.COURSE_DATA = {
         "插入位置在数组末尾时没有单独考虑。",
         "数组已满仍执行插入，造成越界。"
       ],
-      "example": {
-        "title": "删除第一个目标值",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[6] = {1, 2, 3, 4, 5, 0};\n    int n = 5, key = 3;\n    int pos = 0;\n    while (pos < n && a[pos] != key) ++pos;\n    if (pos < n) {\n        for (int i = pos; i < n - 1; ++i) a[i] = a[i + 1];\n        --n;\n    }\n    for (int i = 0; i < n; ++i) cout << a[i] << ' ';\n    return 0;\n}",
-        "output": "1 2 4 5",
-        "explanation": "找到目标后，让后续元素逐个前移，再用 n-- 缩小有效区间。"
-      },
       "exercise": {
         "prompt": "数组前 5 个元素为 1 2 3 4 5，删除第一个值为 3 的元素，输出删除后的有效元素。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[6] = {1, 2, 3, 4, 5, 0};\n    int n = 5;\n    // 删除 3 并输出\n    return 0;\n}",
@@ -2135,12 +4306,6 @@ window.COURSE_DATA = {
         "循环条件写成 low<high，漏查最后一个元素。",
         "每次比较后未重新计算 mid。"
       ],
-      "example": {
-        "title": "查找目标下标",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[7] = {1, 3, 5, 7, 9, 11, 13};\n    int target = 9, low = 0, high = 6, ans = -1;\n    while (low <= high) {\n        int mid = (low + high) / 2;\n        if (a[mid] == target) { ans = mid; break; }\n        if (a[mid] < target) low = mid + 1;\n        else high = mid - 1;\n    }\n    cout << ans << endl;\n    return 0;\n}",
-        "output": "4",
-        "explanation": "9 位于下标 4，找到后通过 break 结束循环。"
-      },
       "exercise": {
         "prompt": "有序数组为 {1,3,5,7,9,11,13}，使用二分查找目标 7，输出其下标；找不到输出 -1。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[7] = {1, 3, 5, 7, 9, 11, 13};\n    int target = 7;\n    // 二分查找\n    return 0;\n}",
@@ -2197,12 +4362,6 @@ window.COURSE_DATA = {
         "原地转置遍历整个矩阵，导致交换两次恢复原样。",
         "遍历边界写成 <=行数，造成越界。"
       ],
-      "example": {
-        "title": "矩阵转置",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[2][2] = {{1, 2}, {3, 4}};\n    int b[2][2];\n    for (int i = 0; i < 2; ++i)\n        for (int j = 0; j < 2; ++j)\n            b[j][i] = a[i][j];\n    for (int i = 0; i < 2; ++i) {\n        for (int j = 0; j < 2; ++j) cout << b[i][j] << ' ';\n        cout << endl;\n    }\n    return 0;\n}",
-        "output": "1 3\n2 4",
-        "explanation": "新矩阵的 b[j][i] 接收原矩阵 a[i][j]，实现行列互换。"
-      },
       "exercise": {
         "prompt": "读取 4 个整数放入 2×2 二维数组，输出它的转置矩阵，每行两个数。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[2][2], b[2][2];\n    // 读入并转置\n    return 0;\n}",
@@ -2255,12 +4414,6 @@ window.COURSE_DATA = {
         "遍历时只看数组容量，不按实际字符串结束位置。",
         "把字符串字面量与字符字面量的引号混用。"
       ],
-      "example": {
-        "title": "手动求字符串长度",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[] = \"China\";\n    int length = 0;\n    while (s[length] != '\\0') ++length;\n    cout << length << endl;\n    return 0;\n}",
-        "output": "5",
-        "explanation": "length 从 0 开始，遇到结束符时停止，因此得到实际字符数而不是数组总容量。"
-      },
       "exercise": {
         "prompt": "使用 getline 读取一整行字符串，统计并输出其中非空字符的实际长度，不调用 strlen。",
         "starter": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    char s[200];\n    cin.getline(s, 200);\n    // 统计到 \\0 为止\n    return 0;\n}",
@@ -2317,12 +4470,6 @@ window.COURSE_DATA = {
         "把 strcmp 的布尔结果直接当作“相等为真”。",
         "对字符串字面量执行 strcpy 或 strcat 写入。"
       ],
-      "example": {
-        "title": "比较两个字符串",
-        "code": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    char a[] = \"hello\";\n    char b[] = \"hello\";\n    if (strcmp(a, b) == 0) cout << \"same\";\n    else cout << \"different\";\n    return 0;\n}",
-        "output": "same",
-        "explanation": "数组名比较的是地址，而 strcmp 比较的是两个以 '\\0' 结尾的字符序列。"
-      },
       "exercise": {
         "prompt": "读取两个不含空格的单词，使用 strcmp 比较；相同输出 same，不同输出 different。",
         "starter": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    char a[100], b[100];\n    cin >> a >> b;\n    // 使用 strcmp 比较\n    return 0;\n}",
@@ -2379,12 +4526,6 @@ window.COURSE_DATA = {
         "用长度循环处理可能没有结束符的字符数组。",
         "目标数组空间不足。"
       ],
-      "example": {
-        "title": "手写复制",
-        "code": "int i = 0;\nwhile (src[i] != '\\0') {\n    dst[i] = src[i];\n    ++i;\n}\ndst[i] = '\\0';",
-        "output": "dst 成为 src 的完整副本。",
-        "explanation": "循环复制所有有效字符，循环结束后补结束符，保证目标串合法。"
-      },
       "exercise": {
         "prompt": "读取两个不含空格的单词，不用 strcpy/strcat，手写复制和连接，输出连接后的字符串。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char a[50], b[50], result[100];\n    cin >> a >> b;\n    // 手写复制和连接\n    cout << result << endl;\n    return 0;\n}",
@@ -2449,12 +4590,6 @@ window.COURSE_DATA = {
         "把字符差值 32 记反。",
         "只比较长度不比较内容。"
       ],
-      "example": {
-        "title": "逐字符比较",
-        "code": "int i = 0;\nwhile (a[i] == b[i] && a[i] != '\\0') ++i;\nint r;\nif (a[i] == '\\0' && b[i] == '\\0') r = 0;\nelse if (a[i] > b[i]) r = 1;\nelse r = -1;",
-        "output": "r=0 表示字符串相等。",
-        "explanation": "循环停在第一对不同字符或两串结束处，再按字符编码决定大小关系。"
-      },
       "exercise": {
         "prompt": "读取一个小写单词，将其手写转换为大写；若结果等于 PASS 输出 PASS same，否则输出转换结果 different。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[50];\n    cin >> s;\n    // 手写转大写并比较\n    return 0;\n}",
@@ -2520,12 +4655,6 @@ window.COURSE_DATA = {
         "统计非字母字符导致越界。",
         "循环条件使用固定长度而不是 '\\0'。"
       ],
-      "example": {
-        "title": "统计 26 个小写字母",
-        "code": "int p[26] = {0};\nfor (int i = 0; s[i] != '\\0'; ++i) {\n    if (s[i] >= 'a' && s[i] <= 'z') ++p[s[i] - 'a'];\n}",
-        "output": "p[0] 记录 a 的次数，p[25] 记录 z 的次数。",
-        "explanation": "字符编码相减得到字母序号，用作频率数组下标。"
-      },
       "exercise": {
         "prompt": "读取一个小写单词和一个目标字母，统计目标字母出现次数并输出“目标字母 次数”。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[100], target;\n    cin >> s >> target;\n    int count = 0;\n    // 完成字符频率统计\n    cout << target << ' ' << count << endl;\n    return 0;\n}",
@@ -2589,12 +4718,6 @@ window.COURSE_DATA = {
         "把 A[i][k]*B[k][j] 写成 A[i][k]*B[j][k]。",
         "输出维度顺序错误。"
       ],
-      "example": {
-        "title": "一个结果元素",
-        "code": "int s = 0;\nfor (int k = 0; k < 3; ++k) {\n    s += a[0][k] * b[k][0];\n}\nc[0][0] = s;",
-        "output": "s 是 C[0][0] 的累加结果。",
-        "explanation": "固定 i、j 后，k 遍历共同维度完成点积。"
-      },
       "exercise": {
         "prompt": "读取 A(2×3) 和 B(3×2) 共 12 个整数，输出它们的 2×2 乘积矩阵，每行两个整数。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[2][3], b[3][2], c[2][2];\n    // 读入 A 和 B，计算并输出 C\n    return 0;\n}",
@@ -2657,12 +4780,6 @@ window.COURSE_DATA = {
         "INF 取太小，被错误当成普通路径。",
         "把双向图与单向图的赋值混淆。"
       ],
-      "example": {
-        "title": "Floyd 核心三重循环",
-        "code": "for (int k = 0; k < n; ++k)\n    for (int i = 0; i < n; ++i)\n        for (int j = 0; j < n; ++j)\n            if (e[i][j] > e[i][k] + e[k][j])\n                e[i][j] = e[i][k] + e[k][j];",
-        "output": "所有点对的最短距离得到更新。",
-        "explanation": "每轮允许编号 k 的点作为中转，比较直达路径和经过 k 的路径。"
-      },
       "exercise": {
         "prompt": "读取 3×3 的邻接矩阵，-1 表示不可达，对角线为 0。用 Floyd 算法求所有点对最短距离，不可达仍输出 -1。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int e[3][3];\n    // 读入矩阵、执行 Floyd、输出结果\n    return 0;\n}",
@@ -2705,6 +4822,471 @@ window.COURSE_DATA = {
       ]
     },
     {
+      "id": "l5-ex5-1",
+      "lessonId": "lesson5",
+      "kind": "example",
+      "title": "例5.1 指针运算示例（交换指针）",
+      "tags": [
+        "课件例题",
+        "指针",
+        "交换"
+      ],
+      "overview": "p1 指向 a、p2 指向 b。交换 p1、p2 的值后，p1 指向 b、p2 指向 a，但 a、b 本身的值没有变。",
+      "keyPoints": [
+        "int *p1=&a 表示 p1 存放 a 的地址。",
+        "*p1 是 p1 所指变量的值。",
+        "p=p1;p1=p2;p2=p; 交换的是两个指针的指向，不是 a、b 的内容。",
+        "交换指针后，*p1 输出 b 的值，*p2 输出 a 的值。"
+      ],
+      "pitfalls": [
+        "以为交换指针就交换了 a、b。",
+        "把 *p1 写成 p1，输出的是地址。",
+        "指针没有初始化就使用。"
+      ],
+      "example": {
+        "title": "例5.1 指针运算示例（交换指针）",
+        "source": "课件 lesson5 · P8",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{\nint a,b,*p1=&a,*p2=&b,*p;\ncin>>a>>b;\ncout<<*p1<<\" \"<<*p2<<endl;\ncout<<a<<\" \"<<b<<endl;\np=p1;p1=p2;p2=p;\ncout<<*p1<<\" \"<<*p2<<endl;\ncout<<a<<\" \"<<b<<endl;\nsystem(\"pause\"); \nreturn 0;\n}",
+        "output": "输入 3 4：\n3 4\n3 4\n4 3\n3 4",
+        "explanation": "前三行输出说明交换前 p1→a、p2→b；交换后 p1→b、p2→a，所以 *p1、*p2 变成 4、3；最后一行再次输出 a、b，仍然是 3、4，证明交换的只是指针的指向。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "p1 初始化为 &a，p2 初始化为 &b；p 是交换用的临时指针。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "输出 p1、p2 所指变量的值，即 a、b。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "三条赋值交换两个指针的指向，a、b 的存储内容不变。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "交换后 p1 指向 b、p2 指向 a，所以输出 4 3。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "再次输出 a、b，仍然是 3 4。"
+          }
+        ]
+      },
+      "masteryHint": "能画出交换前后 p1、p2 的指向，并说明 a、b 为什么不变。",
+      "sourcePages": [
+        8
+      ]
+    },
+    {
+      "id": "l5-ex5-2",
+      "lessonId": "lesson5",
+      "kind": "example",
+      "title": "例5.2 指针访问数组（课件中的越界示例）",
+      "tags": [
+        "课件例题",
+        "指针",
+        "数组",
+        "越界"
+      ],
+      "overview": "第一个循环用 *p++ 读入 10 个数，循环结束后 p 已经指向 a+10；第二个循环没有把 p 重新置回 a，直接从越界位置输出。",
+      "keyPoints": [
+        "*p++ 等价于 *(p++)：先取 *p，再让 p 后移。",
+        "第一个循环结束后 p 指向数组末尾之后，不再指向 a[0]。",
+        "第二个循环 for(i=0;i<10;i++,p++) 从 p 的当前位置继续，越界。",
+        "正确做法是在第二个循环前加 p=a; 重置指针。"
+      ],
+      "pitfalls": [
+        "以为 p++ 只移动一次，实际上循环 10 次移动了 10 次。",
+        "忘记 p=a 重置。",
+        "把 *p++ 与 (*p)++ 混淆。"
+      ],
+      "example": {
+        "title": "例5.2 指针访问数组（课件中的越界示例）",
+        "source": "课件 lesson5 · P15",
+        "code": "#include <iostream>\nusing namespace std;\nint main( ) \n{\nint a[10], i, *p;\np = a;\nfor (i = 0; i<10; i++)\n    cin>>*p++;\nfor (i = 0; i<10; i++,p++)\n    cout<<*p;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "不能正确输出数组元素：第二个循环从 a+10 开始，越界",
+        "explanation": "第一个循环每执行一次，p 都后移一位，10 次后 p==a+10。第二个循环没有把 p 重置为 a，仍然从 a+10 开始读，访问的是数组之外的内存，结果不可预测。课件用这个例子提醒：指针遍历后若要重新遍历，必须重新赋值 p=a。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 6,
+            "text": "p 指向数组首元素 a[0]。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "*p 是当前元素，p++ 让 p 指向下一个；10 次后 p 越过了最后一个元素。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "这里没有 p=a，p 从 a+10 继续往后走。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "输出的是越界位置的值，不是 a[0]~a[9]。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "正确改法：在第二个循环前补一行 p=a;"
+          }
+        ]
+      },
+      "masteryHint": "能指出程序错在哪一行，并说出两种改法（重置 p 或用 a[i]）。",
+      "sourcePages": [
+        15
+      ]
+    },
+    {
+      "id": "l5-ex5-3",
+      "lessonId": "lesson5",
+      "kind": "example",
+      "title": "例5.3 用指针逐字符输出并求字符串长度",
+      "tags": [
+        "课件例题",
+        "字符指针",
+        "指针相减"
+      ],
+      "overview": "p 从 s 开始，while(*p!='\\0') 逐字符输出并后移；循环结束时 p 指向结束符，p-s 就是字符个数。",
+      "keyPoints": [
+        "p=s 让 p 指向字符数组第一个元素。",
+        "cout<<*p++ 先输出当前字符，再让 p 后移。",
+        "循环结束时 p 指向 '\\0'，p-s 等于字符串长度。",
+        "两个同类型指针相减，结果是它们之间能存放的元素个数。"
+      ],
+      "pitfalls": [
+        "把 p-s 写成 s-p，得到负数。",
+        "循环条件写成 *p!='0'，'0' 是字符 0，不是结束符。",
+        "忘记 p=s 初始化。"
+      ],
+      "example": {
+        "title": "例5.3 用指针逐字符输出并求字符串长度",
+        "source": "课件 lesson5 · P22",
+        "code": "#include <iostream>\nusing namespace std;\nint main( ) \n{  char s[80],*p;\ngets(s);\np=s;                                      \n    cout<<\"输出每个字符：\";\nwhile(*p!='\\0')\n    cout<<*p++<< \" \";     //指针下移，直到p指向字符串结束符        \n    cout<<\"\\n 字符串长度 : \"<< p-s <<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 China 时输出 C h i n a，长度为 5",
+        "explanation": "p 从 s[0] 开始，每次输出 *p 后 p 后移一位。遇到 '\\0' 时循环停止，此时 p 指向结束符，p 与 s 之间隔了 5 个字符，所以 p-s=5。指针相减不是地址差，而是地址差除以元素大小后的元素个数。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "字符数组存放字符串，p 是工作指针。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "p 指向数组首元素，不能省。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "当前字符不是结束符就继续。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "先输出 *p，再 p++；每个字符后跟一个空格。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "循环结束时 p 指向 '\\0'，p-s 正好是字符个数。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 p-s 为什么等于字符串长度，以及它与地址差的区别。",
+      "sourcePages": [
+        22
+      ]
+    },
+    {
+      "id": "l5-ex5-4",
+      "lessonId": "lesson5",
+      "kind": "example",
+      "title": "例5.4 对4个字符串按字典序排序",
+      "tags": [
+        "课件例题",
+        "字符指针数组",
+        "strcmp",
+        "选择排序"
+      ],
+      "overview": "用 char *score[] 存放 4 个字符串常量的地址，用 strcmp 比较，交换的是指针的指向，不是字符串内容。",
+      "keyPoints": [
+        "char *score[] 是指针数组，每个元素指向一个字符串常量。",
+        "strcmp(score[k],score[j])>0 表示 score[k] 字典序更大。",
+        "交换时只交换 score[i] 与 score[k] 两个指针。",
+        "排序算法与选择排序相同。"
+      ],
+      "pitfalls": [
+        "试图用 strcpy 交换字符串常量，字符串常量不能修改。",
+        "把 strcmp 的返回值当布尔值直接判断大小。",
+        "指针数组与二维字符数组混淆。"
+      ],
+      "example": {
+        "title": "例5.4 对4个字符串按字典序排序",
+        "source": "课件 lesson5 · P24",
+        "code": "#include <iostream>\nusing namespace std;\nint main( ) \n{  char *score[]={\"Fortran\",\"C/c++\",\"Pascal\",\"Basic\"},*p;\nint i,j,k;\nfor(i=0;i<3;i++)\n{  k=i;\n   for(j=i+1;j<4;j++)\n       if(strcmp(score[k],score[j])>0) k=j;\n   if(i!=k) { p=score[i];score[i]=score[k]; score[k]=p;}\n}\nfor(i=0;i<4;i++)\n    cout<<score[i]<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "Basic\nC/c++\nFortran\nPascal",
+        "explanation": "每个字符串常量在内存中连续存放，score[i] 保存它的首地址。strcmp 按 ASCII 逐个比较，返回正数说明前一个更大。交换 p=score[i] 只是让数组元素指向另一个字符串，原字符串本身没有移动。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "指针数组，每个元素指向一个字符串常量的首地址。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "字典序比较，返回正数说明 score[k] 应排在后面。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "记录当前最小字符串的下标。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "交换两个指针的指向，不复制字符串内容。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "按排好的指针顺序输出字符串。"
+          }
+        ]
+      },
+      "masteryHint": "能说明为什么交换指针就能排序，以及为什么不能 strcpy 字符串常量。",
+      "sourcePages": [
+        24
+      ]
+    },
+    {
+      "id": "l5-ex5-5",
+      "lessonId": "lesson5",
+      "kind": "example",
+      "title": "例5.5 字母在前、数字在后且保持原顺序",
+      "tags": [
+        "课件例题",
+        "指针",
+        "字符串拆分",
+        "strcat"
+      ],
+      "overview": "用 p 遍历原串，p1 收集字母、p2 收集数字，最后分别补 '\\0'，再用 strcat 把数字串接到字母串后面。",
+      "keyPoints": [
+        "p1=s1、p2=s2 分别指向字母串和数字串的写入位置。",
+        "字母用 *p1++=*p 写入并后移，数字用 *p2=*p; p2++ 写入。",
+        "两个临时串末尾都必须补 '\\0'。",
+        "strcat(s1,s2) 要求 s1 有足够空间。"
+      ],
+      "pitfalls": [
+        "忘记给 s1、s2 补 '\\0'。",
+        "strcat 的目标串空间不足。",
+        "把字母和数字的收集顺序弄反。"
+      ],
+      "example": {
+        "title": "例5.5 字母在前、数字在后且保持原顺序",
+        "source": "课件 lesson5 · P25",
+        "code": "#include <iostream>\nusing namespace std;\n#define N 30\nint main()\n{  char s[N],s1[N],s2[N],*p=s,*p1=s1,*p2=s2;\nint i(0),j(0);\ncout<<\"请输入字符串s：\"<<endl;\ncin>>s;\nwhile(*p!='\\0')\n{  if(*p>='0' && *p<='9' )\n   {\n       *p2=*p;     p2++;  }\n   else\n       *p1++=*p; \n   p++;\n}\n*p1='\\0';\n*p2='\\0';\nstrcat(s1,s2);\ncout<<\"重排后字符串为：\"<<s1<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 a1b2c3 时输出 abc123",
+        "explanation": "p 顺序扫描原串，遇到数字写入 s2，遇到其它字符（本题只有字母）写入 s1。因为 p1、p2 都按原顺序后移，所以字母之间、数字之间的相对顺序不变。最后补结束符并用 strcat 合并。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "原串、字母串、数字串各一块空间。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "p1、p2 分别指向两个临时串的写入位置。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "数字字符写入 s2。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "先写入当前数字，再让 p2 后移。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "字母写入 s1，同时 p1 后移。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "字母串补结束符。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "数字串补结束符。"
+          },
+          {
+            "section": 0,
+            "line": 19,
+            "text": "把数字串接到字母串后面；s1 必须足够大。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 p1、p2 的作用，以及为什么结果能保持原顺序。",
+      "sourcePages": [
+        25
+      ]
+    },
+    {
+      "id": "l5-ex5-6",
+      "lessonId": "lesson5",
+      "kind": "example",
+      "title": "例5.6 统计子串出现次数",
+      "tags": [
+        "课件例题",
+        "子串",
+        "strcmp",
+        "指针"
+      ],
+      "overview": "从 s 的每个下标 i 开始，取出与 sub 等长的子串存入 s2，再用 strcmp 比较，相等则计数。",
+      "keyPoints": [
+        "外层 i 遍历 s 的每个起点。",
+        "内层 j 把 s[i+j] 复制到 s2[j]，复制长度等于 sub 的长度。",
+        "复制完必须 s2[j]='\\0'。",
+        "strcmp(s2,sub)==0 表示找到一个匹配。"
+      ],
+      "pitfalls": [
+        "内层循环条件写成 s[i+j]!='\\0'，长度不受 sub 控制。",
+        "忘记补 s2 的结束符。",
+        "外层循环在剩余长度不足 sub 时仍然比较，可能越界。"
+      ],
+      "example": {
+        "title": "例5.6 统计子串出现次数",
+        "source": "课件 lesson5 · P26",
+        "code": "#include <iostream>\nusing namespace std;\n#define N 50\nint  main()\n{ char s[N],sub[N],s2[N];\nint i,j,count(0);\ncout<<\"请输入字符串：\"<<endl;\ngets(s);\ncout<<\"请输入子串：\"<<endl;\ngets(sub);\nfor(i=0;*(s+i)!='\\0';i++)\n{\n    for (j=0;*(sub+j)!='\\0' ;j++)        \n        *(s2+j)=*(s+i+j) ;\n    *(s2+j)='\\0';\n    if(strcmp(s2,sub)==0 ) \n        count++;\n}\nif(count==0)\n    cout<<\"子串未出现\"<<endl;\nelse\n    cout<<\"子串出现\"<<count<<\"次\"<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 ababa、aba 时输出：子串出现 2 次",
+        "explanation": "以每个 i 为起点，连续取 strlen(sub) 个字符组成 s2，再与 sub 整体比较。这样能统计重叠出现，例如 ababa 中下标 0 和 2 各有一个 aba。复制完必须补 '\\0'，否则 strcmp 会读到旧内容。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 11,
+            "text": "i 是子串在 s 中的起始下标。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "j 控制复制的长度，正好等于 sub 的长度。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "把 s 从 i 开始的第 j 个字符复制到 s2。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "复制完补结束符，s2 才是合法字符串。"
+          },
+          {
+            "section": 0,
+            "line": 16,
+            "text": "相等返回 0，表示找到一个匹配。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "匹配计数加 1。"
+          }
+        ]
+      },
+      "masteryHint": "能解释为什么这种写法能统计重叠子串。",
+      "sourcePages": [
+        26
+      ]
+    },
+    {
+      "id": "l5-ex5-7",
+      "lessonId": "lesson5",
+      "kind": "example",
+      "title": "例5.7 单词计分游戏",
+      "tags": [
+        "课件例题",
+        "字符指针",
+        "数组映射",
+        "strupr"
+      ],
+      "overview": "把 26 个字母的点值存进数组 a，a[0] 对应 A、a[1] 对应 B……。对单词中每个字母，用 ch-'A' 作为下标取点数并累加。",
+      "keyPoints": [
+        "a[ch-'A'] 把字母映射到 0~25 的点值数组下标。",
+        "strupr(str) 把字符串转成大写，便于不区分大小写。",
+        "外层 while 处理多个单词，输入 \"#\" 时结束。",
+        "内层 while(*q) 遍历当前单词的每个字符。"
+      ],
+      "pitfalls": [
+        "下标写成 ch-'a' 但字符串没有转小写，导致越界或错位。",
+        "忘记在读取下一个单词后重新 q=strupr(str)。",
+        "把 strcmp(q,\"#\")!=0 写成 q!=\"#\"。"
+      ],
+      "example": {
+        "title": "例5.7 单词计分游戏",
+        "source": "课件 lesson5 · P27-P28",
+        "code": "#include <iostream>\nusing namespace std;\n#define N 40\nint main()\n{  int a[]={1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10},k,score;\nchar str[N],*q;\ncout<<\"请输入单词：\"<<endl;\ncin>>str;\nq=strupr(str);//便于不区分大小写\nwhile( strcmp(q,\"#\")!=0 )\n{   score=0;\n    while(*q)\n    {\n        k=*q-'A';\n        score=score+ a[k] ;\n        q++;\n    }\n    cout<<\"得分\"<<score<<endl;\n    cin>>str;  //处理下一个单词\n    q=strupr(str);\n}\nsystem(\"pause\");    return 0;  }",
+        "output": "输入 HELLO 时，H=4、E=1、L=1、L=1、O=1，得分 8",
+        "explanation": "a 数组按 A~Z 的顺序存放每个字母的点值。strupr 把单词统一成大写后，任意字母 ch 的点值就是 a[ch-'A']。内层 while(*q) 等价于 while(*q!='\\0')，逐个字符累加；外层循环读下一个单词，直到输入 #。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "26 个点值，依次对应 A~Z。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "转成大写，保证后面统一用 ch-'A' 映射。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "输入 # 时结束；字符串比较必须用 strcmp。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "等价于 while(*q!='\\0')，遍历当前单词。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "把字母转换成 0~25 的下标。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "取出该字母的点值并累加。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "读入下一个单词后必须重新转换并重置 q。"
+          }
+        ],
+        "blankHints": [
+          "外层循环：strcmp(q,\"#\")!=0；点值累加：score=score+a[k]。"
+        ]
+      },
+      "masteryHint": "能写出字母到数组下标的映射，并解释为什么要先转大写。",
+      "sourcePages": [
+        27
+      ]
+    },
+    {
       "id": "l5-pointer-basics",
       "lessonId": "lesson5",
       "title": "地址、指针变量与解引用",
@@ -2729,12 +5311,6 @@ window.COURSE_DATA = {
         "认为 *p 取的是指针变量自身的地址。",
         "让 int* 指向 double 对象，类型不匹配。"
       ],
-      "example": {
-        "title": "通过指针间接修改",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 4;\n    int *p = &x;\n    *p = 10;\n    cout << x << ' ' << *p << endl;\n    return 0;\n}",
-        "output": "10 10",
-        "explanation": "p 保存 x 的地址，因此给 *p 赋值就是给 x 赋值。"
-      },
       "exercise": {
         "prompt": "定义 int 变量 x=42 和指向 x 的指针 p，通过 p 把 x 改为 99，再输出 x。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 定义变量与指针\n    return 0;\n}",
@@ -2791,12 +5367,6 @@ window.COURSE_DATA = {
         "用 delete 释放从未 new 的普通变量地址。",
         "混淆 p=&x 与 *p=x。"
       ],
-      "example": {
-        "title": "同类型指针赋值",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 8;\n    int *p = nullptr, *q = &x;\n    p = q;\n    cout << *p << endl;\n    return 0;\n}",
-        "output": "8",
-        "explanation": "p=q 后两个指针都指向 x，但没有复制 x 本身。"
-      },
       "exercise": {
         "prompt": "读取整数 value，让指针 p 指向它；只有 p 不为空时输出 *p。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int value;\n    cin >> value;\n    int *p = &value;\n    // 判空后输出\n    return 0;\n}",
@@ -2849,12 +5419,6 @@ window.COURSE_DATA = {
         "把两个指针相加。",
         "忽略指针相减得到的是元素个数，不是字节数。"
       ],
-      "example": {
-        "title": "用指针遍历数组",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[3] = {10, 20, 30};\n    int *p = a;\n    while (p < a + 3) cout << *p++ << ' ';\n    return 0;\n}",
-        "output": "10 20 30",
-        "explanation": "*p++ 先读取当前元素，再让 p 指向下一个元素。"
-      },
       "exercise": {
         "prompt": "定义数组 {10,20,30,40}，用指针 p 依次输出全部元素，并输出首尾两个元素之间的元素个数。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[4] = {10, 20, 30, 40};\n    // 使用指针遍历并计算间隔\n    return 0;\n}",
@@ -2911,12 +5475,6 @@ window.COURSE_DATA = {
         "指针已移动后又假设它仍指向首元素。",
         "用 sizeof(p) 得到整个数组长度。"
       ],
-      "example": {
-        "title": "两种等价写法",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[3] = {2, 4, 6};\n    int *p = a;\n    cout << a[2] << ' ' << *(p + 2) << endl;\n    return 0;\n}",
-        "output": "6 6",
-        "explanation": "a[2] 与 *(p+2) 访问同一地址中的元素。"
-      },
       "exercise": {
         "prompt": "数组 a={3,5,7,9}，使用 *(a+i) 的形式求所有元素之和并输出。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[4] = {3, 5, 7, 9};\n    int sum = 0;\n    // 使用 *(a+i) 累加\n    return 0;\n}",
@@ -2973,12 +5531,6 @@ window.COURSE_DATA = {
         "想移动指针却使用 (*p)++，结果修改元素。",
         "在同一表达式中依赖过多副作用，降低可读性。"
       ],
-      "example": {
-        "title": "连续观察两种操作",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[2] = {10, 20};\n    int *p = a;\n    cout << *p++ << ' ';\n    cout << (*p)++ << ' ';\n    cout << *p << endl;\n    return 0;\n}",
-        "output": "10 20 21",
-        "explanation": "第一次输出 10 后 p 指向 20；第二次输出 20 并把该元素改为 21。"
-      },
       "exercise": {
         "prompt": "数组 {10,20}，先输出 *p++，再输出 (*p)++，最后输出 *p，三项用空格分隔。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[2] = {10, 20};\n    int *p = a;\n    // 按顺序输出三个结果\n    return 0;\n}",
@@ -3031,12 +5583,6 @@ window.COURSE_DATA = {
         "delete 普通局部变量地址。",
         "申请失败或 n<=0 时未处理边界。"
       ],
-      "example": {
-        "title": "动态数组求和",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n = 3;\n    int *a = new int[n]{1, 2, 3};\n    int sum = 0;\n    for (int i = 0; i < n; ++i) sum += a[i];\n    cout << sum << endl;\n    delete[] a;\n    a = nullptr;\n    return 0;\n}",
-        "output": "6",
-        "explanation": "动态数组使用完后必须 delete[]，随后将指针置空，避免继续误用。"
-      },
       "exercise": {
         "prompt": "读取正整数 n，动态申请长度为 n 的 int 数组，依次赋值为 1 到 n，输出总和，最后释放内存。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // new 数组、求和、delete[]\n    return 0;\n}",
@@ -3093,12 +5639,6 @@ window.COURSE_DATA = {
         "循环条件只看数组容量而不看 '\\0'。",
         "把指针移动到结束符后继续解引用。"
       ],
-      "example": {
-        "title": "字符指针逐字符输出",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[] = \"C++\";\n    const char *p = s;\n    while (*p != '\\0') {\n        cout << *p;\n        ++p;\n    }\n    return 0;\n}",
-        "output": "C++",
-        "explanation": "p 依次指向 C、+、+，遇到结束符时停止。"
-      },
       "exercise": {
         "prompt": "使用 getline 读取一行字符串，使用字符指针统计其中字母的总数并输出。",
         "starter": "#include <iostream>\n#include <cctype>\nusing namespace std;\n\nint main() {\n    char s[200];\n    cin.getline(s, 200);\n    // 使用字符指针统计字母\n    return 0;\n}",
@@ -3155,12 +5695,6 @@ window.COURSE_DATA = {
         "用 a 本身当作 int* 做普通元素运算。",
         "按行遍历时行列边界写反。"
       ],
-      "example": {
-        "title": "行指针访问二维数组",
-        "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[2][3] = {{1, 2, 3}, {4, 5, 6}};\n    int (*p)[3] = a;\n    cout << p[1][2] << endl;\n    return 0;\n}",
-        "output": "6",
-        "explanation": "p[1] 指向第二行，p[1][2] 是第二行第三列。"
-      },
       "exercise": {
         "prompt": "定义 2×3 数组 {{1,2,3},{4,5,6}}，使用行指针 p 输出第一行元素之和。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[2][3] = {{1, 2, 3}, {4, 5, 6}};\n    // 定义行指针并求和\n    return 0;\n}",
@@ -3217,12 +5751,6 @@ window.COURSE_DATA = {
         "解引用时指针没有有效指向。",
         "交换后仍用原指针理解变量对应关系。"
       ],
-      "example": {
-        "title": "交换指针",
-        "code": "int a = 3, b = 5;\nint *p = &a, *q = &b, *temp;\ntemp = p;\np = q;\nq = temp;\ncout << *p << ' ' << *q << endl;",
-        "output": "5 3",
-        "explanation": "a、b 的值没有改变，但 p 改为指向 b，q 改为指向 a。"
-      },
       "exercise": {
         "prompt": "令 a=3、b=5，p 指向 a，q 指向 b。只交换指针 p、q，依次输出 *p、*q、a、b。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 3, b = 5;\n    int *p = &a, *q = &b;\n    // 交换指针并输出\n    return 0;\n}",
@@ -3286,12 +5814,6 @@ window.COURSE_DATA = {
         "内层越界读取。",
         "主串指针没有前进导致死循环。"
       ],
-      "example": {
-        "title": "逐起点比较",
-        "code": "for (char *p = s; *p != '\\0'; ++p) {\n    char *a = p, *b = sub;\n    while (*b != '\\0' && *a == *b) {\n        ++a;\n        ++b;\n    }\n    if (*b == '\\0') ++count;\n}",
-        "output": "count 记录重叠匹配次数。",
-        "explanation": "每个主串起点都独立尝试匹配一次。"
-      },
       "exercise": {
         "prompt": "读取主串 s 和子串 sub，不含空格，统计 sub 在 s 中出现的次数，允许重叠。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[100], sub[50];\n    cin >> s >> sub;\n    int count = 0;\n    // 用指针统计子串次数\n    cout << count << endl;\n    return 0;\n}",
@@ -3355,12 +5877,6 @@ window.COURSE_DATA = {
         "用 > 直接比较两个 C 字符串。",
         "试图修改字符串常量内容。"
       ],
-      "example": {
-        "title": "交换两个指针",
-        "code": "char *words[] = {\"pear\", \"apple\"};\nchar *temp = words[0];\nwords[0] = words[1];\nwords[1] = temp;",
-        "output": "apple pear",
-        "explanation": "字符串字面量位置没有移动，改变的只是指针数组中的地址。"
-      },
       "exercise": {
         "prompt": "读取 4 个单词，存入字符指针数组，按字典序排序并逐行输出。",
         "starter": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    char a[20], b[20], c[20], d[20];\n    cin >> a >> b >> c >> d;\n    char *words[] = {a, b, c, d};\n    // 按字典序交换指针并输出\n    return 0;\n}",
@@ -3400,6 +5916,1870 @@ window.COURSE_DATA = {
       ]
     },
     {
+      "id": "l6-ex6-1",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.1 编写 max 函数求三个数中的最大数",
+      "tags": [
+        "课件例题",
+        "函数定义",
+        "调用"
+      ],
+      "overview": "定义 int max(int x,int y) 返回两个整数中的大者；主函数先求 a、b 的较大值存入 m，再求 c、m 的较大值。",
+      "keyPoints": [
+        "函数头包含返回类型、函数名和形参表。",
+        "形参 x、y 是值参数，接收实参的副本。",
+        "return z 把结果返回给调用处。",
+        "两次调用 max，把三个数的比较转化为两次两数比较。"
+      ],
+      "pitfalls": [
+        "函数定义写在 main 内部。",
+        "把 return z 写成 return x（只返回第一个参数）。",
+        "调用时写成 max(a,b,c)，参数个数不匹配。"
+      ],
+      "example": {
+        "title": "例6.1 编写 max 函数求三个数中的最大数",
+        "source": "课件 lesson6 · P7",
+        "code": "int max(int x,int y) \n{\n    int z;          \n    if(x>y)\n        z=x;\n    else \n        z=y;\n    return z;   //将大的数返回\n}\nint main()\n{\n    int a,b,c,m;\n    cin>>a>>b>>c;\n    m=max(a,b);\n    m=max(c,m);\n    cout<<m<<endl;\n    system(\"pause\");\n    return 0;\n}",
+        "output": "输入 3 5 4 时输出 5",
+        "explanation": "max 只负责两个数比较，主函数通过两次调用完成三个数比较：先得到 a、b 的较大者 m，再让 m 与 c 比较。这样函数功能单一、可复用。课件提醒注意参数声明方式：每个形参都要写类型。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "返回类型 int，函数名 max，两个 int 形参。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "z 是局部变量，只在 max 内部有效。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "比较两个形参。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "把较大值返回给调用者。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "第一次调用，得到 a、b 的较大者。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "第二次调用，把上次结果与 c 比较。"
+          }
+        ]
+      },
+      "masteryHint": "能写出函数头和 return 语句，并说明两次调用的顺序。",
+      "sourcePages": [
+        7
+      ]
+    },
+    {
+      "id": "l6-ex6-2",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.2 用函数 pic 输出三角形",
+      "tags": [
+        "课件例题",
+        "函数",
+        "嵌套循环",
+        "setw"
+      ],
+      "overview": "把“输出 n 行 * 三角形”封装成 void pic(int n)，主函数分别调用 pic(4) 和 pic(6)。",
+      "keyPoints": [
+        "void 表示函数没有返回值，调用时单独成句。",
+        "pic 内部用外层循环控制行，内层循环控制每行的 * 个数。",
+        "setw(10-i) 控制每行起始位置，形成三角形。",
+        "函数参数 n 决定行数，同一函数可输出不同大小的图形。"
+      ],
+      "pitfalls": [
+        "setw 需要 <iomanip>，课件示例未写出。",
+        "内层循环条件写成 j<2*i 而不是 2*i+1，少一个 *。",
+        "void 函数里写 return 值。"
+      ],
+      "example": {
+        "title": "例6.2 用函数 pic 输出三角形",
+        "source": "课件 lesson6 · P8",
+        "code": "void pic(int n)\n{\n    for(int i=0;i<n;i++)\n    {\n        cout<<setw(10-i)<< ' ';\n        for(int j=0;j<2*i+1;j++)\n            cout<<\"*\";\n        cout<<endl;\n    }\n}\nint main()\n{\n    pic(4);\n    pic(6);\n    system(\"pause\");\n    return 0;  \n}",
+        "output": "先输出 4 行三角形，再输出 6 行三角形",
+        "explanation": "第 i 行有 2i+1 个星号，前面的空格数随 i 增大而减少，所以用 setw(10-i) 把起始位置逐行左移。pic 把“画三角形”这件事封装起来，主函数只关心调用几次、传几行。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "void 表示不返回值；n 是行数。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "外层控制行号，共 n 行。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "用输出宽度控制每行起始位置，i 越大越靠左。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "第 i 行输出 2i+1 个星号。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "调用函数输出 4 行。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "同一个函数换一个实参，输出 6 行。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 pic 的参数、返回值和两层循环各自的作用。",
+      "sourcePages": [
+        8
+      ]
+    },
+    {
+      "id": "l6-ex6-3",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.3 求最大公约数和最小公倍数",
+      "tags": [
+        "课件例题",
+        "函数嵌套调用",
+        "gcd",
+        "lcm"
+      ],
+      "overview": "gcd 用辗转相除求最大公约数，lcm 直接返回 m*n/gcd(m,n)。lcm 内部调用 gcd，体现函数嵌套调用。",
+      "keyPoints": [
+        "while(r=m%n) 等价于 while((r=m%n)!=0)。",
+        "循环体 m=n;n=r; 构造新数对。",
+        "最小公倍数 = m*n/最大公约数。",
+        "lcm 调用 gcd，属于函数嵌套调用。"
+      ],
+      "pitfalls": [
+        "while(r=m%n) 的括号不能少，否则先算 m%n 再赋值。",
+        "lcm 先算 m*n 可能溢出（大数时）。",
+        "gcd 没有处理 n==0 的情况。"
+      ],
+      "example": {
+        "title": "例6.3 求最大公约数和最小公倍数",
+        "source": "课件 lesson6 · P11",
+        "code": "int gcd(int m,int n)\n{ \n    int r;\n    while(r=m%n)\n    {  m=n;n=r;  }\n    return(n); \n}\nint lcm(int m,int n)\n{\n    return( m*n/gcd(m,n) );\n}\n#include <iostream>\nusing namespace std;\nint main( )\n{\n    int m,n;\n    cin>>m>>n;\n    cout<<gcd(m,n)<<endl;\n    cout<<lcm(m,n)<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 12 18：先输出 6，再输出 36",
+        "explanation": "gcd 反复用余数替换，直到余数为 0，此时 n 是最大公约数。lcm 利用公式 m*n/gcd(m,n) 求最小公倍数，函数内部又调用 gcd，所以执行顺序是 main→lcm→gcd→lcm→main。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "先求余赋给 r，再判断 r 是否为 0；等价于 while((r=m%n)!=0)。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "除数变被除数，余数变除数。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "余数为 0 时的除数 n 就是最大公约数。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "最小公倍数公式，内部调用 gcd。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "先输出最大公约数。"
+          },
+          {
+            "section": 0,
+            "line": 19,
+            "text": "再输出最小公倍数。"
+          }
+        ]
+      },
+      "masteryHint": "能手工模拟 12、18 的 gcd 过程，并说明 lcm 为什么调用 gcd。",
+      "sourcePages": [
+        11
+      ]
+    },
+    {
+      "id": "l6-ex6-4",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.4 函数说明（函数原型）示例",
+      "tags": [
+        "课件例题",
+        "函数原型",
+        "先声明后调用"
+      ],
+      "overview": "max 定义在 main 之后，因此在 main 内先写 int max(int x,int y); 进行函数说明，编译器才知道 max 的返回类型和参数表。",
+      "keyPoints": [
+        "函数调用在前、定义在后时，必须先说明（声明原型）。",
+        "原型可以写在调用它的函数内，也可以写在源文件开头。",
+        "原型与定义的返回类型、函数名、参数表必须一致。",
+        "原型中形参名可以省略，写成 int max(int,int); 也可以。"
+      ],
+      "pitfalls": [
+        "漏写分号。",
+        "原型与定义的参数类型不一致。",
+        "把函数定义写在 main 内部。"
+      ],
+      "example": {
+        "title": "例6.4 函数说明（函数原型）示例",
+        "source": "课件 lesson6 · P13",
+        "code": "#include <iostream>\nusing namespace std;\nint main( ) \n{     int a,b,c;\n      int max(int x,int y);   //亦可int max(int,int);\n      cin>>a>>b;   \n      c=max(a,b);\n      cout<<c<<endl; \n      system(\"pause\");\n      return 0;\n}\nint max(int x,int y) \n{     return x>y?x:y ; \n}",
+        "output": "输入 3 5 时输出 5",
+        "explanation": "编译器从上到下扫描，遇到 max(a,b) 时还没看到 max 的定义，所以需要前面的原型告诉它“max 是 int(int,int)”。原型只声明不实现，真正的函数体在 main 之后。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "函数说明，告诉编译器 max 的返回类型和参数类型；末尾分号不能少。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "有了原型，编译器才能检查实参个数和类型。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "真正的函数定义，写在 main 之后。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "条件运算符返回较大值。"
+          }
+        ]
+      },
+      "masteryHint": "能说出什么时候必须写函数原型，以及原型与定义必须一致的三项。",
+      "sourcePages": [
+        13
+      ]
+    },
+    {
+      "id": "l6-ex6-5",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.5 值参数能否交换两个变量？",
+      "tags": [
+        "课件例题",
+        "值参数",
+        "交换"
+      ],
+      "overview": "swap(int x,int y) 内部确实交换了 x、y，但 x、y 只是实参的副本，main 中的 a、b 不受影响。",
+      "keyPoints": [
+        "值参数传递的是实参值的副本。",
+        "形参的改变不会影响实参。",
+        "函数返回后，形参 x、y 消失，交换结果也消失。",
+        "要真正交换实参，必须用引用参数或指针参数。"
+      ],
+      "pitfalls": [
+        "以为形参交换了实参就交换了。",
+        "忘记函数调用的实参是值传递。",
+        "把 swap 写成有返回值的函数却没有接收返回值。"
+      ],
+      "example": {
+        "title": "例6.5 值参数能否交换两个变量？",
+        "source": "课件 lesson6 · P14",
+        "code": "#include  <iostream>\nvoid  swap(int x,int y)\n{    \n    int temp;\n    temp=x;x=y;y=temp;\n}\nint main()\n{    \n    int a,b;\n    cin>>a>>b;\n    swap(a,b);\n    cout<<\"a=\"<<a<<\" b=\"<<b<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 10 20 时输出：a=10 b=20",
+        "explanation": "调用 swap(a,b) 时，系统为 x、y 分配新空间，并把 a、b 的值复制进去。函数内交换的是 x、y 两个副本，a、b 原封不动。课件用动画演示了这一点：实参和形参是两组独立的存储单元。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "x、y 是值参数，接收实参的副本。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "这里只交换了副本 x、y。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "调用时把 a、b 的值复制给 x、y。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "函数返回后 x、y 已消失，a、b 仍是原值。"
+          }
+        ]
+      },
+      "masteryHint": "能画出调用前后实参与形参两组存储单元的变化。",
+      "sourcePages": [
+        14
+      ]
+    },
+    {
+      "id": "l6-ex6-6",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.6 引用参数交换两数",
+      "tags": [
+        "课件例题",
+        "引用参数",
+        "交换"
+      ],
+      "overview": "void swap(int &x,int &y) 中 x、y 是实参的引用（别名），交换 x、y 就是交换 a、b。",
+      "keyPoints": [
+        "引用是变量的别名，与被引用变量共用同一段内存。",
+        "int &x 中的 & 是引用声明符，不是取地址。",
+        "引用参数要求实参必须是变量，不能是常量或表达式。",
+        "对引用的操作就是对被引用变量的操作。"
+      ],
+      "pitfalls": [
+        "把 int &x 写成 int x，退回值参数。",
+        "调用时写 swap(3,5)，引用不能绑定常量。",
+        "以为引用会另外占一块内存。"
+      ],
+      "example": {
+        "title": "例6.6 引用参数交换两数",
+        "source": "课件 lesson6 · P20",
+        "code": "#include <iostream>\nusing namespace std;\nvoid  swap(int &x,int &y)\n{ int temp=x;x=y;y=temp; }\nint main()\n{ int a,b;\ncin>>a>>b;\nswap(a,b);\ncout<<\"a=\"<<a<<\"b=\"<<b;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 10 20 时输出：a=20b=10",
+        "explanation": "x 是 a 的别名，y 是 b 的别名，函数内对 x、y 的读写直接落到 a、b 上。与例6.5 对比：值参数交换的是副本，引用参数交换的是本体。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "& 表示引用；x 绑定实参 a，y 绑定实参 b。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "对别名的操作就是对 a、b 的操作。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "实参必须是变量，引用才能绑定。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "输出 a=20b=10，说明 a、b 真的被交换了。"
+          }
+        ]
+      },
+      "masteryHint": "能对比值参数与引用参数的存储关系，并说出引用实参的限制。",
+      "sourcePages": [
+        20
+      ]
+    },
+    {
+      "id": "l6-ex6-7",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.7 指针参数交换两个变量的值",
+      "tags": [
+        "课件例题",
+        "指针参数",
+        "交换"
+      ],
+      "overview": "swap(int *x,int *y) 接收 &a、&b，函数内用 *x、*y 访问并交换 a、b 的内容。若只交换 x、y 两个指针，a、b 不会变。",
+      "keyPoints": [
+        "调用时传地址：swap(&a,&b)。",
+        "形参 int *x 接收地址，*x 就是 a。",
+        "int temp=*x; *x=*y; *y=temp; 交换的是所指内容。",
+        "若写成 temp=x;x=y;y=temp; 只交换了形参指针，实参不受影响。"
+      ],
+      "pitfalls": [
+        "调用时写 swap(a,b) 而不是 swap(&a,&b)。",
+        "函数内写 x=y 而不是 *x=*y。",
+        "temp 定义为 int * 后又用 *temp，类型不匹配。"
+      ],
+      "example": {
+        "title": "例6.7 指针参数交换两个变量的值",
+        "source": "课件 lesson6 · P21",
+        "code": "#include <iostream>\nvoid swap(int * ,int * );\nint main()\n{\nint a,b;\ncin>>a>>b;\nswap(&a,&b);\ncout<<\"a=\"<<a<<\" b=\"<<b<<endl;\nsystem(\"pause\");\nreturn 0;\n}\nvoid swap(int *x,int *y)\n{ int temp=*x;*x=*y;*y=temp; }",
+        "output": "输入 10 20 时输出：a=20 b=10",
+        "explanation": "x 存放 a 的地址，*x 就是 a；y 存放 b 的地址，*y 就是 b。temp=*x 保存 a 的值，*x=*y 把 b 的值写到 a，*y=temp 把原 a 的值写到 b。课件还给出反例：只交换 x、y 两个指针，a、b 的内容不会变。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "函数原型，两个形参都是 int 指针。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "实参必须是地址，才能让形参指向 a、b。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "x、y 存放地址。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "保存 x 所指变量（a）的值。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "把 y 所指变量（b）的值写到 a。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "把保存的 a 原值写到 b。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 swap(&a,&b) 中 & 的作用，以及函数内为什么必须写 *x。",
+      "sourcePages": [
+        21
+      ]
+    },
+    {
+      "id": "l6-ex6-8",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.8 三位数反复重排相减得到 495",
+      "tags": [
+        "课件例题",
+        "指针参数",
+        "迭代",
+        "数字分解"
+      ],
+      "overview": "get_maxmin 用指针参数把最大数、最小数带回主函数；主函数反复用 max-min 生成新的三位数，直到等于 495。",
+      "keyPoints": [
+        "get_maxmin 的参数是三个数字 a、b、c 和两个指针 max、min。",
+        "三条 if 把 a、b、c 排成 a>=b>=c。",
+        "最大数 = a*100+b*10+c，最小数 = c*100+b*10+a。",
+        "主函数用 do-while 保证输入合法：num!=495 且三位不全相等。"
+      ],
+      "pitfalls": [
+        "排序三条 if 的顺序写错，得不到 a>=b>=c。",
+        "最小数忘记百位可以是 0（如 330 的 min=33）。",
+        "do-while 条件写成 num==495||a==b&&a==c 时逻辑反了。"
+      ],
+      "example": {
+        "title": "例6.8 三位数反复重排相减得到 495",
+        "source": "课件 lesson6 · P30-P31",
+        "code": "#include <iostream>\nusing namespace std;\nvoid get_maxmin(int a,int b,int c, int *max, int *min)\n{\n    int t;\n    if(a<b)\n    {t=a;a=b;b=t;}\n    if(a<c)\n    { t=a;a=c;c=t;}\n    if(b<c)\n    { t=b;b=c;c=t;}\n    *max=a*100+ b*10 +c ;\n    *min=c*100+ b*10 +a ;\n}\nint main()\n{    int a,b,c,max,min,num;\ndo\n{    cin>>num;\na=num/100;b=num%100/10;c=num%10;\n}while(num==495||a==b&&a==c);\nwhile(num!=495)\n{\nget_maxmin(a,b,c,&max,&min);\nnum=max-min;\na=num/100; b=num%100/10; c=num%10;\ncout<<max<<\"-\"<<min<<\"==>\"<<num<<endl;\n}\nsystem(\"pause\");return 0;\n}",
+        "output": "输入 814：841-148==>693，963-369==>594，954-459==>495",
+        "explanation": "get_maxmin 先把三个数字从大到小排好，再拼成最大数和最小数。主函数每轮调用它，用 max-min 得到新的 num，再拆出新的三位数字。do-while 的条件表示“输入 495 或三位全相等就重新输入”，保证初始值有效。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "三个数字按值传入，max、min 用指针带回结果。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "第一条 if 保证 a>=b。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "第二条 if 保证 a>=c，于是 a 是最大。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "第三条 if 保证 b>=c，最终 a>=b>=c。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "用排好的数字拼最大三位数。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "倒过来拼最小三位数，百位可以为 0。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "输入 495 或三位全相等时重新输入。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "用最大数减最小数生成新的 num。"
+          }
+        ]
+      },
+      "masteryHint": "能解释三条 if 如何把三个数字排好，以及指针参数为什么要用 &max、&min。",
+      "sourcePages": [
+        30
+      ]
+    },
+    {
+      "id": "l6-ex6-9",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.9 数组作参数，从大到小排序",
+      "tags": [
+        "课件例题",
+        "数组参数",
+        "选择排序"
+      ],
+      "overview": "void sort(int x[],int n) 接收数组名和元素个数，用选择法从大到小排序；对形参数组的修改会直接影响实参数组。",
+      "keyPoints": [
+        "数组名作实参传递的是首地址，形参数组与实参数组共用同一块内存。",
+        "形参数组可以不写长度，写了也必须是常量。",
+        "数值数组必须额外传元素个数 n。",
+        "排序用选择法，条件 x[k]<x[j] 找最大值。"
+      ],
+      "pitfalls": [
+        "形参写成 int x[n]（n 是变量）。",
+        "调用时只传数组名，不传长度。",
+        "把 x[k]<x[j] 写反，变成升序。"
+      ],
+      "example": {
+        "title": "例6.9 数组作参数，从大到小排序",
+        "source": "课件 lesson6 · P32",
+        "code": "void sort(int x[],int n) \n{    int i,j,k,w;\n    for(i=0;i<n-1;i++)\n    {   k=i;\n        for(j=i+1;j<n;j++)\n            if(x[k]<x[j])\n                k=j; \n        if(i!=k)\n        {w=x[i];x[i]=x[k];x[k]=w;} \n    }\n}",
+        "output": "调用 sort(a,10) 后，a 的前 10 个元素按从大到小排列",
+        "explanation": "形参 x 不是把整个数组复制一份，而是接收实参数组的首地址，所以 x[i] 与 a[i] 是同一个元素。选择法每轮找未排序区间的最大值下标 k，再与起点 i 交换。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "x[] 接收数组首地址，n 是元素个数。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "n 个元素需要 n-1 轮。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "假设本轮起点是最大值。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "发现更大的元素就更新 k，最终 k 指向最大值。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "把最大值换到本轮起点。"
+          }
+        ]
+      },
+      "masteryHint": "能解释为什么数组参数不需要返回值也能修改实参数组。",
+      "sourcePages": [
+        32
+      ]
+    },
+    {
+      "id": "l6-ex6-10",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.10 字符串复制函数（数组版与指针版）",
+      "tags": [
+        "课件例题",
+        "字符数组参数",
+        "指针参数",
+        "填空"
+      ],
+      "overview": "copy_string 把 from 复制到 to。数组版用下标，指针版用 *to++=*from++；两种版本都要在末尾补 '\\0'。",
+      "keyPoints": [
+        "数组版循环条件 from[i]!='\\0'，循环后 to[i]='\\0'。",
+        "指针版循环条件 *from!='\\0'，循环后 *to='\\0'。",
+        "指针版 *to++=*from++ 先复制当前字符，再同时后移两个指针。",
+        "形参写成 const char *from 可以防止函数修改源串。"
+      ],
+      "pitfalls": [
+        "忘记补结束符。",
+        "指针版循环后 to 已经后移，补 '\\0' 要用当前的 *to。",
+        "把 const 加在目标串上，导致无法写入。"
+      ],
+      "example": {
+        "title": "例6.10 字符串复制函数（数组版与指针版）",
+        "source": "课件 lesson6 · P34-P35",
+        "code": "void copy_string(char  from[ ], char  to[ ])\n{     int i=0;\n      while( from[i]!='\\0' ) \n      {    \n          to[i]=from[i];\n          i++; \n      }\n      to[i]='\\0';\n}\nint main()\n{ \n    char a[50]=\"I am a teacher.\", b[50]=\"You are a student.\";\n    cout<<a<<endl<<b<<endl;\n    copy_string(a,b);\n    cout<<a<<endl<<b<<endl;  \n    system(\"pause\");\n    return 0;\n}\n\nvoid copy_string(char *from, char *to)\n{  while( *from!='\\0' ) \n       *to++=*from++;\n   *to='\\0';\n}",
+        "output": "数组版执行后 b 变成 \"I am a teacher.\"；指针版结果相同",
+        "explanation": "数组版用下标 i 同步访问两个数组，复制完可见字符后补 '\\0'。指针版把“复制、后移”压缩成 *to++=*from++：先取 *from 写到 *to，再让两个指针各后移一位。课件还给出 const 版本，表示源串只读。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "数组版：遇到结束符停止。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "逐字符复制。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "数组版必须补结束符。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "把 a 复制到 b；b 原来的内容被覆盖。"
+          },
+          {
+            "section": 1,
+            "line": 2,
+            "text": "指针版：判断源指针当前字符。"
+          },
+          {
+            "section": 1,
+            "line": 3,
+            "text": "先复制，再让 to、from 各后移一位。"
+          },
+          {
+            "section": 1,
+            "line": 4,
+            "text": "指针版循环结束后 to 指向目标串末尾，补结束符。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "数组版",
+            "code": "void copy_string(char  from[ ], char  to[ ])\n{     int i=0;\n      while( from[i]!='\\0' ) \n      {    \n          to[i]=from[i];\n          i++; \n      }\n      to[i]='\\0';\n}\nint main()\n{ \n    char a[50]=\"I am a teacher.\", b[50]=\"You are a student.\";\n    cout<<a<<endl<<b<<endl;\n    copy_string(a,b);\n    cout<<a<<endl<<b<<endl;  \n    system(\"pause\");\n    return 0;\n}"
+          },
+          {
+            "label": "指针版",
+            "code": "void copy_string(char *from, char *to)\n{  while( *from!='\\0' ) \n       *to++=*from++;\n   *to='\\0';\n}"
+          }
+        ]
+      },
+      "masteryHint": "能写出数组版和指针版，并解释 *to++=*from++ 的执行顺序。",
+      "sourcePages": [
+        34
+      ]
+    },
+    {
+      "id": "l6-ex6-11",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.11 二维数组每行求和并求最大最小元素",
+      "tags": [
+        "课件例题",
+        "二维数组参数",
+        "引用参数"
+      ],
+      "overview": "maxmin 接收二维数组 x[][4]、行数 m、列数 n，把每行和存入 lsum，同时用引用参数带回最大值、最小值。",
+      "keyPoints": [
+        "二维数组作形参时，第一维长度可以省略，第二维长度必须写。",
+        "lsum[] 接收一维数组，存放每行和。",
+        "int &max、int &min 是引用参数，能把结果带回主函数。",
+        "max、min 的初值取 x[0][0]，避免全负数时出错。"
+      ],
+      "pitfalls": [
+        "形参写成 int x[][]，第二维没长度。",
+        "lsum[i] 忘记在每行开始前清零。",
+        "max、min 初值设为 0。"
+      ],
+      "example": {
+        "title": "例6.11 二维数组每行求和并求最大最小元素",
+        "source": "课件 lesson6 · P36",
+        "code": "#include <iostream>\nusing namespace std;\nvoid maxmin(int x[][4],int m,int n,int lsum[],int &max,int &min)\n{\n    int i,j;\n    max=x[0][0];min=x[0][0];\n    for(i=0;i<m;i++)\n    {\n        lsum[i]=0;\n        for(j=0;j<n;j++)\n        {\n            lsum[i]=lsum[i]+x[i][j];\n            if(x[i][j]>max)\n                max=x[i][j];\n            if(x[i][j]<min)\n                min=x[i][j];\n        }\n    }\n}\nint main()\n{\n    int line_sum[3],max,min;\n    int a[3][4]={{11,2,3,-4},{5,6,7,8},{0,20,21,1}};\n    maxmin(a,3,4,line_sum,max,min);\n    for(int i=0;i<3;i++)\n        cout<<i<<\"行和：\"<<line_sum[i]<<endl;\n    cout<<\"最大元素值：\"<<max<<endl;\n    cout<<\"最小元素值：\"<<min<<endl;\nsystem(\"pause\");return 0;\n}",
+        "output": "0行和：12\n1行和：26\n2行和：42\n最大元素值：21\n最小元素值：-4",
+        "explanation": "外层 i 遍历行，内层 j 遍历列。每进入新的一行，先把 lsum[i] 清零，再累加该行元素。max、min 在整个遍历过程中持续更新，所以最后得到整个二维数组的极值。引用参数 max、min 让函数能把两个结果都带回主函数。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "二维数组形参省略第一维，第二维必须写 4。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "lsum 接收一维数组；max、min 是引用参数。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "用第一个元素初始化极值，数组全负也正确。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "每行开始前清零，否则会累加上一行的和。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "累加当前行的每个元素。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "更新最大值。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "数组名传地址，max、min 传变量本身。"
+          }
+        ]
+      },
+      "masteryHint": "能解释第二维长度为什么不能省，以及引用参数如何带回两个结果。",
+      "sourcePages": [
+        36
+      ]
+    },
+    {
+      "id": "l6-ex6-12",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.12 返回指针的函数 search",
+      "tags": [
+        "课件例题",
+        "返回指针",
+        "字符串查找",
+        "填空"
+      ],
+      "overview": "search 在字符串 s 中查找字符 ch，找到返回该字符的地址，找不到返回 NULL；主函数输出从该位置开始的子串。",
+      "keyPoints": [
+        "返回类型 char * 表示函数返回字符指针。",
+        "while(s[i]!='\\0') 遍历字符串。",
+        "找到时 return &s[i]，返回该字符的地址。",
+        "主函数用 if(p!=NULL) 判断是否找到，cout<<p 输出从 p 开始的子串。"
+      ],
+      "pitfalls": [
+        "返回 s[i]（字符）而不是 &s[i]（地址）。",
+        "找到后忘记 return，继续循环。",
+        "主函数不判断 NULL 就输出。"
+      ],
+      "example": {
+        "title": "例6.12 返回指针的函数 search",
+        "source": "课件 lesson6 · P38",
+        "code": "#include <iostream>\nusing namespace std;\nchar *search(char s[],char ch)\n{\n    int i=0;\n    while( s[i]!='\\0' )\n        if(s[i]!=ch) \n            i++;\n        else              \n            return(&s[i]);\n    return NULL;\n}\nint main()\n{\n    char s[100],ch,*p;\n    gets(s);\n    cin>>ch;\n    p=search(s,ch);\n    if(p!=NULL) \n        cout<<p<<endl;\n    else  \n        cout<<\"not found\\n\";\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 hello 和 l 时输出：llo",
+        "explanation": "search 逐个比较，找到 ch 就返回它的地址；主函数拿到地址后直接 cout<<p，会从该字符一直输出到 '\\0'，所以得到从第一个 l 开始的子串 llo。找不到时返回 NULL，主函数据此输出 not found。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "返回类型是 char *，即字符指针。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "遍历到字符串末尾。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "当前字符不是目标就继续后移。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "找到时返回该字符的地址，不是字符本身。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "循环结束仍未找到，返回空指针。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "用指针 p 接收返回的地址。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "从 p 指向的字符开始输出整个子串。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 return &s[i] 与 return s[i] 的区别，以及 cout<<p 为什么输出子串。",
+      "sourcePages": [
+        38
+      ]
+    },
+    {
+      "id": "l6-ex6-13",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.13 递归求斐波那契数列",
+      "tags": [
+        "课件例题",
+        "递归",
+        "fib"
+      ],
+      "overview": "fib(n)=1（n=1 或 2），否则 fib(n)=fib(n-1)+fib(n-2)。递归结束条件是 n==1||n==2。",
+      "keyPoints": [
+        "递归函数必须有一个能直接返回的结束条件。",
+        "n==1||n==2 时返回 1。",
+        "否则返回 fib(n-1)+fib(n-2)，规模不断减小。",
+        "递归调用会形成一棵调用树，n 较大时重复计算很多。"
+      ],
+      "pitfalls": [
+        "结束条件写成 n==0，导致 fib(1) 继续递归。",
+        "漏掉 return。",
+        "n 为 0 或负数时没有处理。"
+      ],
+      "example": {
+        "title": "例6.13 递归求斐波那契数列",
+        "source": "课件 lesson6 · P43",
+        "code": "int fib(int n)\n{\n    if( n==1 || n==2 ) \n        return(1);\n    else\n        return(fib(n-1)+fib(n-2));\n}",
+        "output": "fib(1)=1，fib(2)=1，fib(6)=8",
+        "explanation": "斐波那契数列前两项都是 1，从第三项起每一项等于前两项之和。递归把 fib(n) 化成两个更小的子问题，直到 n 减到 1 或 2 时直接返回。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "参数 n 表示第几项；返回类型 int，n 较大时结果会溢出。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "递归结束条件：前两项都返回 1。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "结束时的值。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "递归表达式：前两项之和，规模分别减 1、减 2。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "n>2 时进入递归分支；else 与最近的 if 配对。"
+          }
+        ],
+        "blankHints": [
+          "递归结束条件：n==1||n==2 时 return(1)。"
+        ]
+      },
+      "masteryHint": "能写出递归结束条件和递归表达式，并说出 fib(5) 的调用展开。",
+      "sourcePages": [
+        43
+      ]
+    },
+    {
+      "id": "l6-ex6-14",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.14 用递归实现数组递增排序",
+      "tags": [
+        "课件例题",
+        "递归",
+        "排序",
+        "填空"
+      ],
+      "overview": "sort(a,n) 先把最大的元素冒到 a[n-1]，再递归调用 sort(a,n-1) 排前面 n-1 个元素；n==1 时结束。",
+      "keyPoints": [
+        "递归结束条件 n==1，此时只剩一个元素，天然有序。",
+        "for(i=0;i<n-1;i++) 一趟冒泡，把最大值放到 a[n-1]。",
+        "然后调用 sort(a,n-1)，规模减 1。",
+        "这是“冒泡排序的递归写法”。"
+      ],
+      "pitfalls": [
+        "结束条件写成 n==0 后仍访问 a[n-1]。",
+        "递归调用写成 sort(a,n)，规模不变，死递归。",
+        "忘记 return。"
+      ],
+      "example": {
+        "title": "例6.14 用递归实现数组递增排序",
+        "source": "课件 lesson6 · P44-P45",
+        "code": "void sort(int a[],int n)\n{\n    int i;\n    if( n==1 )\n        return;\n    else\n    {    \n        for(i=0;i<n-1;i++)\n            if(a[i]>a[i+1])\n            {  \n                int t=a[i];\n                a[i]=a[i+1];\n                a[i+1]=t;\n            }\n        sort(a,n-1);\n    }\n}",
+        "output": "数组 a 的前 n 个元素按递增排列",
+        "explanation": "每一层递归先用一趟冒泡把当前范围的最大值送到末尾 a[n-1]，这个位置就固定了；然后对前 n-1 个元素重复同样的工作。n 减到 1 时只剩一个元素，递归结束。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "递归结束条件：只剩一个元素。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "void 函数直接返回。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "一趟冒泡，把最大值送到 a[n-1]。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "相邻逆序就交换。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "递归处理前面 n-1 个元素，规模递减。"
+          }
+        ],
+        "blankHints": [
+          "递归结束条件：n==1 时 return；递归调用：sort(a,n-1)。"
+        ]
+      },
+      "masteryHint": "能说出每一层递归固定了哪个元素，以及为什么 n 要减 1。",
+      "sourcePages": [
+        44
+      ]
+    },
+    {
+      "id": "l6-ex6-15",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.15 带默认参数的级数求和",
+      "tags": [
+        "课件例题",
+        "默认参数",
+        "级数"
+      ],
+      "overview": "s(x,eps=1e-6) 求 1+x+x^2/2!+x^3/3!+…，当 |t|<eps 时停止。eps 有默认值，调用时可以不传。",
+      "keyPoints": [
+        "默认参数必须放在形参表最右端。",
+        "s(2.0) 只传 x，eps 取默认 1e-6。",
+        "s(1.0,1e-5) 显式传入 eps。",
+        "通项递推 t=t*x/(n++)，n 从 1 开始。"
+      ],
+      "pitfalls": [
+        "把默认参数放在非默认参数左边。",
+        "在函数定义和原型中重复设置默认值。",
+        "循环条件写成 fabs(t)<=eps，导致多算一项或死循环。"
+      ],
+      "example": {
+        "title": "例6.15 带默认参数的级数求和",
+        "source": "课件 lesson6 · P46",
+        "code": "#include  <iostream>\nusing namespace std; \ndouble s(double x , double eps=1e-6)\n{     \n    int n=1; \n    double w=0.0, t=1.0 ;\n    while(fabs(t)>=eps)\n    {\n        w+=t;\n        t=t*x/(n++);\n    }\n    return  w;\n}\nint main()\n{ \n    cout<<\"s1=\"<<s(2.0); \n    cout<<\"s2=\"<<s(3.0);\n    cout<<\"s3=\"<<s(1.0,1e-5);\n    system(\"pause\");\n    return 0;\n} ",
+        "output": "s1≈7.38906，s2≈20.0855，s3≈2.71828",
+        "explanation": "第一项 t=1 对应 1/0!。每轮把 t 加到 w，再用 t=t*x/(n++) 得到下一项：n 先参与除法再自增，所以第二项是 x/1，第三项是 x^2/2!。eps 控制精度，默认 1e-6。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "默认参数写在最右端，调用时可省略。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "n 从 1 开始，对应 t=t*x/1 得到 x 的一次项。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "当前项还不小于精度就继续累加。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "累加当前项。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "递推下一项：先乘 x 除以 n，再让 n 加 1。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "显式传入 eps，覆盖默认值。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 n++ 在 t=t*x/(n++) 中的执行顺序，以及默认参数的位置要求。",
+      "sourcePages": [
+        46
+      ]
+    },
+    {
+      "id": "l6-ex6-16",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.16 函数模板 abs",
+      "tags": [
+        "课件例题",
+        "函数模板",
+        "template"
+      ],
+      "overview": "template <class T> T abs(T x) 用同一个函数体处理 int、double、long，调用时由实参类型自动推导 T。",
+      "keyPoints": [
+        "template <class T> 声明模板类型参数 T。",
+        "class 可以用 typename 替代。",
+        "调用 abs(x1)、abs(x2)、abs(x3) 时，T 分别被推导为 int、double、long。",
+        "模板参数 T 必须出现在函数形参表中。"
+      ],
+      "pitfalls": [
+        "模板参数 T 没有出现在形参表中，无法推导。",
+        "模板函数定义放在 .cpp 中又被其它文件调用，链接可能失败。",
+        "把 template 写成 template<typename T,> 多写逗号。"
+      ],
+      "example": {
+        "title": "例6.16 函数模板 abs",
+        "source": "课件 lesson6 · P49",
+        "code": "template   <class T>\nT abs(T x)\n{return x>0?x:-x; }\nint main()\n{int x1=1;\ndouble x2=2.5;\nlong x3=3L;\ncout<<abs(x1)<<endl;   \ncout<<abs(x2)<<endl; \ncout<<abs(x3)<<endl;\nsystem(\"pause\"); \nreturn 0;\n}",
+        "output": "1\n2.5\n3",
+        "explanation": "模板不是一个具体函数，而是生成函数的“模具”。编译器看到 abs(x1) 时用 int 替换 T，看到 abs(x2) 时用 double 替换 T，于是生成多个版本。这样不用为每种类型重复写相同的函数体。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "声明模板类型参数 T；class 也可写成 typename。"
+          },
+          {
+            "section": 0,
+            "line": 2,
+            "text": "返回类型和形参类型都用 T。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "条件运算符求绝对值，对支持 > 和 - 的类型都适用。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "实参是 int，T 推导为 int。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "实参是 double，T 推导为 double。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "实参是 long，T 推导为 long。"
+          }
+        ]
+      },
+      "masteryHint": "能解释“调用时用实参类型取代模板类型”这句话。",
+      "sourcePages": [
+        49
+      ]
+    },
+    {
+      "id": "l6-ex6-17",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.17 通用排序函数模板",
+      "tags": [
+        "课件例题",
+        "函数模板",
+        "排序"
+      ],
+      "overview": "template <class TEM> void sort(TEM x[],int n) 用选择法对 int、double、char 数组按递增排序。",
+      "keyPoints": [
+        "模板参数 TEM 同时用于数组元素类型和临时变量 w。",
+        "排序逻辑与普通选择排序完全相同。",
+        "sort(a,10)、sort(b,5)、sort(s,strlen(s)) 分别推导出三种类型。",
+        "字符数组排序后按 ASCII 码递增。"
+      ],
+      "pitfalls": [
+        "临时变量 w 写成 int，无法处理 double/char。",
+        "字符串排序传 strlen(s)，不要传数组总长度。",
+        "忘记包含 <cstring> 使用 strlen。"
+      ],
+      "example": {
+        "title": "例6.17 通用排序函数模板",
+        "source": "课件 lesson6 · P50",
+        "code": "#include <iostream>\nusing namespace std;\ntemplate <class TEM> \nvoid sort(TEM x[],int n) \n{\n    int i,j,k;  \n    TEM w;         \n    for(i=0;i<n-1;i++)\n    {     k=i;\n        for(j=i+1;j<n;j++)\n            if(x[k]>x[j])\n                k=j;\n        if(i!=k)\n        {w=x[i];\n         x[i]=x[k];\n         x[k]=w;}\n    }\n}\nint main()\n{\n    int i,a[10]={6,9,2,4,1,0,7,8,3,5};\n    double b[5]={5.5,8.0,1.8,3.3,0};\n    char s[]=\"Hello world!\";\n    sort(a,10);\n    for(i=0;i<10;i++) \n        cout<<a[i]<<endl; \n    sort(b,5);\n    for(i=0;i<5;i++) \n        cout<<b[i]<<endl;\n    sort(s,strlen(s));\n    cout<<s<<endl;\nsystem(\"pause\");return 0;\n}",
+        "output": "整数、实数、字符串分别按递增/ASCII 顺序输出",
+        "explanation": "排序算法只依赖“比较”和“赋值”，这两种操作对 int、double、char 都成立，所以可以把元素类型抽成模板参数 TEM。调用时编译器根据数组类型生成对应的 sort 版本。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "声明模板类型参数 TEM。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "数组元素类型由 TEM 决定。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "临时变量也必须是 TEM，才能交换任意类型元素。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "统一的比较方式，要求类型支持 >。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "T 推导为 int。"
+          },
+          {
+            "section": 0,
+            "line": 27,
+            "text": "T 推导为 double。"
+          },
+          {
+            "section": 0,
+            "line": 30,
+            "text": "T 推导为 char，只排有效字符，不含 '\\0'。"
+          }
+        ]
+      },
+      "masteryHint": "能说出模板参数 TEM 在函数里出现在哪些位置。",
+      "sourcePages": [
+        50
+      ]
+    },
+    {
+      "id": "l6-ex6-18",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.18 自动局部变量示例",
+      "tags": [
+        "课件例题",
+        "局部变量",
+        "作用域"
+      ],
+      "overview": "f 中的 x、y 是自动局部变量，每次调用重新创建、重新初始化；main 中的 k 也是局部变量，只在 main 内可见。",
+      "keyPoints": [
+        "自动变量作用域从定义点到所在分程序结束。",
+        "生存期是分程序的一次执行过程，调用结束就消亡。",
+        "未初始化的自动变量值是随机的。",
+        "不同函数中的同名变量互不影响。"
+      ],
+      "pitfalls": [
+        "以为局部变量会保留上次调用的值。",
+        "使用未初始化的局部变量。",
+        "在 main 中访问 f 的局部变量。"
+      ],
+      "example": {
+        "title": "例6.18 自动局部变量示例",
+        "source": "课件 lesson6 · P52",
+        "code": "#include <iostream>\nusing namespace std;\nint f(int x)\n{\n    x++;\n    int y=5;\n    y++;\n    return x+y;\n}\nint main()\n{\n    int k=2;\n    cout<<f(k)<<endl;\n    cout<<f(k+1)<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "9\n10",
+        "explanation": "f(2) 时 x 从 2 变成 3，y 每次调用都重新初始化为 5 再变成 6，返回 9。f(3) 时 x 变成 4，y 仍然是 5→6，返回 10。y 不会记住上一次调用的 6，因为它是自动变量。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "x 是值参数，也是 f 的局部变量。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "x 从实参副本加 1。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "每次调用 f 都重新创建 y 并初始化为 5。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "y 变成 6。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "返回本次调用的 x+y。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "k 是 main 的局部变量，与 f 的 x 无关。"
+          }
+        ]
+      },
+      "masteryHint": "能解释为什么两次调用 f 时 y 都从 5 开始。",
+      "sourcePages": [
+        52
+      ]
+    },
+    {
+      "id": "l6-ex6-19",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.19 静态局部变量示例",
+      "tags": [
+        "课件例题",
+        "static",
+        "生存期"
+      ],
+      "overview": "fac 中的 static int f=1 只初始化一次，之后每次调用都沿用上一次的值，因此可以连续计算 1!、2!、3!……",
+      "keyPoints": [
+        "static 局部变量作用域仍在函数内，但生存期是整个程序。",
+        "只在第一次调用时初始化，之后不再执行初始化语句。",
+        "未初始化的静态局部变量默认为 0。",
+        "适合保存“上一次调用的结果”。"
+      ],
+      "pitfalls": [
+        "以为 static 会扩大作用域。",
+        "以为每次调用都会重新执行 f=1。",
+        "在递归函数中滥用静态变量，导致结果依赖调用次数。"
+      ],
+      "example": {
+        "title": "例6.19 静态局部变量示例",
+        "source": "课件 lesson6 · P53",
+        "code": "#include  <iostream>\nusing namespace std;\nint fac(int n) \n{ \n    static int f=1;\n    f=f*n;\n    return(f);\n}\nint main()\n{\n    int i;\n    for(i=1;i<=5;i++)\n        cout<<\"i!=\"<<fac(i)<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "i!=1\ni!=2\ni!=6\ni!=24\ni!=120",
+        "explanation": "第一次调用 fac(1) 时 f 初始化为 1，f=1*1=1；第二次调用 fac(2) 时 f 仍然是 1，f=1*2=2；第三次 f=2*3=6……所以每次都在上一次阶乘的基础上再乘 n。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "fac 返回 n!；参数 n 是本次要乘的数。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "静态局部变量，只初始化一次，程序结束时才销毁。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "在上一次结果的基础上乘 n。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "返回当前阶乘值。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "依次调用 fac(1)~fac(5)，观察 f 是否跨调用保留。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "循环依次传入 1~5，f 在调用之间保持。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 static 局部变量与自动局部变量在生存期上的差别。",
+      "sourcePages": [
+        53
+      ]
+    },
+    {
+      "id": "l6-ex6-20",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.20 全局变量与局部变量同名",
+      "tags": [
+        "课件例题",
+        "全局变量",
+        "同名屏蔽"
+      ],
+      "overview": "全局 m=10、全局 n；main 中又定义了局部 n=2。f1 修改全局 m，f2 修改全局 n，但 main 输出的是局部 n。",
+      "keyPoints": [
+        "全局变量作用域从定义点到文件结束，生存期是整个程序。",
+        "全局变量未初始化时默认为 0。",
+        "局部变量与全局变量同名时，局部变量优先（屏蔽全局）。",
+        "f2 中的 n 是全局 n，main 中的 n 是局部 n，二者不是同一个变量。"
+      ],
+      "pitfalls": [
+        "以为 main 中的 n 会被 f2 改成 6。",
+        "在函数内想访问被屏蔽的全局变量却没有 :: 限定。",
+        "全局变量滥用导致函数之间隐式耦合。"
+      ],
+      "example": {
+        "title": "例6.20 全局变量与局部变量同名",
+        "source": "课件 lesson6 · P54",
+        "code": "#include  <iostream>\nusing namespace std;\nint m=10;\nvoid f1(int n)\n{ n=2*n;m=m/3; }\nint n;\nvoid f2()\n{ n=5;m++;n++; }\nint main()\n{ int n=2;\nf1(n);\nf2();\ncout<<m<<endl<<n<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "4\n2",
+        "explanation": "f1 的形参 n 是局部变量，n=2*n 只改形参；m=m/3 把全局 m 从 10 变成 3。f2 没有局部 n，所以 n=5、n++ 改的是全局 n（变成 6）；m++ 把 m 变成 4。main 中的局部 n 始终是 2，输出 2 而不是 6。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "全局变量，f1、f2、main 都可以访问。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "这里的 n 是 f1 的形参，屏蔽了全局 n。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "整数除法，10/3=3。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "全局 n，未初始化默认为 0。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "f2 没有局部 n，n=5 改的是全局 n。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "main 的局部 n，屏蔽全局 n。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "输出全局 m=4 和 main 的局部 n=2。"
+          }
+        ]
+      },
+      "masteryHint": "能指出 f1、f2、main 中的 n 各是哪一個变量。",
+      "sourcePages": [
+        54
+      ]
+    },
+    {
+      "id": "l6-ex6-21",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.21 用 extern 把作用域向前扩展",
+      "tags": [
+        "课件例题",
+        "extern",
+        "作用域"
+      ],
+      "overview": "全局变量 i 定义在 fun、g 之后，为了让前面的函数也能访问，在文件开头写 extern int i; 进行声明。",
+      "keyPoints": [
+        "extern int i; 是声明，不是定义，不能初始化。",
+        "声明把 i 的作用域扩展到声明位置之后。",
+        "真正的定义 int i=5; 在文件后面。",
+        "扩展的地方不能写初始值。"
+      ],
+      "pitfalls": [
+        "写成 extern int i=5; 这是定义，不是声明。",
+        "只写 extern 却没有真正的定义，链接时报未定义。",
+        "以为 extern 会分配新内存。"
+      ],
+      "example": {
+        "title": "例6.21 用 extern 把作用域向前扩展",
+        "source": "课件 lesson6 · P55",
+        "code": "#include  <iostream>\nusing namespace std;\nextern int i;\nvoid fun()\n{ //extern int i; \n    cout<<i<<endl;\n}\nvoid g()\n{i++;}\nint i=5;\nint main()\n{ int j=20;\ncout<<j<<endl; \ng();\nfun();\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "20\n6",
+        "explanation": "文件开头的 extern int i; 告诉编译器“i 在别处定义”，于是 fun、g 可以合法使用 i。真正的定义 int i=5; 在后面，程序运行时 i 从 5 开始，g() 让它加 1 变成 6，fun() 输出 6。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "声明全局变量 i，把它的作用域扩展到这一行之后；不能初始化。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "fun 在 i 定义之前，靠 extern 声明才能访问 i。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "g 同样通过 extern 声明访问 i。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "真正的定义，分配存储并初始化为 5。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "i++ 把 i 变成 6。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "输出 6。"
+          }
+        ]
+      },
+      "masteryHint": "能区分 extern 声明与定义，并说出扩展处为什么不能初始化。",
+      "sourcePages": [
+        55
+      ]
+    },
+    {
+      "id": "l6-ex6-22",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.22 在函数内用 extern 扩展作用域",
+      "tags": [
+        "课件例题",
+        "extern",
+        "局部扩展"
+      ],
+      "overview": "与例6.21 类似，但把 extern int i; 放进 fun 内部，只在 fun 内扩展 i 的作用域；g 仍通过文件开头的声明访问 i。",
+      "keyPoints": [
+        "extern 声明可以写在函数内，作用范围只到该函数结束。",
+        "文件开头的 extern int i; 仍然为 g 提供声明。",
+        "fun 内的 //extern int i; 可以去注释，表示局部扩展。",
+        "扩展的位置不能初始化。"
+      ],
+      "pitfalls": [
+        "在函数内写 extern int i=5; 变成定义。",
+        "以为函数内的 extern 会影响其它函数。",
+        "重复声明导致混淆。"
+      ],
+      "example": {
+        "title": "例6.22 在函数内用 extern 扩展作用域",
+        "source": "课件 lesson6 · P55",
+        "code": "#include  <iostream>\nusing namespace std;\nextern int i;      //不能初始化\nvoid fun()\n{\n    //extern int i;\n    cout<<i<<endl;\n}\nint i=5;\nint main()\n{\n    int j=20;\n    cout<<j<<endl;  \n    fun();\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "20\n5",
+        "explanation": "文件开头的 extern 已经让 fun 能访问 i，所以 fun 内的 extern 可以注释掉。若去掉注释，也只是在 fun 内再次声明，效果相同；但它的作用范围仅限 fun。main 没有调用 g，所以 i 仍是 5。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "文件级声明，为后面的函数提供 i 的可见性。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "函数内声明，作用范围只到 fun 结束；这里被注释掉。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "输出全局 i 的值。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "真正的定义和初始化。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "没有调用 g，i 保持 5。"
+          }
+        ]
+      },
+      "masteryHint": "能说出文件级 extern 与函数内 extern 的作用范围差别。",
+      "sourcePages": [
+        55
+      ]
+    },
+    {
+      "id": "l6-ex6-23",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.23 用 extern 把作用域横向扩展到另一个文件",
+      "source_note": "多文件示例",
+      "tags": [
+        "课件例题",
+        "extern",
+        "多文件"
+      ],
+      "overview": "file2.cpp 定义全局 max1、min1 和 maxmin 函数；file1.cpp 用 extern 声明这两个变量，并声明 maxmin 函数，从而跨文件访问。",
+      "keyPoints": [
+        "extern int max1,min1; 在 file1 中声明另一文件定义的全局变量。",
+        "函数跨文件使用也要先声明：void maxmin(int x[],int n);",
+        "file2 中定义 max1、min1 时不要写 extern。",
+        "两个源文件要一起编译链接。"
+      ],
+      "pitfalls": [
+        "两个文件都定义 max1、min1，链接时重复定义。",
+        "file1 只写 extern 却没有 file2 的定义。",
+        "忘记声明 maxmin 函数。"
+      ],
+      "example": {
+        "title": "例6.23 用 extern 把作用域横向扩展到另一个文件",
+        "source": "课件 lesson6 · P56",
+        "code": "#include <iostream>\nusing namespace std;\nextern int max1,min1;\nint main()\n{\n    void maxmin(int x[],int n);\n    int a[10]={11,2,3,-4,5,6,7,8,0,20};\n    maxmin(a,10);\n    cout<<max1<<\" \"<<min1<<endl;\nsystem(\"pause\");\nreturn 0;\n}\n\nint max1,min1;\nvoid maxmin(int x[],int n)\n{\n    max1=x[0];\n    min1=x[0];\n    for(int i=0;i<n;i++)\n    {\n        if(x[i]>max1)\n            max1=x[i];\n        if(x[i]<min1)\n            min1=x[i];\n    }\n}",
+        "output": "20 -4",
+        "explanation": "file2 中的 max1、min1 是定义，分配存储；file1 中的 extern 只是声明，告诉编译器“这两个变量在别的文件里”。maxmin 在 file2 中定义，file1 通过函数声明调用它。链接器把两个目标文件合在一起。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "跨文件声明，不分配存储。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "函数声明，告诉 file1 这个函数在别处定义。"
+          },
+          {
+            "section": 1,
+            "line": 2,
+            "text": "file2.cpp 中 maxmin 的定义；它使用 file1 里 extern 声明的 max1、min1。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "真正的定义，未初始化默认为 0。"
+          },
+          {
+            "section": 1,
+            "line": 4,
+            "text": "用第一个元素初始化最大值。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "输出 20 和 -4。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "file1.cpp",
+            "code": "#include <iostream>\nusing namespace std;\nextern int max1,min1;\nint main()\n{\n    void maxmin(int x[],int n);\n    int a[10]={11,2,3,-4,5,6,7,8,0,20};\n    maxmin(a,10);\n    cout<<max1<<\" \"<<min1<<endl;\nsystem(\"pause\");\nreturn 0;\n}"
+          },
+          {
+            "label": "file2.cpp",
+            "code": "int max1,min1;\nvoid maxmin(int x[],int n)\n{\n    max1=x[0];\n    min1=x[0];\n    for(int i=0;i<n;i++)\n    {\n        if(x[i]>max1)\n            max1=x[i];\n        if(x[i]<min1)\n            min1=x[i];\n    }\n}"
+          }
+        ]
+      },
+      "masteryHint": "能说出哪个文件写 extern、哪个文件写定义，以及为什么要一起编译。",
+      "sourcePages": [
+        56
+      ]
+    },
+    {
+      "id": "l6-ex6-24",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.24 验证哥德巴赫猜想",
+      "tags": [
+        "课件例题",
+        "素数",
+        "函数",
+        "嵌套循环"
+      ],
+      "overview": "isprime(m) 判断素数；主函数对 6~x 的每个偶数 n，从 a=3 开始找素数 a，若 b=n-a 也是素数就输出一组分解。",
+      "keyPoints": [
+        "isprime 用 for(i=2;m%i!=0;i++); 找到第一个因子或走到 m。",
+        "return (i==m) 表示没有因子，m 是素数。",
+        "偶数 n 从 6 开始，每次加 2。",
+        "a 从 3 开始每次加 2，保证 a 是奇数；b=n-a 后判断 b 是否素数。"
+      ],
+      "pitfalls": [
+        "isprime 中循环条件写成 i<m，导致 i 永远不等于 m。",
+        "a 从 2 开始，n-a 仍是偶数，除 2 外不可能是素数。",
+        "忘记 break，一个 n 输出多组分解。"
+      ],
+      "example": {
+        "title": "例6.24 验证哥德巴赫猜想",
+        "source": "课件 lesson6 · P58-P59",
+        "code": "#include <iostream>\nusing namespace std;\nint isprime(int m)\n{\n    int i;\n    for(i=2;m%i!=0;i++);\n    return ( i==m );\n}\nint main()\n{\n    int n,x,a,b;\n    cin>>x;\n    for(n=6;n<=x; n+=2 )\n        for(a=3;a<=n/2;a+=2)\n            if( isprime(a) )\n            {\n                b=n-a;\n                if(isprime(b))\n                {\n                    cout<<n<<\"=\"<<a<<\"+\"<<b<<endl;\n                    break; //退出内循环，判别下一个n\n                }\n            }\nsystem(\"pause\");\nreturn 0; \n}  ",
+        "output": "输入 20：6=3+3，8=3+5，10=3+7，12=5+7，14=3+11，16=3+13，18=5+13，20=3+17",
+        "explanation": "isprime 的 for 循环没有循环体，i 从 2 开始一直加到能整除 m 或等于 m。若 i==m，说明 2~m-1 都不能整除，m 是素数。主函数对每个偶数 n，从小到大找第一个素数 a，使 b=n-a 也为素数，找到后 break，避免重复输出。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 6,
+            "text": "空循环体；i 停在第一个能整除 m 的数，或停在 m。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "i==m 表示没有因子，返回 1；否则返回 0。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "只处理 6 以上的偶数。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "a 只取奇数，且不超过 n 的一半，避免重复。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "先保证 a 是素数。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "由 n=a+b 算出 b。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "再保证 b 也是素数。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "找到一组就退出内层，处理下一个 n。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 isprime 的空循环为什么能判断素数，以及 a 为什么从 3 开始。",
+      "sourcePages": [
+        58
+      ]
+    },
+    {
+      "id": "l6-ex6-25",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.25 用 itoc 把数字转成字符串",
+      "tags": [
+        "课件例题",
+        "数字转字符串",
+        "reverse",
+        "填空"
+      ],
+      "overview": "itoc 先处理符号，再用 n%10+'0' 逐位取数字字符，最后 reverse 反转，得到 \"-123\" 这样的字符串。",
+      "keyPoints": [
+        "sign=n 保存原数符号，若为负则 n=-n。",
+        "n%10+'0' 把数字 0~9 转成字符 '0'~'9'。",
+        "取位顺序是个位在前，所以最后要 reverse。",
+        "reverse 用 strlen(s)-1 作为右端下标。"
+      ],
+      "pitfalls": [
+        "忘记处理负数符号。",
+        "n%10+'0' 写成 n%10（得到数字而不是字符）。",
+        "reverse 的 j 初值写成 strlen(s)。"
+      ],
+      "example": {
+        "title": "例6.25 用 itoc 把数字转成字符串",
+        "source": "课件 lesson6 · P60-P61",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{\n    void itoc(int,char []);\n    int n;char s[100];\n    cin>>n;\n    itoc(n,s);\n    cout<<s<<endl;\nsystem(\"pause\");\nreturn 0;\n}\nvoid itoc(int n,char s[])\n{\n    void reverse(char []);\n    int i=0; int sign;\n    if((sign=n)<0)\n        n=-n;\n    do\n    {\n        s[i]= n%10+'0' ;\n        i++;\n        n=n/10;\n    }while (n>0);\n    if(sign<0)\n        s[i++]='-';\n    s[i]='\\0';\n    reverse(s);\n}\nvoid reverse(char s[])\n{\n    int c,i,j;\n    j= strlen(s)-1 ;\n    for(i=0;i<j;i++,j--)\n    {\n        c=s[i];\n        s[i]=s[j];\n        s[j]=c;\n    }\n    s[i+j+1]='\\0';\n}",
+        "output": "输入 -123 时输出 -123",
+        "explanation": "do-while 每次取 n 的最低位，转成字符后存入 s，所以得到的是倒序（如 321）。负数在取位前先取绝对值，最后再补 '-'。reverse 用双指针从两端向中间交换，把倒序恢复成正序。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 17,
+            "text": "先把 n 赋给 sign，再判断是否为负；括号不能省。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "负数取绝对值，后续只处理数字部分。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "取最低位并加上 '0' 的 ASCII 码，变成字符。"
+          },
+          {
+            "section": 0,
+            "line": 23,
+            "text": "去掉已经处理的最低位。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "直到 n 为 0；do-while 保证 0 也能处理。"
+          },
+          {
+            "section": 0,
+            "line": 26,
+            "text": "负数在末尾补负号，反转后会到最前面。"
+          },
+          {
+            "section": 0,
+            "line": 27,
+            "text": "补字符串结束符。"
+          },
+          {
+            "section": 0,
+            "line": 33,
+            "text": "j 指向最后一个有效字符。"
+          },
+          {
+            "section": 0,
+            "line": 40,
+            "text": "反转后重新补结束符。"
+          }
+        ]
+      },
+      "masteryHint": "能手工模拟 -123 的取位、补负号、反转过程。",
+      "sourcePages": [
+        60
+      ]
+    },
+    {
+      "id": "l6-ex6-26",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.26 协同过滤推荐化妆品",
+      "tags": [
+        "课件例题",
+        "二维数组",
+        "余弦相似度",
+        "推荐"
+      ],
+      "overview": "用余弦相似度找与 target 最相似的客户，再把该客户评分高于阈值、而 target 未购买的商品推荐给 target。",
+      "keyPoints": [
+        "getSimilarity 计算两个评分向量的余弦相似度。",
+        "getSimCustomer 遍历所有客户，记录相似度最高的下标 id。",
+        "推荐条件：target[i]==0 && scores[id][i]>THRESHOLD。",
+        "二维数组作形参时省略第一维，第二维写 NUMOFGOODS。"
+      ],
+      "pitfalls": [
+        "相似度公式漏掉分母的 sqrt。",
+        "推荐条件写成 target[i]>0。",
+        "二维数组形参第二维没写常量。"
+      ],
+      "example": {
+        "title": "例6.26 协同过滤推荐化妆品",
+        "source": "课件 lesson6 · P62-P64",
+        "code": "const int NUMOFCUSTOMERS = 5;  //客户数\nconst int NUMOFGOODS = 5;             //商品数\nconst double THRESHOLD = 3;\n//阈值\n#include <iostream>\nusing namespace std;\ndouble getSimilarity(int x[], int y[], int n) \n{ \n    double s;\n    double k = 0, m = 0, p = 0;\n    for (int i = 0; i < n; i++) \n    {\n        k = k + x[i] * y[i];\n        m = m + x[i] * x[i];\n        p = p + y[i] * y[i]; \n    }\n    s = k / sqrt(m) / sqrt(p);\n    return s;\n}\nint getSimCustomer(int target[], int scores[][NUMOFGOODS], int m)\n{  int id = -1;\n   double max = -100, s;\n   for (int i = 0; i < m; i++)\n   {  s = getSimilarity(target, scores[i], NUMOFGOODS) ;\n      if (s > max) \n      {    id = i;    max = s; }\n   }\n   return id;\n}\nint main() \n{    char cosmetics[][20] = { \"润肤露\",\"口红\",\"晚霜\",\"眼影\",\"粉饼\" };//化妆品的名称\n     int scores[][NUMOFGOODS] = { {5,4,0,2,4},{1,5,4,0,0},{0,0,3,5,0},{4,2,3,1,5},{5,3,1,4,3} };//客户评分\n     int target[] = { 5,4,0,0,0 };\n     //目标客户小张对化妆品的评分  \n     int id;\n     id = getSimCustomer(target, scores, NUMOFCUSTOMERS) ;\n     cout << \"推荐购买：\\n\";\n     for (int i = 0; i < NUMOFGOODS; i++)\n         if ( target[i] == 0 && scores[id][i] > THRESHOLD )\n             cout << cosmetics[i] << '\\n';\nsystem(\"pause\"); return 0;\n}",
+        "output": "推荐购买：\n粉饼",
+        "explanation": "余弦相似度衡量两个评分向量的方向是否接近：分子是点积，分母是两个向量长度的乘积。小张与客户 A 的相似度最高；客户 A 买过晚霜、眼影、粉饼，其中只有粉饼评分 4 大于阈值 3，且小张评分为 0（未购买），所以推荐粉饼。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 7,
+            "text": "x、y 是两个客户的评分数组，n 是商品数。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "k 是点积，m、p 分别是两个向量的平方和。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "余弦相似度 = 点积 /（两向量模长之积），结果在 -1~1 之间。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "id 保存最相似客户的下标，-1 表示还没找到。"
+          },
+          {
+            "section": 0,
+            "line": 22,
+            "text": "相似度最小是 -1，用 -100 作初值保证第一个客户一定被选中。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "把目标客户与第 i 个客户比较，得到相似度 s。"
+          },
+          {
+            "section": 0,
+            "line": 25,
+            "text": "相似度更高就更新 id 和 max，循环结束得到最近邻居。"
+          },
+          {
+            "section": 0,
+            "line": 33,
+            "text": "小张只买过润肤露和口红，其余商品评分为 0。"
+          },
+          {
+            "section": 0,
+            "line": 39,
+            "text": "推荐条件：小张没买过，且最相似客户评分超过阈值 3。"
+          },
+          {
+            "section": 0,
+            "line": 40,
+            "text": "输出商品名称，cosmetics[i] 与评分下标一一对应。"
+          }
+        ],
+        "blankHints": [
+          "相似度：s=getSimilarity(target,scores[i],NUMOFGOODS)。",
+          "最近邻居：id=getSimCustomer(target,scores,NUMOFCUSTOMERS)。",
+          "推荐条件：target[i]==0&&scores[id][i]>THRESHOLD。"
+        ]
+      },
+      "masteryHint": "能写出余弦相似度公式，并说出推荐条件的两个部分。",
+      "sourcePages": [
+        62
+      ]
+    },
+    {
+      "id": "l6-ex6-27",
+      "lessonId": "lesson6",
+      "kind": "example",
+      "title": "例6.27 统计字母出现次数并找出最多者",
+      "tags": [
+        "课件例题",
+        "字符统计",
+        "引用参数",
+        "strlwr"
+      ],
+      "overview": "freq 用 p[26] 统计每个字母出现次数，用引用参数 chmax、max 带回出现最多的字母和次数。",
+      "keyPoints": [
+        "p[0] 存 'a' 的次数，p[25] 存 'z' 的次数。",
+        "k=s[i]-'a' 把字母映射到 0~25 的下标。",
+        "strlwr(s) 把字符串转成小写，统一统计。",
+        "chmax、max 是引用参数，函数可以把两个结果都带回。"
+      ],
+      "pitfalls": [
+        "下标写成 s[i]-'A' 但没有转大写。",
+        "只统计字母却把非字母也映射，导致越界。",
+        "max 初值取 0，字符串没有字母时结果不对。"
+      ],
+      "example": {
+        "title": "例6.27 统计字母出现次数并找出最多者",
+        "source": "课件 lesson6 · P65-P66",
+        "code": "#include <iostream>\nusing namespace std;\nvoid freq(char s[],int p[],char &chmax,int &max)\n{ int i;\n    for(i=0;i<26;i++)\n        p[i]=0;\n    strlwr(s);\n    i=0;\n    while(s[i]!='\\0')\n    {\n        if(s[i]>='a'&&s[i]<='z')\n            p[(s[i]-'a')]++;\n        i++;\n    }\n    max=p[0];\n    int k=0;\n    for(i=1;i<26;i++)\n        if(p[i]>max)\n        { max=p[i]; k=i; }\n    chmax=k+'a';\n}\nint main()\n{  \n    int p[26],i,max;    \n    char s[80],chmax;\n    gets(s);   \n    freq(s,p,chmax,max);\n    for(i=0;i<26;i++)\n        if(p[i])\n            cout<<char(i+'a')<<\"----\"<<p[i]<<endl;\n    cout<<chmax<<\"----\"<<max<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 Hello 时：e----1，h----1，l----2，o----1，l----2",
+        "explanation": "先把 26 个计数器清零，再把字符串统一转小写。遍历每个字符，只有 a~z 才用 s[i]-'a' 映射到 0~25 并计数。最后从 p[0] 开始找最大值，k 记录最大值下标，chmax=k+'a' 还原成字母。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 5,
+            "text": "统计前必须把 26 个计数器清零。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "统一转小写，避免大小写分开统计。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "只统计字母，其它字符跳过。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "字母映射到 0~25 的下标并加 1。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "先假设 'a' 出现最多。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "发现更多就更新 max 和下标 k。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "把下标还原成字母。"
+          },
+          {
+            "section": 0,
+            "line": 27,
+            "text": "引用参数把 chmax、max 带回主函数。"
+          }
+        ]
+      },
+      "masteryHint": "能写出字母到下标的映射，并解释两个引用参数的作用。",
+      "sourcePages": [
+        65
+      ]
+    },
+    {
       "id": "l6-function-basics",
       "lessonId": "lesson6",
       "title": "函数的定义、调用与返回",
@@ -3423,12 +7803,6 @@ window.COURSE_DATA = {
         "void 函数写 return 值；void 函数中的 return 不能带表达式。",
         "把函数调用与函数声明混淆。"
       ],
-      "example": {
-        "title": "定义求最大值函数",
-        "code": "#include <iostream>\n\nint maxValue(int a, int b) {\n    return a > b ? a : b;\n}\n\nint main() {\n    std::cout << maxValue(8, 13);\n    return 0;\n}",
-        "output": "13",
-        "explanation": "maxValue 接收两个 int，返回较大的值；main 通过函数调用取得结果。"
-      },
       "exercise": {
         "prompt": "编写函数 square，接收一个 int 并返回它的平方；在 main 中输出 square(7)。",
         "starter": "#include <iostream>\n\n// 定义 square\n\nint main() {\n    // 调用并输出\n    return 0;\n}",
@@ -3480,12 +7854,6 @@ window.COURSE_DATA = {
         "把原型当作实现，忘记编写函数体。",
         "认为链接错误一定是语法错误。"
       ],
-      "example": {
-        "title": "先声明后调用",
-        "code": "#include <iostream>\n\nint add(int a, int b);\n\nint main() {\n    std::cout << add(2, 5);\n}\n\nint add(int a, int b) {\n    return a + b;\n}",
-        "output": "7",
-        "explanation": "第一行 add 只是声明；后面的函数体才是定义。声明让 main 中的调用先通过编译。"
-      },
       "exercise": {
         "prompt": "已有 int add(int,int); 声明。请补充 add 的定义，并在 main 中输出 add(4, 6)。",
         "starter": "#include <iostream>\n\nint add(int, int);\n\nint main() {\n    // 输出 add(4, 6)\n    return 0;\n}\n\n// 补充定义",
@@ -3537,12 +7905,6 @@ window.COURSE_DATA = {
         "把值参数和引用参数都当作同一块内存。",
         "为了“省内存”盲目使用引用，却意外修改实参。"
       ],
-      "example": {
-        "title": "值参数无法交换实参",
-        "code": "#include <iostream>\n\nvoid swapCopy(int x, int y) {\n    int t = x;\n    x = y;\n    y = t;\n}\n\nint main() {\n    int a = 10, b = 20;\n    swapCopy(a, b);\n    std::cout << a << ' ' << b;\n}",
-        "output": "10 20",
-        "explanation": "swapCopy 交换的是 x、y 两个副本，a、b 的值未变。"
-      },
       "exercise": {
         "prompt": "编写 int twice(int x)，返回 2*x，不改动 main 中的变量；main 输出 twice(9)。",
         "starter": "#include <iostream>\n\n// 定义 twice\n\nint main() {\n    // 输出 twice(9)\n    return 0;\n}",
@@ -3595,12 +7957,6 @@ window.COURSE_DATA = {
         "以为 const 引用参数也能修改。",
         "引用参数返回局部变量引用，产生悬空引用。"
       ],
-      "example": {
-        "title": "引用参数交换两数",
-        "code": "#include <iostream>\n\nvoid swapValue(int& x, int& y) {\n    int t = x;\n    x = y;\n    y = t;\n}\n\nint main() {\n    int a = 10, b = 20;\n    swapValue(a, b);\n    std::cout << a << ' ' << b;\n}",
-        "output": "20 10",
-        "explanation": "x 是 a 的别名，y 是 b 的别名，因此修改 x、y 就修改了 a、b。"
-      },
       "exercise": {
         "prompt": "编写 void minMax(int a, int b, int& minValue, int& maxValue)，把较小值和较大值写回引用参数；main 中 a=8、b=3，输出两个结果。",
         "starter": "#include <iostream>\n\n// 定义 minMax\n\nint main() {\n    int a = 8, b = 3, lo, hi;\n    // 调用并输出 lo、hi\n    return 0;\n}",
@@ -3657,12 +8013,6 @@ window.COURSE_DATA = {
         "向函数传入未初始化指针的地址。",
         "把“修改指针本身”和“修改所指内容”混为一谈。"
       ],
-      "example": {
-        "title": "解引用交换内容",
-        "code": "#include <iostream>\n\nvoid swapPtr(int* x, int* y) {\n    int t = *x;\n    *x = *y;\n    *y = t;\n}\n\nint main() {\n    int a = 10, b = 20;\n    swapPtr(&a, &b);\n    std::cout << a << ' ' << b;\n}",
-        "output": "20 10",
-        "explanation": "*x 和 *y 指向调用者的 a、b，因此交换所指内容会改变 a、b。"
-      },
       "exercise": {
         "prompt": "编写 void sumDiff(int a, int b, int* sum, int* diff)，通过指针参数返回 a+b 和 a-b；main 输出 10 与 4 的结果。",
         "starter": "#include <iostream>\n\n// 定义 sumDiff\n\nint main() {\n    int s, d;\n    // 调用并输出 s、d\n    return 0;\n}",
@@ -3719,12 +8069,6 @@ window.COURSE_DATA = {
         "忘记传数组长度，导致越界。",
         "以为数组传参会复制整个数组。"
       ],
-      "example": {
-        "title": "函数修改数组元素",
-        "code": "#include <iostream>\n\nvoid addOne(int a[], int n) {\n    for (int i = 0; i < n; ++i) {\n        ++a[i];\n    }\n}\n\nint main() {\n    int a[3] = {1, 2, 3};\n    addOne(a, 3);\n    std::cout << a[0] << ' ' << a[2];\n}",
-        "output": "2 4",
-        "explanation": "a 传入后指向 main 中数组首元素，函数修改 a[i] 就是修改原数组元素。"
-      },
       "exercise": {
         "prompt": "编写 void addOne(int a[], int n)，把数组中每个元素加 1；main 中数组为 {1,2,3}，调用后输出 2 3 4。",
         "starter": "#include <iostream>\n\n// 定义 addOne\n\nint main() {\n    int a[3] = {1, 2, 3};\n    // 调用并输出\n    return 0;\n}",
@@ -3781,12 +8125,6 @@ window.COURSE_DATA = {
         "返回 char* 却让调用者误以为可以写只读字符串常量。",
         "返回指向已经 delete 的内存的指针。"
       ],
-      "example": {
-        "title": "返回字符位置",
-        "code": "#include <iostream>\n\nchar* findChar(char* s, char ch) {\n    for (int i = 0; s[i] != '\\0'; ++i) {\n        if (s[i] == ch) return &s[i];\n    }\n    return nullptr;\n}\n\nint main() {\n    char text[] = \"C++\";\n    char* p = findChar(text, '+');\n    if (p) std::cout << p;\n}",
-        "output": "++",
-        "explanation": "返回的是调用者 text 中的字符地址；p 指向第一个 +，所以从 p 输出得到 ++。"
-      },
       "exercise": {
         "prompt": "编写 int* findValue(int a[], int n, int target)，找到 target 时返回其地址，否则返回 nullptr；main 中查找 5。",
         "starter": "#include <iostream>\n\n// 定义 findValue\n\nint main() {\n    int a[4] = {2, 5, 8, 9};\n    // 调用并检查返回值\n    return 0;\n}",
@@ -3843,12 +8181,6 @@ window.COURSE_DATA = {
         "把 n==1 的边界漏掉。",
         "递归函数使用未初始化局部变量作为累积器。"
       ],
-      "example": {
-        "title": "递归阶乘",
-        "code": "#include <iostream>\n\nlong long fact(int n) {\n    if (n <= 1) return 1;\n    return n * fact(n - 1);\n}\n\nint main() {\n    std::cout << fact(5);\n}",
-        "output": "120",
-        "explanation": "fact(5) 依次调用 fact(4)...fact(1)，再由终止值 1 逐层相乘返回。"
-      },
       "exercise": {
         "prompt": "编写递归函数 int sumTo(int n)，返回 1+2+...+n，并输出 sumTo(5)。",
         "starter": "#include <iostream>\n\n// 定义递归 sumTo\n\nint main() {\n    // 输出 sumTo(5)\n    return 0;\n}",
@@ -3905,12 +8237,6 @@ window.COURSE_DATA = {
         "调用时用空占位跳过中间实参。",
         "模板参数列表中的 T 没有被函数参数使用，导致无法推导。"
       ],
-      "example": {
-        "title": "默认参数与通用最大值",
-        "code": "#include <iostream>\n\nint add(int a, int b = 10) {\n    return a + b;\n}\n\ntemplate <typename T>\nT larger(T a, T b) {\n    return a > b ? a : b;\n}\n\nint main() {\n    std::cout << add(5) << ' ' << larger(2.5, 4.5);\n}",
-        "output": "15 4.5",
-        "explanation": "add(5) 省略 b，使用默认值 10；larger 根据 double 实参推导 T=double。"
-      },
       "exercise": {
         "prompt": "编写函数模板 template <typename T> T larger(T a, T b) 返回较大值；在 main 中分别调用 larger(3,8) 和 larger(2.5,1.5)。",
         "starter": "#include <iostream>\n\n// 定义 larger 模板\n\nint main() {\n    // 两次调用并输出\n    return 0;\n}",
@@ -3967,12 +8293,6 @@ window.COURSE_DATA = {
         "在 extern 声明处重复赋值。",
         "局部变量与全局变量同名时仍以为访问全局变量。"
       ],
-      "example": {
-        "title": "静态局部变量保留状态",
-        "code": "#include <iostream>\n\nint nextId() {\n    static int id = 0;\n    return ++id;\n}\n\nint main() {\n    std::cout << nextId() << ' ' << nextId() << ' ' << nextId();\n}",
-        "output": "1 2 3",
-        "explanation": "static int id 的初始化只发生一次，之后每次调用 nextId 都保留上一次的值。"
-      },
       "exercise": {
         "prompt": "编写 int callCount()，使用静态局部变量记录函数被调用次数，每次返回当前次数；main 连续调用三次并输出。",
         "starter": "#include <iostream>\n\n// 定义 callCount\n\nint main() {\n    // 连续调用三次并输出\n    return 0;\n}",
@@ -4029,12 +8349,6 @@ window.COURSE_DATA = {
         "在 lcm 中重复实现 gcd，增加出错概率。",
         "把调用栈中的形参当成会长期保存的数据。"
       ],
-      "example": {
-        "title": "lcm 调用 gcd",
-        "code": "#include <iostream>\nusing namespace std;\n\nint gcd(int m, int n) {\n    while (n != 0) {\n        int r = m % n;\n        m = n;\n        n = r;\n    }\n    return m;\n}\n\nint lcm(int m, int n) {\n    return m / gcd(m, n) * n;\n}\n\nint main() {\n    cout << gcd(12, 18) << ' ' << lcm(12, 18) << endl;\n    return 0;\n}",
-        "output": "6 36",
-        "explanation": "lcm 调用 gcd；gcd 返回 6 后，lcm 才继续计算 12 / 6 * 18。"
-      },
       "exercise": {
         "prompt": "实现 gcd 和 lcm。lcm 必须调用 gcd，读取两个整数并输出最大公约数和最小公倍数。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint gcd(int m, int n);\nint lcm(int m, int n);\n\n// 完成两个函数\n\nint main() {\n    int m, n;\n    cin >> m >> n;\n    cout << gcd(m, n) << ' ' << lcm(m, n) << endl;\n    return 0;\n}",
@@ -4093,12 +8407,6 @@ window.COURSE_DATA = {
         "循环边界使用 rows+1 导致越界。",
         "把二维数组直接 cin >> a 整体读入。"
       ],
-      "example": {
-        "title": "二维数组行求和",
-        "code": "#include <iostream>\nusing namespace std;\n\nvoid rowSum(int a[][3], int rows, int sums[]) {\n    for (int i = 0; i < rows; ++i) {\n        sums[i] = 0;\n        for (int j = 0; j < 3; ++j) sums[i] += a[i][j];\n    }\n}\n\nint main() {\n    int a[2][3] = {{1,2,3},{4,5,6}}, sums[2];\n    rowSum(a, 2, sums);\n    cout << sums[0] << ' ' << sums[1] << endl;\n    return 0;\n}",
-        "output": "6 15",
-        "explanation": "形参保留了列数 3，函数通过双重循环计算每一行元素之和。"
-      },
       "exercise": {
         "prompt": "读取 2×3 整数矩阵，编写函数 rowSum(int a[][3], int rows, int sums[]) 计算每行之和，并输出两个行和。",
         "starter": "#include <iostream>\nusing namespace std;\n\nvoid rowSum(int a[][3], int rows, int sums[]) {\n    // 计算每行元素之和\n}\n\nint main() {\n    int a[2][3], sums[2];\n    for (int i = 0; i < 2; ++i)\n        for (int j = 0; j < 3; ++j)\n            cin >> a[i][j];\n    rowSum(a, 2, sums);\n    cout << sums[0] << ' ' << sums[1] << endl;\n    return 0;\n}",
@@ -4158,12 +8466,6 @@ window.COURSE_DATA = {
         "使用 sqrt 却没有包含 <cmath>。",
         "只写 setprecision 没有 fixed，误以为一定表示小数位。"
       ],
-      "example": {
-        "title": "勾股斜边",
-        "code": "#include <iostream>\n#include <iomanip>\n#include <cmath>\nusing namespace std;\n\nint main() {\n    double x = 3, y = 4;\n    cout << fixed << setprecision(3) << sqrt(x*x + y*y) << endl;\n    return 0;\n}",
-        "output": "5.000",
-        "explanation": "sqrt 返回 double 类型结果，fixed 和 setprecision(3) 固定显示三位小数。"
-      },
       "exercise": {
         "prompt": "读取两个实数 x、y，输出 sqrt(x*x+y*y) 和 fabs(x-y)，均保留三位小数，用空格分隔。",
         "starter": "#include <iostream>\n#include <iomanip>\n#include <cmath>\nusing namespace std;\n\nint main() {\n    double x, y;\n    cin >> x >> y;\n    // 输出两个结果\n    return 0;\n}",
@@ -4199,6 +8501,835 @@ window.COURSE_DATA = {
       "masteryHint": "能选择正确的数学函数和头文件，并控制浮点输出格式。"
     },
     {
+      "id": "l7-ex7-1",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.1 学生信息按平均分排序",
+      "tags": [
+        "课件例题",
+        "结构数组",
+        "排序",
+        "填空"
+      ],
+      "overview": "用 struct Student 把姓名、学号、三科成绩、平均分组织成一个整体，定义 Student s[5]，排序时整体交换结构变量。",
+      "keyPoints": [
+        "结构变量不能整体输入，必须逐成员输入。",
+        "结构变量允许整体赋值，s[j]=s[j+1] 会把所有成员一起复制。",
+        "排序条件用 s[j].avg>s[j+1].avg。",
+        "C++ 中 struct Student 定义后可以直接写 Student。"
+      ],
+      "pitfalls": [
+        "用 cin>>s[i] 整体输入结构。",
+        "只交换 avg，没有交换姓名、学号、成绩。",
+        "平均分用整数除法，丢失小数。"
+      ],
+      "example": {
+        "title": "例7.1 学生信息按平均分排序",
+        "source": "课件 lesson7 · P3-P16",
+        "code": "#define N 5\nstruct Student\n{\n    char name[20];\n    char no[7];\n    double Chinese, English, math, avg;\n};\nint  main()\n{\n    int i,j;\n    Student s[N],t;\n    for(i=0;i<N;i++)\n    {\n        cin>>s[i].name>>s[i].no>>s[i].Chinese>>s[i].English>>s[i].math;\n        s[i].avg=(s[i].Chinese+s[i].English+s[i].math)/3;\n    }\n    for(i=0;i<N-1;i++)\n        for(j=0;j<N-1-i;j++)\n            if( s[j].avg>s[j+1].avg )\n            {\n                t=s[j];\n                s[j]=s[j+1];\n                s[j+1]=t;\n            }\n    for(i=0;i<N;i++)\n    {\n        cout<<s[i].name<< \" \" <<s[i].no<< \" \" <<s[i].Chinese;\n        cout<<\" \"<<s[i].English<<\" \"<<s[i].math<<\" \"<<s[i].avg<<endl;\n    }\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "按平均分由低到高输出 5 个学生的全部信息",
+        "explanation": "结构体把原本分散在多个数组里的字段绑在一起，所以排序时只需交换一个结构变量 t=s[j]，姓名、学号、成绩、平均分就会一起移动。这正体现了结构体“把不同类型数据组合成一个整体”的价值。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "声明结构类型，成员包括字符数组和 double。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "C++ 中可以直接用 Student 定义变量；t 用于整体交换。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "结构变量不能整体输入，必须逐成员访问。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "三科成绩都是 double，除法得到小数平均分。"
+          },
+          {
+            "section": 0,
+            "line": 19,
+            "text": "按平均分比较，逆序则交换。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "结构变量整体赋值，所有成员一起复制。"
+          },
+          {
+            "section": 0,
+            "line": 22,
+            "text": "后一个学生的全部信息前移。"
+          },
+          {
+            "section": 0,
+            "line": 23,
+            "text": "临时变量中的全部信息放到后面。"
+          }
+        ],
+        "blankHints": [
+          "排序比较：if(s[j].avg>s[j+1].avg)。"
+        ]
+      },
+      "masteryHint": "能解释为什么结构数组排序只需交换一个变量。",
+      "sourcePages": [
+        3
+      ]
+    },
+    {
+      "id": "l7-ex7-2",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.2 统计候选人得票数",
+      "tags": [
+        "课件例题",
+        "结构数组",
+        "strcmp",
+        "填空"
+      ],
+      "overview": "3 个候选人用结构数组 p[3] 保存姓名和票数；每次读入一个名字，与 3 个候选人比较，相等则票数加 1。",
+      "keyPoints": [
+        "结构数组初始化：{\"zhao\",0},{\"qian\",0},{\"sun\",0}。",
+        "字符串比较必须用 strcmp，不能用 ==。",
+        "strcmp(pname,p[j].name)==0 表示找到对应候选人。",
+        "循环 N 次，每次处理一张票。"
+      ],
+      "pitfalls": [
+        "用 pname==p[j].name 比较字符串。",
+        "结构数组初始化漏掉内层花括号。",
+        "票数没有初始化为 0。"
+      ],
+      "example": {
+        "title": "例7.2 统计候选人得票数",
+        "source": "课件 lesson7 · P18-P19",
+        "code": "#include  <iostream>\n#define N 10\nstruct person\n{\n    char name[20];\n    int count;\n};\nint main()\n{\n    char pname[20];\n    person p[3]={ {\"zhao\",0},{\"qian\",0},{\"sun\",0} };\n    int i,j;\n    for(i=0;i<N;i++)\n    {\n        cin>>pname;\n        for(j=0;j<3;j++)\n            if( strcmp(pname,p[j].name)==0 )\n                p[j].count++;\n    }\n    for(i=0;i<3;i++)\n        cout<<p[i].name<<\":\"<<p[i].count<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 10 个姓名后，输出 zhao、qian、sun 各自的票数",
+        "explanation": "结构数组把“姓名”和“票数”绑定在一起，p[j].count++ 只增加匹配候选人的票数。字符串不能用 == 比较内容，必须调用 strcmp；返回 0 表示两个字符串完全相同。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "每个候选人是一个结构：姓名 + 票数。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "定义长度为 3 的结构数组并初始化。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "每个元素用一对花括号初始化姓名和票数。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "读入一张票上的候选人姓名。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "strcmp 返回 0 表示姓名相同。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "对应候选人的票数加 1。"
+          }
+        ],
+        "blankHints": [
+          "姓名比较：if(strcmp(pname,p[j].name)==0)。"
+        ]
+      },
+      "masteryHint": "能写出结构数组的初始化形式，并解释 strcmp 返回 0 的含义。",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "id": "l7-ex7-3",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.3 创建包含两个结点的链表",
+      "tags": [
+        "课件例题",
+        "链表",
+        "new",
+        "结点"
+      ],
+      "overview": "先 new 第一个结点并赋值 10，再 new 第二个结点赋值 20，把第二个结点的 next 置 NULL，最后让第一个结点的 next 指向第二个结点。",
+      "keyPoints": [
+        "new node 申请一个结点空间，返回首地址。",
+        "p->data 访问数据域，p->next 访问指针域。",
+        "最后一个结点的 next 必须置 NULL，表示链表结束。",
+        "p->next=q 把第二个结点接到第一个结点后面。"
+      ],
+      "pitfalls": [
+        "忘记给最后一个结点的 next 置 NULL。",
+        "先 p->next=q 再 q=new node，q 还没有指向。",
+        "用 malloc 申请却用 delete 释放（或反过来）。"
+      ],
+      "example": {
+        "title": "例7.3 创建包含两个结点的链表",
+        "source": "课件 lesson7 · P27",
+        "code": "//或p=(struct node *)malloc(sizeof(struct  node));\np=new node;\np->data=10;\nq=new node;\nq->data=20;\nq->next=NULL; //为第二个结点的指针域赋值\np->next=q;",
+        "output": "head→[10]→[20]→NULL",
+        "explanation": "创建链表就是反复“申请结点、填数据、接指针”。第一个结点 p 暂时是表头，第二个结点 q 是表尾；q->next=NULL 标记链表结束，p->next=q 把两个结点连起来。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "为第一个结点申请空间，p 指向它。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "给第一个结点的数据域赋值。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "为第二个结点申请空间。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "给第二个结点的数据域赋值。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "第二个结点是表尾，指针域置空。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "第一个结点的指针域指向第二个结点。"
+          }
+        ]
+      },
+      "masteryHint": "能画出两个结点和 head 指针的连接关系。",
+      "sourcePages": [
+        27
+      ]
+    },
+    {
+      "id": "l7-ex7-4",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.4 创建含 n 个结点的单链表",
+      "tags": [
+        "课件例题",
+        "链表建立",
+        "尾插法",
+        "填空"
+      ],
+      "overview": "从空表开始，循环 n 次：申请新结点、读入数据，若表空则 head=newnode，否则接到 tail 后面；最后 tail->next=NULL。",
+      "keyPoints": [
+        "head 初始为 NULL，表示空表。",
+        "tail 始终指向当前表尾，方便尾插。",
+        "空表时 head 和 tail 都要指向新结点。",
+        "循环结束后 tail->next=NULL，标记链表结束。"
+      ],
+      "pitfalls": [
+        "非空表时忘记 tail=newnode，tail 不再指向表尾。",
+        "忘记 tail->next=NULL。",
+        "空表时只设置 head 没设置 tail。"
+      ],
+      "example": {
+        "title": "例7.4 创建含 n 个结点的单链表",
+        "source": "课件 lesson7 · P28-P30",
+        "code": "#include  <iostream>\nstruct node\n{\n    int  data;  \n    struct node  *next;\n};\nstruct node  *create(int n )\n{\n    struct node  *head = NULL;\n    struct node  *tail,*newnode;\n    int  x;\n    for (int i=0; i<n; i++)\n    {\n        cin>>x;\n        newnode= new node ; //为newnode申请存放空间\n        newnode->data=x;\n        if(head==NULL)\n            head=newnode ;   //newnode成为空表的第一个结点\n        else\n            tail->next=newnode ;//将newnode连接到原来的表尾\n        tail = newnode ;      // newnode成为新的表尾\n    }\n    tail->next=NULL ;\n    return(head);\n}\nint main( )\n{struct node  *head;\nint n;\ncout<<\"请输入初始链表结点数:\";\ncin>>n;\nhead = create(n);\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 1 2 3 时创建 1→2→3→NULL",
+        "explanation": "head 只在第一个结点时赋值；之后每个新结点都接到 tail 后面，并让 tail 后移。这样建立的是与输入顺序一致的链表（尾插法）。函数返回 head，主函数才能继续操作整条链表。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 9,
+            "text": "空表，head 不指向任何结点。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "每个新数据都申请一个新结点。"
+          },
+          {
+            "section": 0,
+            "line": 16,
+            "text": "把读入的整数存入数据域。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "第一个结点要同时成为表头和表尾。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "空表时 head 指向新结点。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "非空表时把新结点接到原表尾后面。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "更新表尾指针。"
+          },
+          {
+            "section": 0,
+            "line": 23,
+            "text": "最后一个结点的 next 置空。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "把表头指针返回主函数。"
+          }
+        ],
+        "blankHints": [
+          "① newnode=new node；② head=newnode；③ tail->next=newnode；④ tail=newnode；⑤ tail->next=NULL。"
+        ]
+      },
+      "masteryHint": "能说出 head、tail、newnode 三个指针各自的职责。",
+      "sourcePages": [
+        28
+      ]
+    },
+    {
+      "id": "l7-ex7-5",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.5 遍历输出单链表",
+      "tags": [
+        "课件例题",
+        "链表遍历",
+        "填空"
+      ],
+      "overview": "p 从 head 开始，while(p!=NULL) 输出 p->data，然后 p=p->next，直到 p 为空。",
+      "keyPoints": [
+        "遍历必须从 head 开始。",
+        "循环条件是 p!=NULL。",
+        "每访问一个结点，p=p->next 后移。",
+        "链表不能 p++，因为结点不连续。"
+      ],
+      "pitfalls": [
+        "用 p++ 后移。",
+        "循环条件写成 p->next!=NULL，最后一个结点不输出。",
+        "忘记 p=p->next，死循环。"
+      ],
+      "example": {
+        "title": "例7.5 遍历输出单链表",
+        "source": "课件 lesson7 · P32",
+        "code": "void print(struct node  *head)\n{\n    struct node *p=head;\n    while( p!=NULL )\n    {\n        cout<<p->data<<'\\t';\n        p = p->next ; \n    }\n}",
+        "output": "依次输出链表中每个结点的 data",
+        "explanation": "p 是一个工作指针，开始时指向第一个结点；每轮输出当前结点的数据，然后顺着 next 走到下一个结点。当 p 变成 NULL 时，说明已经走过最后一个结点。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 1,
+            "text": "print 只负责遍历输出，不修改链表，所以返回类型是 void。"
+          },
+          {
+            "section": 0,
+            "line": 3,
+            "text": "工作指针从表头开始。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "p 非空就还有结点可访问。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "输出当前结点的数据域。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "顺着指针域走到下一个结点；不能用 p++。"
+          }
+        ]
+      },
+      "masteryHint": "能解释为什么链表遍历不能用 p++。",
+      "sourcePages": [
+        32
+      ]
+    },
+    {
+      "id": "l7-ex7-6",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.6 统计链表结点个数",
+      "tags": [
+        "课件例题",
+        "链表",
+        "计数"
+      ],
+      "overview": "p 从 head 开始，每经过一个结点 n 加 1，直到 p==NULL，返回 n。",
+      "keyPoints": [
+        "计数器 n 初始为 0。",
+        "每访问一个结点先 n++，再 p=p->next。",
+        "循环结束返回 n。",
+        "空表时 n 保持 0。"
+      ],
+      "pitfalls": [
+        "n 没有初始化为 0。",
+        "先 p=p->next 再 n++，漏数第一个结点。",
+        "返回类型写成 void。"
+      ],
+      "example": {
+        "title": "例7.6 统计链表结点个数",
+        "source": "课件 lesson7 · P33",
+        "code": "int  count(struct node  *head)\n{\n    struct node  *p = head;\n    int n = 0;\n    while (p != NULL)\n    {\n        n++;\n        p = p->next;\n    }\n    return(n);\n}",
+        "output": "返回链表中结点的个数",
+        "explanation": "这是最标准的链表遍历计数：p 每指向一个真实结点，n 就加 1；p 变成 NULL 时循环结束。空表时循环一次都不执行，返回 0。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "计数器必须从 0 开始。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "还有结点就继续。"
+          },
+          {
+            "section": 0,
+            "line": 7,
+            "text": "当前结点计入总数。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "移动到下一个结点。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "返回统计结果。"
+          }
+        ]
+      },
+      "masteryHint": "能写出计数循环，并说明空表时为什么返回 0。",
+      "sourcePages": [
+        33
+      ]
+    },
+    {
+      "id": "l7-ex7-7",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.7 按序号查找第 i 个结点",
+      "tags": [
+        "课件例题",
+        "链表查找",
+        "序号",
+        "填空"
+      ],
+      "overview": "j 从 1 开始，p 从 head 开始；while(j!=i && p!=NULL) 时 j++、p=p->next。循环后若 j==i&&p!=NULL，说明找到。",
+      "keyPoints": [
+        "序号从 1 开始，j 初始为 1。",
+        "循环条件 j!=i && p!=NULL，两个条件缺一不可。",
+        "循环体先 j++，再 p=p->next。",
+        "找到的判据是 j==i && p!=NULL。"
+      ],
+      "pitfalls": [
+        "循环条件只写 p!=NULL，i 越界时仍继续。",
+        "j 从 0 开始，序号整体错一位。",
+        "找到后输出 p->data 却没判断 p 是否为空。"
+      ],
+      "example": {
+        "title": "例7.7 按序号查找第 i 个结点",
+        "source": "课件 lesson7 · P34",
+        "code": "void search(struct node  *head, int  i)\n{    int j=1;\n    struct node  *p=head;\n    if(i<1)\n        cout<<\"illegal index\\n\";\n    else\n    {\n        while(j !=i &&p!= NULL)\n        {    j++;\n            p=p->next ;\n        }\n        if( j==i&&p!=NULL )\n            cout<<\"index\"<<i<<\":\"<<p->data;\n        else \n            cout<<\"illegal index \\n\";\n    }\n}",
+        "output": "找到时输出 index i:data，否则输出 illegal index",
+        "explanation": "j 表示 p 当前指向第几个结点。每后移一次，j 加 1。循环结束时有两种可能：j==i 且 p 非空（找到），或者 p 为空（i 超过表长）。所以判断必须同时检查 j 和 p。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 2,
+            "text": "链表序号从 1 开始。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "序号小于 1 直接判非法。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "还没到第 i 个且链表没走完，就继续后移。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "序号加 1。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "指针后移一个结点。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "同时满足序号和指针非空，才是真正找到。"
+          }
+        ],
+        "blankHints": [
+          "循环条件：while(j!=i&&p!=NULL)；找到判断：if(j==i&&p!=NULL)。"
+        ]
+      },
+      "masteryHint": "能解释为什么判断条件必须同时写 j==i 和 p!=NULL。",
+      "sourcePages": [
+        34
+      ]
+    },
+    {
+      "id": "l7-ex7-8",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.8 在递增链表中插入值为 x 的结点",
+      "tags": [
+        "课件例题",
+        "链表插入",
+        "有序",
+        "填空"
+      ],
+      "overview": "先找插入位置 behind，分三种情况：插在表头前、表尾后、中间。函数返回新的 head。",
+      "keyPoints": [
+        "空表：head=newnode，newnode->next=NULL。",
+        "查找：behind 从 head 开始，front 记录前驱，x>behind->data 时后移。",
+        "behind==head：插在表头前，newnode->next=head; head=newnode。",
+        "behind==NULL：插在表尾后，front->next=newnode; newnode->next=NULL。",
+        "其它：插在 front 与 behind 之间。"
+      ],
+      "pitfalls": [
+        "先改 front->next 再改 newnode->next，丢失后半条链。",
+        "表头插入忘记更新 head。",
+        "表尾插入忘记 newnode->next=NULL。"
+      ],
+      "example": {
+        "title": "例7.8 在递增链表中插入值为 x 的结点",
+        "source": "课件 lesson7 · P37-P38",
+        "code": "struct node *insert(node *head,int x)\n{  struct  node *behind,*front,*newnode;\n   newnode=new node;\n   newnode->data=x;     behind=head;\n   if(head==NULL)                               //空表\n       {  head=newnode ;\n          newnode->next=NULL; }\n   else                                        //非空表\n       {  while(behind!=NULL&&x>behind->data)//找插入位置\n           {  front=behind ;  behind=behind->next ; \n           }\n          if(behind==head)   //插到第一个结点前 \n          {  newnode->next=head ;  head=newnode ; }\n          else if(behind==NULL)  //插到最后一个结点后   \n          {  front->next=newnode ;  newnode->next=NULL ;}\n          else                  //插到front之后,behind之前\n          {  front->next=newnode ;  newnode->next=behind ;  }\n       }\n   return head;\n}",
+        "output": "插入后链表仍按递增有序",
+        "explanation": "behind 找第一个 data>=x 的结点，front 始终是它的前驱。若 behind 回到 head，说明 x 最小，要改表头；若 behind 为 NULL，说明 x 最大，要接在表尾；否则插在 front 和 behind 之间。函数返回 head，因为表头可能改变。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "先申请新结点并填入 x。"
+          },
+          {
+            "section": 0,
+            "line": 4,
+            "text": "从表头开始找插入位置。"
+          },
+          {
+            "section": 0,
+            "line": 5,
+            "text": "空表时新结点就是唯一的结点。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "空表：表头指向新结点。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "x 比当前结点大就继续后移，直到找到第一个不小于 x 的结点。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "front 记录 behind 的前驱。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "x 比所有结点都小，插在表头前。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "新结点指向原表头。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "更新表头。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "x 比所有结点都大，插在表尾后。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "原表尾指向新结点。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "新结点成为表尾。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "中间插入：先接后继。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "再改前驱，顺序不能反。"
+          }
+        ],
+        "blankHints": [
+          "找位置：while(behind!=NULL&&x>behind->data)。",
+          "空表：head=newnode；表头插入：newnode->next=head;head=newnode。",
+          "表尾插入：front->next=newnode;newnode->next=NULL。",
+          "中间插入：front->next=newnode;newnode->next=behind。"
+        ]
+      },
+      "masteryHint": "能画出表头、表尾、中间三种插入的指针变化。",
+      "sourcePages": [
+        37
+      ]
+    },
+    {
+      "id": "l7-ex7-9",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.9 删除值为 x 的结点",
+      "tags": [
+        "课件例题",
+        "链表删除",
+        "填空"
+      ],
+      "overview": "p 查找值为 x 的结点，q 记录前驱。分三种情况：删表头、删中间/表尾、未找到。函数返回新的 head。",
+      "keyPoints": [
+        "while(p!=NULL && p->data!=x) 时 q=p、p=p->next。",
+        "p==head 时删表头：head=p->next; delete p。",
+        "p!=NULL 时删非表头：q->next=p->next; delete p。",
+        "p==NULL 时未找到。"
+      ],
+      "pitfalls": [
+        "先 delete p 再访问 p->next。",
+        "删表头忘记更新 head。",
+        "未找到时仍然执行 q->next=p->next，q 可能未初始化。"
+      ],
+      "example": {
+        "title": "例7.9 删除值为 x 的结点",
+        "source": "课件 lesson7 · P39-P41",
+        "code": "struct node *delnode(node *head,int x)\n{  struct  node *p,*q;            //p为工作指针,q为p的前驱\n    p = head;\n   if(head==NULL)                       //空表\n       cout<<\"The list is null!\\n\";\n   else\n   { while( p!=NULL&&p->data!= x )    // 找删除的结点\n       {  q=p;  p = p->next; }\n     if( p==head )     //删除第一个结点\n       {  head=p->next;  delete p; }        \n     else  if( p!=NULL )   //删除非表头结点\n       { q->next=p->next ;  delete p; }\n     else                           //未找到要删除的元素\n       cout<<x<<\"dose not exist in the list!\\n\";\n   }\n   return head;\n}",
+        "output": "删除成功则链表少一个结点；未找到则输出提示",
+        "explanation": "查找循环结束时，p 要么指向值为 x 的结点，要么为 NULL。若 p==head，删除的是第一个结点，必须改 head；否则用 q->next=p->next 跳过 p。delete p 必须放在最后，不能先释放再访问 p->next。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 7,
+            "text": "p 非空且值不为 x 时继续后移。"
+          },
+          {
+            "section": 0,
+            "line": 8,
+            "text": "q 始终记录 p 的前驱。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "要删除的是第一个结点。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "表头后移，跳过被删结点。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "释放结点空间。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "要删除的是中间或表尾结点。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "前驱跳过 p，接到 p 的后继。"
+          },
+          {
+            "section": 0,
+            "line": 6,
+            "text": "p==NULL，说明链表中没有值为 x 的结点。"
+          }
+        ],
+        "blankHints": [
+          "查找：while(p!=NULL&&p->data!=x)；删表头：if(p==head)；删非表头：else if(p!=NULL)。"
+        ]
+      },
+      "masteryHint": "能说出删除表头与删除非表头在指针操作上的区别。",
+      "sourcePages": [
+        39
+      ]
+    },
+    {
+      "id": "l7-ex7-10",
+      "lessonId": "lesson7",
+      "kind": "example",
+      "title": "例7.10 学生信息链表综合（创建、查找、删除）",
+      "tags": [
+        "课件例题",
+        "链表综合",
+        "菜单",
+        "结构"
+      ],
+      "overview": "定义 student 结点（学号、成绩、next），实现 creat、del、print、search 四个函数，主函数用菜单循环调用。",
+      "keyPoints": [
+        "creat 用尾插法建立链表，返回 head。",
+        "del 删除可能改变表头，所以返回新的 head。",
+        "search、print 不改变表头，返回 void。",
+        "主函数用 while(1)+switch 提供菜单，choose==4 时 break。"
+      ],
+      "pitfalls": [
+        "del 忘记返回 head，删除表头后主函数仍指向旧结点。",
+        "字符串比较用 == 而不是 strcmp。",
+        "菜单循环没有 break，无法结束。"
+      ],
+      "example": {
+        "title": "例7.10 学生信息链表综合（创建、查找、删除）",
+        "source": "课件 lesson7 · P42-P46",
+        "code": "#include <iostream>\nusing namespace std;\nstruct student\n{\n    char num[8];\n    int score;\n    struct student *next;\n};\nstruct student *creat(int n) \n{\n    struct student *head=NULL,*newnode,*tail=NULL;\n    cout<<\"input num and score:\\n\";\n    for(int i=0;i<n;i++)\n    {\n        newnode=new student;\n        cin>>newnode->num>>newnode->score;\n        if(head==NULL)\n            head=newnode; \n        else\n            tail->next=newnode;\n        tail=newnode;                   \n    }\n    tail->next=NULL;\n    return head;\n}\nstruct student *del(student *head, char num[ ])  \n{       struct student *p, *q;\n    if(head==NULL)\n        cout<<\"list null!\\n\";\n    else\n    {\n        p=head;\n        while(p!= NULL&& strcmp(num,p->num)!=0 )\n        {       q=p;      p=p->next;\n        }\n        if(strcmp(num,p->num)==0)         \n        {        if(p==head)\n                    head=p->next;\n                 else\n                    q->next=p->next;\n                 delete(p);                   \n        }\n        else\n            cout<<num<<\"not been found!\\n\";\n    }\n    return(head);\n}\nvoid print(student *head)       \n{\n    struct student *p=head;\n    while(p!=NULL)\n    {\n        cout<<p->num<<'\\t'<<p->score<<endl;\n        p = p->next;\n    }\n}\nvoid search(student *head, char num[ ])      \n{  struct student  *p=head;\n   if(head==NULL)\n       cout<<\"list empty\"<<endl;\n   else\n   { while(p!=NULL)\n     {\n         if(strcmp(num,p->num)==0)\n         {cout<<p->num<<\":\"<<p->score<<endl;\n          break;\n         }\n         else\n             p=p->next;\n     }\n     if(p==NULL)\n         cout<<\"The student is not  found!\"<<endl;\n   }\n}\nint main( )\n{\n    int n,choose; \n    char num[8];\n    student *head=NULL; \n    cout<<\"请输入结点个数:\"<<endl;\n    cin>>n;\n    head=creat(n);\n    cout<<\"1. 查找数据\"<<endl;\n    cout<<\"2. 删除数据\"<<endl; \n    cout<<\"3. 输出数据\"<<endl;\n    cout<<\"4. 结束程序\"<<endl;\n    while(1)  \n    {    cout<<\"输入选项(1-4):\"<<endl;\n        cin>>choose;\n        if(choose==4)\n            break;\n        else\n            switch(choose)\n            {\n            case 1: cout<<\"输入所要查找的学生的学号:\"<<endl;\n                    cin>>num;\n                    search(head,num); \n                    break;\n            case 2: cout<<\"输入所要删除的学生的学号:\"<<endl;\n                    cin>>num;\n                    head=del(head,num);\n                    break;  \n            case 3: print(head);\n                    break; \n            }\n    }\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "按菜单选择查找、删除、输出，输入 4 结束",
+        "explanation": "这是链表操作的综合：creat 尾插建表，del 删除并返回新表头，search 按学号查找，print 遍历输出。主函数用无限循环加 switch 做菜单，只有 choose==4 才 break。注意 del 可能删除第一个结点，所以必须把新的 head 返回并赋回主函数。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 3,
+            "text": "结点包含学号、成绩和 next 指针。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "creat 接收结点个数 n，返回建好的链表表头。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "head 指向表头，tail 始终指向表尾，newnode 暂存新结点；一开始表为空。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "每读一个学生就 new 一个结点，结点在堆上，链表才能一直存在。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "第一个结点：表头还空，直接把 head 指向它。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "不是第一个结点：把新结点接到当前表尾后面。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "无论哪种情况，新结点都成为新的表尾。"
+          },
+          {
+            "section": 0,
+            "line": 23,
+            "text": "最后一个结点的 next 置空，表示链表结束。"
+          },
+          {
+            "section": 0,
+            "line": 27,
+            "text": "p 用来找目标结点，q 始终记住 p 的前一个结点。"
+          },
+          {
+            "section": 0,
+            "line": 33,
+            "text": "边找边停：p 为空或学号相等就退出循环。"
+          },
+          {
+            "section": 0,
+            "line": 34,
+            "text": "p 前进一格，q 紧跟其后，为删除做准备。"
+          },
+          {
+            "section": 0,
+            "line": 36,
+            "text": "循环结束后再比较一次：相等说明找到。注意若没找到，p 已是 NULL，这里再访问 p->num 会出错，课件代码有这一隐患，实际应补 p!=NULL 判断。"
+          },
+          {
+            "section": 0,
+            "line": 37,
+            "text": "删除第一个结点：新表头变成 p->next。"
+          },
+          {
+            "section": 0,
+            "line": 40,
+            "text": "删除中间或尾部结点：让前驱 q 绕过 p。"
+          },
+          {
+            "section": 0,
+            "line": 41,
+            "text": "结点是 new 出来的，删除后要 delete 释放内存。"
+          },
+          {
+            "section": 0,
+            "line": 48,
+            "text": "print 只读链表，不需要返回新的表头。"
+          },
+          {
+            "section": 0,
+            "line": 54,
+            "text": "沿 next 走到下一个结点，直到 p 为 NULL。"
+          },
+          {
+            "section": 0,
+            "line": 57,
+            "text": "search 找到就输出并 break，找不到时 p 会走到 NULL。"
+          },
+          {
+            "section": 0,
+            "line": 87,
+            "text": "无限循环显示菜单，只有 choose==4 才 break。"
+          },
+          {
+            "section": 0,
+            "line": 93,
+            "text": "switch 按菜单编号分派到查找、删除、输出三个分支。"
+          },
+          {
+            "section": 0,
+            "line": 101,
+            "text": "删除可能改表头，必须接收 del 返回的新表头。"
+          }
+        ]
+      },
+      "masteryHint": "能说出四个函数的返回值为什么不同，以及 del 为什么必须返回 head。",
+      "sourcePages": [
+        42
+      ]
+    },
+    {
       "id": "l7-struct-type-variable",
       "lessonId": "lesson7",
       "title": "结构类型、结构变量与成员",
@@ -4222,12 +9353,6 @@ window.COURSE_DATA = {
         "在成员声明中使用尚未完整定义的同类型普通成员。",
         "把成员名当全局变量直接访问。"
       ],
-      "example": {
-        "title": "学生结构",
-        "code": "#include <iostream>\n\nstruct Student {\n    int id;\n    double score;\n};\n\nint main() {\n    Student s{1, 92.5};\n    std::cout << s.id << ' ' << s.score;\n}",
-        "output": "1 92.5",
-        "explanation": "Student 是结构类型，s 是结构变量，s.id 与 s.score 访问成员。"
-      },
       "exercise": {
         "prompt": "定义 struct Point，成员 int x、int y；创建 p 并初始化为 (3,5)，输出 x 和 y。",
         "starter": "#include <iostream>\n\n// 定义 Point\n\nint main() {\n    // 创建 p 并输出成员\n    return 0;\n}",
@@ -4284,12 +9409,6 @@ window.COURSE_DATA = {
         "嵌套成员错误写成 p->birthday->month。",
         "结构指针未初始化就访问成员。"
       ],
-      "example": {
-        "title": "用结构指针修改成员",
-        "code": "#include <iostream>\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p{2, 4};\n    Point* ptr = &p;\n    ptr->x = 8;\n    std::cout << p.x << ' ' << (*ptr).y;\n}",
-        "output": "8 4",
-        "explanation": "ptr 指向 p，ptr->x 与 (*ptr).x 都修改或读取 p.x。"
-      },
       "exercise": {
         "prompt": "已有 struct Point { int x; int y; }; 和 Point p{2,4};。请用结构指针 ptr 把 x 改为 9，并输出 p.x。",
         "starter": "#include <iostream>\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p{2, 4};\n    // 创建指针、修改 x、输出 p.x\n    return 0;\n}",
@@ -4342,12 +9461,6 @@ window.COURSE_DATA = {
         "把两个不同类型的结构互相赋值。",
         "结构内有指针成员时做浅复制后重复 delete。"
       ],
-      "example": {
-        "title": "逐成员输出与整体赋值",
-        "code": "#include <iostream>\n#include <cstring>\n\nstruct Person {\n    char name[20];\n    int age;\n};\n\nint main() {\n    Person a{};\n    std::strcpy(a.name, \"Tom\");\n    a.age = 18;\n    Person b = a;\n    std::cout << b.name << ' ' << b.age;\n}",
-        "output": "Tom 18",
-        "explanation": "name 是字符数组，用 strcpy 写入；同类型结构 b 可整体复制 a 的成员。"
-      },
       "exercise": {
         "prompt": "定义 struct Book { char title[30]; int pages; }; 创建 b，把 title 设为 \"C++\"、pages 设为 320，再复制给 c 并输出 c.title 和 c.pages。",
         "starter": "#include <iostream>\n#include <cstring>\n\n// 定义 Book\n\nint main() {\n    // 初始化 b、复制给 c、输出\n    return 0;\n}",
@@ -4404,12 +9517,6 @@ window.COURSE_DATA = {
         "把结构数组当成可直接 cin 的整体。",
         "循环边界写成 <= n 导致越界。"
       ],
-      "example": {
-        "title": "按成绩交换完整结构",
-        "code": "#include <iostream>\n\nstruct Student { const char* name; int score; };\n\nint main() {\n    Student a[3] = {{\"A\", 70}, {\"B\", 90}, {\"C\", 80}};\n    Student t = a[0];\n    a[0] = a[1];\n    a[1] = t;\n    std::cout << a[0].name << ' ' << a[0].score;\n}",
-        "output": "B 90",
-        "explanation": "交换整个 Student 元素，姓名与成绩一起移动。"
-      },
       "exercise": {
         "prompt": "已有 Student a[2] = {{\"A\",70},{\"B\",90}};。若 a[0].score > a[1].score，就交换两个完整结构，最后输出 a[0].name。",
         "starter": "#include <iostream>\n\nstruct Student { const char* name; int score; };\n\nint main() {\n    Student a[2] = {{\"A\", 70}, {\"B\", 90}};\n    // 按 score 升序交换并输出\n    return 0;\n}",
@@ -4466,12 +9573,6 @@ window.COURSE_DATA = {
         "重复 delete 同一地址。",
         "只 delete 链表头结点，未释放后续结点。"
       ],
-      "example": {
-        "title": "创建并释放结点",
-        "code": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    Node* p = new Node{7, nullptr};\n    std::cout << p->data;\n    delete p;\n}",
-        "output": "7",
-        "explanation": "new 创建一个 Node 并初始化 data 和 next；使用结束后 delete 释放。"
-      },
       "exercise": {
         "prompt": "定义 Node { int data; Node* next; };，用 new 创建 p，设置 data=12、next=nullptr，输出 data 后 delete p。",
         "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // new、初始化、输出、delete\n    return 0;\n}",
@@ -4528,12 +9629,6 @@ window.COURSE_DATA = {
         "最后一个结点的 next 未置空。",
         "遍历循环中先 p=p->next 再访问 p，漏掉首结点。"
       ],
-      "example": {
-        "title": "建立并遍历三个结点",
-        "code": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    Node c{3, nullptr};\n    Node b{2, &c};\n    Node a{1, &b};\n    for (Node* p = &a; p != nullptr; p = p->next) {\n        std::cout << p->data << ' ';\n    }\n}",
-        "output": "1 2 3",
-        "explanation": "p 从 head 开始，每次通过 next 跳到后继结点，直到空指针。"
-      },
       "exercise": {
         "prompt": "定义 Node { int data; Node* next; }; 创建三个动态结点，数据为 1、2、3，按顺序连接；用 p=p->next 遍历输出，最后释放全部结点。",
         "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // 创建并连接结点\n    // 遍历输出\n    // 释放\n    return 0;\n}",
@@ -4590,12 +9685,6 @@ window.COURSE_DATA = {
         "表尾插入后 newnode->next 未置空。",
         "空表插入时仍访问 front->next。"
       ],
-      "example": {
-        "title": "在表头插入",
-        "code": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nNode* insertHead(Node* head, int x) {\n    return new Node{x, head};\n}\n\nint main() {\n    Node* head = nullptr;\n    head = insertHead(head, 2);\n    head = insertHead(head, 1);\n    std::cout << head->data << ' ' << head->next->data;\n    delete head->next;\n    delete head;\n}",
-        "output": "1 2",
-        "explanation": "新结点先指向旧 head，再把 head 改为新结点，因此 1 成为新表头。"
-      },
       "exercise": {
         "prompt": "编写 Node* insertAfter(Node* node, int x)，在 node 后插入值为 x 的新结点并返回新结点；main 中在头结点后插入 2 并输出链表。",
         "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\n// 定义 insertAfter\n\nint main() {\n    // 测试插入\n    return 0;\n}",
@@ -4652,12 +9741,6 @@ window.COURSE_DATA = {
         "先 delete p 再访问 p->next。",
         "未判断链表为空。"
       ],
-      "example": {
-        "title": "删除表头结点",
-        "code": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nNode* deleteHead(Node* head) {\n    if (!head) return nullptr;\n    Node* p = head;\n    head = head->next;\n    delete p;\n    return head;\n}\n\nint main() {\n    Node* head = new Node{1, new Node{2, nullptr}};\n    head = deleteHead(head);\n    std::cout << head->data;\n    delete head;\n}",
-        "output": "2",
-        "explanation": "先保存旧表头，再把 head 移到第二个结点，最后释放旧表头。"
-      },
       "exercise": {
         "prompt": "编写 Node* deleteHead(Node* head)，删除并释放首结点，返回新表头；main 中链表 1->2，删除后输出 2。",
         "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\n// 定义 deleteHead\n\nint main() {\n    // 建立 1->2，调用删除，输出新表头\n    return 0;\n}",
@@ -4714,12 +9797,6 @@ window.COURSE_DATA = {
         "序号与下标混淆，导致整体偏移一位。",
         "访问空指针的 data 或 next。"
       ],
-      "example": {
-        "title": "统计链表长度",
-        "code": "int length(Node* head) {\n    int count = 0;\n    for (Node* p = head; p != nullptr; p = p->next) ++count;\n    return count;\n}",
-        "output": "若链表含 3 个结点，返回 3。",
-        "explanation": "p 依次指向每个结点，直到 p 为空。"
-      },
       "exercise": {
         "prompt": "补全 length 和 findKth。findKth 中 1 表示第一个结点，越界返回 nullptr。程序输出链表长度和第 2 个结点的数据。",
         "starter": "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int value) : data(value), next(nullptr) {}\n};\n\nint length(Node* head) {\n    // 统计结点个数\n}\n\nNode* findKth(Node* head, int k) {\n    // 返回第 k 个结点\n}\n\nint main() {\n    Node* head = new Node(10);\n    head->next = new Node(20);\n    head->next->next = new Node(30);\n    Node* second = findKth(head, 2);\n    cout << length(head) << ' ' << (second ? second->data : -1) << endl;\n    return 0;\n}",
@@ -4779,12 +9856,6 @@ window.COURSE_DATA = {
         "malloc 后忘记初始化成员。",
         "释放后继续访问指针，形成悬空指针。"
       ],
-      "example": {
-        "title": "C 风格创建结点",
-        "code": "Node* p = (Node*)malloc(sizeof(Node));\np->data = 7;\np->next = nullptr;\nfree(p);",
-        "output": "创建一个结点并释放。",
-        "explanation": "malloc 只提供存储空间，因此 data 与 next 需要显式初始化。"
-      },
       "exercise": {
         "prompt": "使用 malloc 创建一个 Node，令 data=7、next=nullptr，再统计后释放该结点。程序输出 data。",
         "starter": "#include <iostream>\n#include <cstdlib>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n};\n\nint main() {\n    // 使用 malloc 创建、初始化并释放结点\n    return 0;\n}",
@@ -4843,12 +9914,6 @@ window.COURSE_DATA = {
         "字符数组容量不足导致越界。",
         "把所有输入都累加到第一个元素。"
       ],
-      "example": {
-        "title": "候选人得票统计",
-        "code": "for (int i = 0; i < 3; ++i)\n    if (strcmp(name, people[i].name) == 0)\n        ++people[i].count;",
-        "output": "名称匹配时增加对应计数。",
-        "explanation": "strcmp 返回 0 表示两个 C 字符串内容相同。"
-      },
       "exercise": {
         "prompt": "已有 A、B、C 三个候选结构。读取 5 个候选人名称并计数，最后按 A、B、C 顺序输出名称和票数。",
         "starter": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nstruct Candidate {\n    char name[20];\n    int count;\n};\n\nint main() {\n    Candidate people[3] = {{\"A\",0},{\"B\",0},{\"C\",0}};\n    char input[20];\n    for (int k = 0; k < 5; ++k) {\n        cin >> input;\n        // 查找并计数\n    }\n    for (int i = 0; i < 3; ++i)\n        cout << people[i].name << ':' << people[i].count << ' ';\n    cout << endl;\n    return 0;\n}",
@@ -4884,6 +9949,596 @@ window.COURSE_DATA = {
       "masteryHint": "能用结构数组完成名称查找、计数和汇总输出。"
     },
     {
+      "id": "l8-ex8-1",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.1 输出26个小写字母（屏幕版与文件版）",
+      "tags": [
+        "课件例题",
+        "文件指针",
+        "fputc",
+        "fopen"
+      ],
+      "overview": "先演示把字母输出到屏幕；再把同样的字母用 fputc 写入 d:\\alp.txt，实现永久保存。",
+      "keyPoints": [
+        "FILE *fp 定义文件指针。",
+        "fopen(\"d:\\\\alp.txt\",\"w\") 以写方式打开文件。",
+        "fp==NULL 表示打开失败，要提示并 exit(1)。",
+        "fputc(ch,fp) 把一个字符写入文件，fclose(fp) 关闭并刷新缓冲区。"
+      ],
+      "pitfalls": [
+        "路径中的反斜杠要写成 \\\\。",
+        "打开文件后不检查 NULL。",
+        "忘记 fclose，数据可能没有真正写入磁盘。"
+      ],
+      "example": {
+        "title": "例8.1 输出26个小写字母（屏幕版与文件版）",
+        "source": "课件 lesson8 · P12-P13",
+        "code": "#include  <iostream>\nusing  namespace std;\nint main()\n{\n    char ch;\n    for(ch='a';ch<='z';ch++)\n        putchar(ch);\nsystem(\"pause\");\nreturn 0;\n}\n\n#include  <iostream>\nusing  namespace std;\nint main()\n{\n    FILE *fp;\n    char ch;\n    fp=fopen(\"d:\\\\alp.txt\",\"w\");\n    if(fp==NULL)\n    {\n        cout<<\"can't open d:\\\\alp.txt\"<<endl;\n        exit(1);\n    }\n    for(ch='a';ch<='z';ch++)\n        fputc(ch,fp);\n    fclose(fp);\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "屏幕版输出 abc…z；文件版在 D 盘生成 alp.txt，内容为 abc…z",
+        "explanation": "两个程序循环完全相同，区别只在输出去向：putchar 写到标准输出（屏幕），fputc 写到 fp 指向的文件。文件版多了打开、失败检查、关闭三步，这是所有文件操作的基本流程。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 7,
+            "text": "把字符写到标准输出，程序结束数据就消失。"
+          },
+          {
+            "section": 1,
+            "line": 5,
+            "text": "文件指针，后续所有文件操作都通过它。"
+          },
+          {
+            "section": 1,
+            "line": 7,
+            "text": "\"w\" 表示写方式；文件不存在则创建，存在则清空。"
+          },
+          {
+            "section": 1,
+            "line": 8,
+            "text": "打开失败必须处理，否则后续操作会崩溃。"
+          },
+          {
+            "section": 1,
+            "line": 11,
+            "text": "异常终止程序。"
+          },
+          {
+            "section": 1,
+            "line": 14,
+            "text": "把一个字符写到文件当前位置。"
+          },
+          {
+            "section": 1,
+            "line": 15,
+            "text": "关闭文件，刷新缓冲区，确保数据落盘。"
+          }
+        ],
+        "sections": [
+          {
+            "label": "屏幕版",
+            "code": "#include  <iostream>\nusing  namespace std;\nint main()\n{\n    char ch;\n    for(ch='a';ch<='z';ch++)\n        putchar(ch);\nsystem(\"pause\");\nreturn 0;\n}"
+          },
+          {
+            "label": "文件版",
+            "code": "#include  <iostream>\nusing  namespace std;\nint main()\n{\n    FILE *fp;\n    char ch;\n    fp=fopen(\"d:\\\\alp.txt\",\"w\");\n    if(fp==NULL)\n    {\n        cout<<\"can't open d:\\\\alp.txt\"<<endl;\n        exit(1);\n    }\n    for(ch='a';ch<='z';ch++)\n        fputc(ch,fp);\n    fclose(fp);\nsystem(\"pause\");\nreturn 0;\n}"
+          }
+        ]
+      },
+      "masteryHint": "能说出文件操作的三个基本步骤，并解释 fclose 的作用。",
+      "sourcePages": [
+        12
+      ]
+    },
+    {
+      "id": "l8-ex8-2",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.2 读文本、按单词分行、写入新文件并计数",
+      "tags": [
+        "课件例题",
+        "fgetc",
+        "feof",
+        "文件复制"
+      ],
+      "overview": "从 text.txt 逐字符读入，遇到空白符就输出换行并计数，同时把字符写入 words.txt。",
+      "keyPoints": [
+        "while(!feof(fp1)) 判断是否到达文件尾。",
+        "ch=fgetc(fp1) 读一个字符。",
+        "空白符包括空格、制表符、换行符。",
+        "fputc(ch,fp2) 把字符写到另一个文件。"
+      ],
+      "pitfalls": [
+        "feof 只有在读失败后才为真，循环可能多处理一次。",
+        "只打开一个文件却想同时读写两个。",
+        "忘记 fclose 两个文件。"
+      ],
+      "example": {
+        "title": "例8.2 读文本、按单词分行、写入新文件并计数",
+        "source": "课件 lesson8 · P24-P26",
+        "code": "#include <iostream>\nusing namespace std;\nint main( )\n{                                          \n    FILE  *fp1,*fp2;\n    char ch;\n    int num=0;\n    if((fp1=fopen(\"d:\\\\text.txt\",\"r\"))==NULL)\n    {\n        cout<<\"can't open text.\\n\";\n        exit(0);\n    }\n    if((fp2=fopen(\"d:\\\\words.txt\",\"w\"))==NULL)\n    {\n        cout<<\"can't open file.\\n\";\n        exit(0);\n    }\n    while(!feof(fp1))\n    {    \n        ch=fgetc(fp1); \n        if(ch==' '||ch=='\\t'||ch=='\\n')   \n        {    num++;                       \n             cout<<endl;\n             fputc('\\n',fp2);\n        }\n        else\n        {    cout<<ch;\n             fputc(ch,fp2);\n        }\n    }\n    cout<<\"\\nnum=\"<<num<<endl;\nfclose(fp1); fclose(fp2);\nsystem(\"pause\"); return 0;\n}",
+        "output": "屏幕上每个单词一行，最后输出 num=单词数；words.txt 内容相同",
+        "explanation": "程序同时打开两个文件：fp1 只读，fp2 只写。每读一个字符，如果是空白符就输出换行并让 num 加 1，否则原样输出并写入 fp2。这样 text.txt 中的单词被逐行拆开，words.txt 得到同样格式。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 8,
+            "text": "\"r\" 只读，文件必须已存在。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "\"w\" 只写，文件不存在会创建。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "feof 为假表示还没到文件尾。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "从 fp1 读一个字符。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "三种空白符都表示一个单词结束。"
+          },
+          {
+            "section": 0,
+            "line": 22,
+            "text": "统计单词数（空白符个数）。"
+          },
+          {
+            "section": 0,
+            "line": 28,
+            "text": "把非空白字符写入 words.txt。"
+          },
+          {
+            "section": 0,
+            "line": 32,
+            "text": "两个文件都要关闭。"
+          }
+        ]
+      },
+      "masteryHint": "能说出两个文件指针各自的作用，以及 feof 的判断时机。",
+      "sourcePages": [
+        24
+      ]
+    },
+    {
+      "id": "l8-ex8-3",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.3 字符串读写 fputs 与 fgets",
+      "tags": [
+        "课件例题",
+        "fputs",
+        "fgets",
+        "文件关闭"
+      ],
+      "overview": "先以 \"w\" 写入三行字符串，关闭后以 \"r\" 重新打开，用 fgets 逐行读入并用 puts 输出。",
+      "keyPoints": [
+        "fputs 不自动添加换行符，需要手动写 \\n。",
+        "fgets(s,100,fp) 最多读 99 个字符，遇到换行或 EOF 停止。",
+        "写完必须 fclose，再以读方式重新打开。",
+        "while(!feof(fp)) 也可以用 while(fgets(...)!=NULL) 替代。"
+      ],
+      "pitfalls": [
+        "写完不关闭就重新打开，缓冲区数据可能还没落盘。",
+        "fgets 的第二个参数是缓冲区大小，不是读取长度。",
+        "fputs 不会自动换行。"
+      ],
+      "example": {
+        "title": "例8.3 字符串读写 fputs 与 fgets",
+        "source": "课件 lesson8 · P29",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{    FILE *fp;\n    char s[100];\n    if((fp=fopen(\"file1.TXT\", \"w\"))==NULL)\n    {\n        cout<<\"can't open file\\n\";  exit(1); }\n    fputs(\"I am a teacher.\\n\",fp);\n    fputs(\"He is a boy.\", fp);\n    fputs(\"She is a girl.\", fp);\n    fclose(fp); //必须先关闭，再以读的方式打开。\n    if((fp=fopen(\"file1.TXT\", \"r\"))==NULL)\n    {   cout<<\"can't open file\\n\";  exit(1);   }\n    while(!feof(fp))\n    {\n        fgets(s,100,fp);\n        puts(s);\n    }\n    fclose(fp);\nsystem(\"pause\");return 0;\n}",
+        "output": "I am a teacher.\nHe is a boy.She is a girl.",
+        "explanation": "fputs 只写字符串内容，不自动换行，所以第一行手动加了 \\n，后两行连在一起。fgets 一次读一行（或最多 99 个字符），puts 输出并换行。课件还给出更稳妥的写法：while(fgets(s,100,fp)!=NULL) puts(s);",
+        "notes": [
+          {
+            "section": 0,
+            "line": 6,
+            "text": "写方式打开，文件不存在则创建。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "fputs 不自动换行，换行符要自己写。"
+          },
+          {
+            "section": 0,
+            "line": 12,
+            "text": "必须先关闭，才能保证写入完成并重新以读方式打开。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "读方式重新打开同一个文件。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "最多读 99 个字符到 s，遇到换行或 EOF 停止。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "输出字符串并自动换行。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 fputs 与 puts 的区别，以及为什么写完要先 fclose。",
+      "sourcePages": [
+        29
+      ]
+    },
+    {
+      "id": "l8-ex8-4",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.4 学生信息排序后以二进制文件保存并读回",
+      "tags": [
+        "课件例题",
+        "fwrite",
+        "fread",
+        "二进制文件"
+      ],
+      "overview": "5 个学生按成绩排序后，用 fwrite 把整个结构数组写入 student.dat，再以 \"rb\" 打开，用 fread 逐个读回并显示。",
+      "keyPoints": [
+        "\"wb\"、\"rb\" 是二进制读写方式。",
+        "fwrite(s,sizeof(s),1,fp) 把整个数组作为一块写入。",
+        "fread(&t[i],sizeof(student),1,fp)==1 表示成功读到一个学生。",
+        "二进制文件不能直接用记事本阅读，会是乱码。"
+      ],
+      "pitfalls": [
+        "用 \"w\" 而不是 \"wb\" 写结构数组。",
+        "fread 第一个参数不是地址。",
+        "用 feof 判断 fread 是否成功。"
+      ],
+      "example": {
+        "title": "例8.4 学生信息排序后以二进制文件保存并读回",
+        "source": "课件 lesson8 · P33-P36",
+        "code": "#define N 5\n#include <iostream>\nusing namespace std;\nstruct student\n{\n    char name[20];\n    char num[8];\n    double score;\n};\nint main()\n{\n    struct student s[N],t[N];\n    int i, j;\n    FILE *fp;\n    if((fp=fopen(\"student.dat\",\"wb\"))==NULL)\n    {\n        cout<<\"can't open student.dat\";\n        exit(1);\n    }\n    for(i=0;i<N;i++)\n        cin>>s[i].name>>s[i].num>>s[i].score;\n    for(i=0;i<N-1;i++)\n        for(j=0;j<N-1-i;j++)\n            if(s[j].score>s[j+1].score)\n            {\n                student ts=s[j];\n                s[j]=s[j+1];\n                s[j+1]=ts;\n            }\n    fwrite(s,sizeof(s),1,fp);\n    fclose(fp); \n    if((fp=fopen(\"student.dat\",\"rb\"))==NULL)\n    {\n        cout<<\"can't open student.dat\";\n        exit(1);\n    }\n    cout<<\"从文件中读取的数据：\"<<endl;\n    i=0;\n    while(fread(&t[i],sizeof(student),1,fp)==1)\n    {\n        cout<<t[i].name<<' '<<t[i].num<<' '<<t[i].score<<endl;\n        i++;\n    }\n    fclose(fp);\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "按成绩从低到高输出 5 个学生的信息",
+        "explanation": "结构数组在内存中是连续存放的，所以可以用一次 fwrite 把整个数组写成一块二进制数据。读回时用 fread 每次读一个 student，返回值为 1 表示读成功，读到最后返回 0，循环自然结束。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "结构体包含姓名、学号和 double 成绩。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "wb 是二进制写方式，不做文本转换；打开失败返回 NULL。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "结构数组不能整体输入，必须逐个成员输入。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "冒泡排序，按成绩从小到大。"
+          },
+          {
+            "section": 0,
+            "line": 26,
+            "text": "结构体允许整体赋值，交换时用临时结构变量 ts。"
+          },
+          {
+            "section": 0,
+            "line": 30,
+            "text": "把整个数组当作 1 个块写入，块大小 sizeof(s)=N*sizeof(student)。"
+          },
+          {
+            "section": 0,
+            "line": 31,
+            "text": "写完必须关闭文件，缓冲区内容才会真正写入磁盘。"
+          },
+          {
+            "section": 0,
+            "line": 39,
+            "text": "每次读 1 个 student，返回 1 表示成功；读到文件尾返回 0，循环结束。"
+          },
+          {
+            "section": 0,
+            "line": 42,
+            "text": "下标后移，为读下一个学生做准备。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 fwrite 的 size、count 两个参数，以及为什么用 fread 返回值判断结束。",
+      "sourcePages": [
+        33
+      ]
+    },
+    {
+      "id": "l8-ex8-5",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.5 用 fprintf 与 fscanf 实现同样的学生信息读写",
+      "tags": [
+        "课件例题",
+        "fprintf",
+        "fscanf",
+        "文本文件"
+      ],
+      "overview": "与例8.4 功能相同，但用 fprintf 写文本、fscanf 读文本，文件 student.txt 可以直接用记事本查看。",
+      "keyPoints": [
+        "fprintf(fp,\"%s %s %f\\n\",...) 按格式写文本。",
+        "fscanf(fp,\"%s%s%lf\",...) 按格式读文本。",
+        "fscanf 的字符串参数前不加 &，数值参数前要加 &。",
+        "fscanf 返回成功读取的数据个数，==3 表示三个字段都读到。"
+      ],
+      "pitfalls": [
+        "fscanf 的字符串数组前多写 &。",
+        "fscanf 的 double 用 %f 而不是 %lf。",
+        "用 feof 判断 fscanf 是否成功。"
+      ],
+      "example": {
+        "title": "例8.5 用 fprintf 与 fscanf 实现同样的学生信息读写",
+        "source": "课件 lesson8 · P42-P44",
+        "code": "#define N 5\n#include <iostream>\nusing namespace std;\nstruct student\n{\n    char name[20];\n    char num[8];\n    double score;\n};\nint main()\n{\n    struct student s[N],t[N];\n    int i, j;\n    FILE *fp;\n    if((fp=fopen(\"student.txt\",\"w\"))==NULL)\n    {\n        cout<<\"can't open student.txt\";\n        exit(1);\n    }\n    for(i=0;i<N;i++)\n        cin>>s[i].name>>s[i].num>>s[i].score;\n    for(i=0;i<N-1;i++)\n        for(j=0;j<N-1-i;j++)\n            if(s[j].score>s[j+1].score)\n            {\n                student ts=s[j];\n                s[j]=s[j+1];\n                s[j+1]=ts;\n            }\n    for(i=0;i<N;i++)\n        fprintf(fp,\"%s %s %f\\n\",s[i].name,s[i].num,s[i].score);\n    fclose(fp); \n    if((fp=fopen(\"student.txt\",\"r\"))==NULL)\n    {\n        cout<<\"can't open student.txt\";\n        exit(1);\n    }\n    cout<<\"从文件中读取的数据：\"<<endl;\n    i=0;\n    while(fscanf(fp,\"%s%s%lf\",t[i].name,t[i].num,&t[i].score)==3)\n    {\n        cout<<t[i].name<<' '<<t[i].num<<' '<<t[i].score<<endl;\n        i++;\n    }\n    fclose(fp);\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "student.txt 为可读文本；屏幕按成绩从低到高输出",
+        "explanation": "fprintf 的用法与 printf 相同，只是多一个文件指针参数；fscanf 与 scanf 相同，也多一个文件指针。字符串数组名本身就是地址，所以 t[i].name 前不加 &；score 是 double，必须用 %lf 并加 &。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 4,
+            "text": "文本文件读写的结构体与例8.4相同，成绩仍是 double。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "w 是文本写方式，若文件已存在会先清空。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "先读入 5 个学生的姓名、学号、成绩。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "排序逻辑与例8.4完全相同。"
+          },
+          {
+            "section": 0,
+            "line": 31,
+            "text": "fprintf 按格式把每个学生写成一行文本，%f 输出 double。"
+          },
+          {
+            "section": 0,
+            "line": 33,
+            "text": "重新以 r 方式打开同一个文件，准备读回。"
+          },
+          {
+            "section": 0,
+            "line": 40,
+            "text": "fscanf 返回成功读入的字段数，3 表示姓名、学号、成绩都读到；字符串数组名本身就是地址，double 要加 &。"
+          },
+          {
+            "section": 0,
+            "line": 43,
+            "text": "准备读下一个学生，直到 fscanf 返回不足 3 项。"
+          }
+        ]
+      },
+      "masteryHint": "能说出 fscanf 中哪些参数要加 &，以及返回值 3 的含义。",
+      "sourcePages": [
+        42
+      ]
+    },
+    {
+      "id": "l8-ex8-6",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.6 随机读写 fseek 示例",
+      "tags": [
+        "课件例题",
+        "fseek",
+        "随机读写"
+      ],
+      "overview": "以 \"w+\" 打开可读写文件，先写 \"I love China\"，用 fseek(fp,-5,SEEK_CUR) 回到 'C'，读字符串；再定位到文件尾写入 '!'。",
+      "keyPoints": [
+        "\"w+\" 打开后可读可写。",
+        "fseek(fp,-5,SEEK_CUR) 从当前位置向前移动 5 字节。",
+        "fgets(s,100,fp) 从当前位置读字符串。",
+        "fseek(fp,0,2) 定位到文件尾，然后 fputc('!',fp) 追加。"
+      ],
+      "pitfalls": [
+        "写完立刻读却不 fseek，读写位置在文件尾。",
+        "fseek 的偏移量单位是字节，不是元素个数。",
+        "用 \"w\" 打开却想读。"
+      ],
+      "example": {
+        "title": "例8.6 随机读写 fseek 示例",
+        "source": "课件 lesson8 · P48",
+        "code": "#include <iostream>\nusing namespace std;\nint main()\n{  FILE  *fp;\n   char s[100];\n   if ((fp = fopen(\"file.txt\", \"w+\")) == NULL)\n   {   cout << \"can't open file.\\n\";     exit(1);     }\n   fputs(\"I love \", fp);\n   fputs(\"China\", fp);\n   fseek(fp, -5, SEEK_CUR);            \n   fgets(s,100,fp); \n   cout << s << endl;\n   fseek(fp,0, 2);                      \n   fputc('!', fp);                       \n   fclose(fp);\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "China\n文件内容变为 I love China!",
+        "explanation": "\"I love \" 占 7 字节，\"China\" 占 5 字节，写完后位置在文件尾。fseek(-5,SEEK_CUR) 向前退 5 字节，正好回到 'C'，所以 fgets 读到 \"China\"。fseek(0,2) 定位到文件尾，再写 '!' 就追加在末尾。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 6,
+            "text": "\"w+\" 既可写也可读。"
+          },
+          {
+            "section": 0,
+            "line": 9,
+            "text": "写完 \"China\" 后，读写位置在文件尾。"
+          },
+          {
+            "section": 0,
+            "line": 10,
+            "text": "从当前位置向前移动 5 字节，回到 'C'。"
+          },
+          {
+            "section": 0,
+            "line": 11,
+            "text": "从当前位置读到换行或 EOF，得到 \"China\"。"
+          },
+          {
+            "section": 0,
+            "line": 13,
+            "text": "2 即 SEEK_END，定位到文件尾。"
+          },
+          {
+            "section": 0,
+            "line": 14,
+            "text": "在文件尾追加一个字符。"
+          }
+        ]
+      },
+      "masteryHint": "能算出 fseek(-5) 为什么正好回到 'C'。",
+      "sourcePages": [
+        48
+      ]
+    },
+    {
+      "id": "l8-ex8-7",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.7 统计文件中每个数字字符出现的次数",
+      "tags": [
+        "课件例题",
+        "fgetc",
+        "字符统计",
+        "下标映射"
+      ],
+      "overview": "逐字符读取 file1.txt，若 ch 是数字，则用 k=ch-'0' 作为下标，让 num[k] 加 1。",
+      "keyPoints": [
+        "num[10] 初始化为 0，分别统计 '0'~'9'。",
+        "k=ch-'0' 把数字字符映射到 0~9。",
+        "只统计数字字符，其它字符跳过。",
+        "最后只输出出现次数不为 0 的数字。"
+      ],
+      "pitfalls": [
+        "下标写成 ch（字符的 ASCII 码），越界。",
+        "num 没有初始化。",
+        "把 '0' 写成 0。"
+      ],
+      "example": {
+        "title": "例8.7 统计文件中每个数字字符出现的次数",
+        "source": "课件 lesson8 · P49-P50",
+        "code": "#include <iostream>\nusing namespace std;\nint main( )\n{\n    FILE *fp;\n    char ch;\n    int num[10]={0},k;\n    if((fp=fopen(\"file1.txt\", \"r\"))==NULL)\n    { \n        cout<<\"can’t open file\\n\";  \n        exit(1);\n    }\n    while(!feof(fp)) \n    {  \n        ch=fgetc(fp);\n        if(ch>='0'&&ch<='9')\n        {\n            k=ch-'0'; \n            num[k]=num[k]+1;\n        }\n    }\n    fclose(fp);\n    for(k=0;k<10;k++)\n        if(num[k]!=0)\n            cout<<k<<\"出现\"<<num[k]<<\"次\"<<endl;\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "例如文件中数字 1 出现 3 次，则输出 1出现3次",
+        "explanation": "数字字符 '0'~'9' 的 ASCII 码是连续的，所以 ch-'0' 正好得到 0~9 的整数。用这个整数作 num 的下标，就能把每个数字字符的次数分别累加。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 7,
+            "text": "10 个计数器全部初始化为 0。"
+          },
+          {
+            "section": 0,
+            "line": 15,
+            "text": "从文件读一个字符。"
+          },
+          {
+            "section": 0,
+            "line": 16,
+            "text": "只处理数字字符。"
+          },
+          {
+            "section": 0,
+            "line": 18,
+            "text": "把字符 '0'~'9' 转成下标 0~9。"
+          },
+          {
+            "section": 0,
+            "line": 19,
+            "text": "对应数字的计数加 1。"
+          },
+          {
+            "section": 0,
+            "line": 24,
+            "text": "只输出出现过的数字。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 ch-'0' 为什么能得到 0~9 的下标。",
+      "sourcePages": [
+        49
+      ]
+    },
+    {
+      "id": "l8-ex8-8",
+      "lessonId": "lesson8",
+      "kind": "example",
+      "title": "例8.8 删除重复字符并写入文件",
+      "tags": [
+        "课件例题",
+        "字符串去重",
+        "文件写入",
+        "j--"
+      ],
+      "overview": "对每个字符 s[i]，在它后面查找相同字符；找到就把它后面的所有字符前移一位，并让 j-- 回退，防止连续重复漏删。",
+      "keyPoints": [
+        "外层 i 逐个考查每个字符。",
+        "内层 j 从 i+1 开始找相同字符。",
+        "删除时 for(k=j;s[k]!='\\0';k++) s[k]=s[k+1]; 前移覆盖。",
+        "j-- 让下一轮重新检查当前位置，处理连续重复。"
+      ],
+      "pitfalls": [
+        "删除后忘记 j--，连续三个相同字符只删掉一个。",
+        "前移循环上界写成 k<strlen(s)，越界。",
+        "文件以 \"w\" 打开却忘记 fputs。"
+      ],
+      "example": {
+        "title": "例8.8 删除重复字符并写入文件",
+        "source": "课件 lesson8 · P51",
+        "code": "#include <iostream>\nusing namespace std;\nint main( )\n{\n    FILE *fp;\n    char s[100],ch;\n    int i,j,k;\n    if((fp=fopen(\"file.txt\", \"w\"))==NULL)\n    {\n        cout<<\"can't open file\\n\";\n        exit(1);\n    }\n    gets(s);\n    for(i=0;s[i]!='\\0';i++)\n    {\n        ch=s[i];\n        for(j=i+1;s[j]!='\\0';j++)\n            if(s[j]==ch)\n            {\n                for(k=j;s[k]!='\\0';k++)\n                    s[k]=s[k+1];\n                j--;\n            }\n    }\n    fputs(s,fp);\n    fclose(fp);\nsystem(\"pause\");\nreturn 0;\n}",
+        "output": "输入 aaabbbccc 时，文件内容为 abc",
+        "explanation": "每找到一个重复字符，就把从 j 开始的整段字符串前移一位，相当于删除 s[j]。删除后原来的 s[j+1] 移到了 s[j]，所以 j-- 让下一轮仍然检查 j 这个位置，才能处理 aaa 这种连续重复。",
+        "notes": [
+          {
+            "section": 0,
+            "line": 14,
+            "text": "逐个字符作为“保留字符”考查。"
+          },
+          {
+            "section": 0,
+            "line": 16,
+            "text": "保存当前字符，后面所有相同字符都要删。"
+          },
+          {
+            "section": 0,
+            "line": 17,
+            "text": "只在当前字符后面找重复。"
+          },
+          {
+            "section": 0,
+            "line": 20,
+            "text": "从重复位置开始，把后面的字符整体前移。"
+          },
+          {
+            "section": 0,
+            "line": 21,
+            "text": "用后一个字符覆盖当前字符，相当于删除。"
+          },
+          {
+            "section": 0,
+            "line": 22,
+            "text": "删除后当前位置已经是新字符，必须回退一位重新检查。"
+          },
+          {
+            "section": 0,
+            "line": 25,
+            "text": "把去重后的字符串写入文件。"
+          }
+        ]
+      },
+      "masteryHint": "能解释 j-- 为什么能处理连续重复字符。",
+      "sourcePages": [
+        51
+      ]
+    },
+    {
       "id": "l8-file-concepts",
       "lessonId": "lesson8",
       "title": "文件、文本文件与二进制文件",
@@ -4907,12 +10562,6 @@ window.COURSE_DATA = {
         "把文件扩展名当作文件内容的唯一证据。",
         "忘记文本转换需要额外时间。"
       ],
-      "example": {
-        "title": "文本与二进制保存方式",
-        "code": "int x = 123;\n// 文本文件: '1' '2' '3'，共 3 个字符字节\n// 常见 32 位 int 二进制文件: sizeof(int) 个字节\nstd::cout << sizeof(x);",
-        "output": "通常为 4",
-        "explanation": "文本文件保存字符编码；二进制文件保存对象的内存表示。"
-      },
       "exercise": {
         "prompt": "用 C++ 输出 int 类型 123 和 char 类型 '7' 的 sizeof，理解数值类型与字符类型的存储差异。",
         "starter": "#include <iostream>\n\nint main() {\n    // 输出两个 sizeof\n    return 0;\n}",
@@ -4965,12 +10614,6 @@ window.COURSE_DATA = {
         "打开后不检查返回值。",
         "关闭后继续使用同一文件指针进行读写。"
       ],
-      "example": {
-        "title": "最小文件打开流程",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"demo.txt\", \"w\");\n    if (!fp) return 1;\n    std::fputs(\"hello\", fp);\n    std::fclose(fp);\n}",
-        "output": "创建 demo.txt，内容为 hello",
-        "explanation": "fopen 建立文件关联，fputs 写入，fclose 刷新并释放资源。"
-      },
       "exercise": {
         "prompt": "声明 FILE* fp，以写模式打开 out.txt；若打开失败返回 1，成功时写入 \"OK\" 并关闭文件。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 定义、打开、检查、写入、关闭\n    return 0;\n}",
@@ -5034,12 +10677,6 @@ window.COURSE_DATA = {
         "用文本模式读写二进制结构体。",
         "在字符串中写路径 d:\\file.txt 却只写一个反斜杠。"
       ],
-      "example": {
-        "title": "选择正确模式",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"data.bin\", \"wb\");\n    if (!fp) return 1;\n    int x = 42;\n    std::fwrite(&x, sizeof(x), 1, fp);\n    std::fclose(fp);\n}",
-        "output": "创建二进制文件 data.bin",
-        "explanation": "wb 用于创建/截断二进制文件并写入数据块。"
-      },
       "exercise": {
         "prompt": "以追加文本模式打开 log.txt 并写入 \"new\\n\"；文件不存在时应自动创建。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 追加写入\n    return 0;\n}",
@@ -5095,12 +10732,6 @@ window.COURSE_DATA = {
         "认为 fputs 返回成功就已经永久保存。",
         "关闭失败不处理。"
       ],
-      "example": {
-        "title": "关闭时刷新数据",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"note.txt\", \"w\");\n    if (!fp) return 1;\n    std::fputs(\"saved\", fp);\n    if (std::fclose(fp) != 0) return 2;\n}",
-        "output": "文件保存 saved",
-        "explanation": "fclose 负责刷新缓冲区并释放文件资源。"
-      },
       "exercise": {
         "prompt": "打开 out.txt 写模式，检查失败；写入 \"done\" 后关闭，并检查 fclose 返回值。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 写入并关闭，检查两次返回值\n    return 0;\n}",
@@ -5153,12 +10784,6 @@ window.COURSE_DATA = {
         "把 char 与 EOF 比较，在 char 有符号性不同的平台上出错。",
         "fputc 参数顺序写反。"
       ],
-      "example": {
-        "title": "复制字符",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* in = std::fopen(\"in.txt\", \"r\");\n    FILE* out = std::fopen(\"out.txt\", \"w\");\n    if (!in || !out) return 1;\n    int ch;\n    while ((ch = std::fgetc(in)) != EOF) {\n        std::fputc(ch, out);\n    }\n    std::fclose(in);\n    std::fclose(out);\n}",
-        "output": "out.txt 与 in.txt 内容相同",
-        "explanation": "循环在 fgetc 返回 EOF 时停止，避免把 EOF 写入输出。"
-      },
       "exercise": {
         "prompt": "打开 input.txt 只读，逐字符输出到屏幕，直到 EOF；关闭文件。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 逐字符读取并输出\n    return 0;\n}",
@@ -5215,12 +10840,6 @@ window.COURSE_DATA = {
         "忽略 fgets 保留的换行符。",
         "用 while(!feof) 配合 fgets 导致重复处理旧缓冲。"
       ],
-      "example": {
-        "title": "写入两行并读取",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"text.txt\", \"w\");\n    if (!fp) return 1;\n    std::fputs(\"first\\nsecond\", fp);\n    std::fclose(fp);\n}",
-        "output": "文本含两行 first、second",
-        "explanation": "第一段字符串显式包含换行，第二段不自动换行。"
-      },
       "exercise": {
         "prompt": "打开 lines.txt 写模式，写入两行 \"alpha\" 和 \"beta\"（必须用 fputs），关闭后再以读模式用 fgets 输出每行。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 写入两行，再读取输出\n    return 0;\n}",
@@ -5277,12 +10896,6 @@ window.COURSE_DATA = {
         "读取 double 时用 %f 而非 %lf。",
         "用 fscanf 读写二进制结构文件。"
       ],
-      "example": {
-        "title": "写入并读回整数",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"num.txt\", \"w\");\n    if (!fp) return 1;\n    std::fprintf(fp, \"%d %d\", 4, 7);\n    std::fclose(fp);\n}",
-        "output": "num.txt 文本内容为 4 7",
-        "explanation": "fprintf 按格式把两个整数写成文本。"
-      },
       "exercise": {
         "prompt": "创建 numbers.txt，用 fprintf 写入 12 和 34，再以读模式用 fscanf 读回两个 int 并输出和。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 写入、读回、输出和\n    return 0;\n}",
@@ -5339,12 +10952,6 @@ window.COURSE_DATA = {
         "size 与 count 参数颠倒。",
         "把含动态指针的结构体直接写入后，在其他程序中当作有效数据读取。"
       ],
-      "example": {
-        "title": "写入一个整数块",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"n.bin\", \"wb\");\n    if (!fp) return 1;\n    int x = 2026;\n    std::fwrite(&x, sizeof(x), 1, fp);\n    std::fclose(fp);\n}",
-        "output": "n.bin 含一个 int 的二进制表示",
-        "explanation": "第一个参数必须是待写数据的内存地址。"
-      },
       "exercise": {
         "prompt": "把 int 数组 a[3]={1,2,3} 以二进制写入 data.bin，再以 rb 模式读回到 b[3] 并输出 b[2]。",
         "starter": "#include <cstdio>\n\nint main() {\n    int a[3] = {1, 2, 3};\n    int b[3] = {};\n    // 块写入并读回\n    return 0;\n}",
@@ -5405,12 +11012,6 @@ window.COURSE_DATA = {
         "用 fgetc 直接读取一个 int 对象并期待得到原整数。",
         "对二进制文件使用文本格式函数却期待原内存块。"
       ],
-      "example": {
-        "title": "回到文件开头",
-        "code": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"r.txt\", \"w+\");\n    if (!fp) return 1;\n    std::fputs(\"abc\", fp);\n    std::rewind(fp);\n    std::putchar(std::fgetc(fp));\n    std::fclose(fp);\n}",
-        "output": "a",
-        "explanation": "写完 abc 后位置在末尾，rewind 把它移回开头，再读取得到 a。"
-      },
       "exercise": {
         "prompt": "打开 data.bin 为 rb，使用 fseek 从文件末尾向前移动 sizeof(int) 字节，再用 fread 读取最后一个 int 并输出。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 定位到最后一个 int 并读取\n    return 0;\n}",
@@ -5468,12 +11069,6 @@ window.COURSE_DATA = {
         "把 fscanf 的返回项数误当读到的数值。",
         "读取失败后仍使用未成功写入的变量。"
       ],
-      "example": {
-        "title": "按返回值读取整数",
-        "code": "int x, sum = 0;\nwhile (fscanf(fp, \"%d\", &x) == 1) {\n    sum += x;\n}",
-        "output": "读到非整数或文件尾时循环结束。",
-        "explanation": "只有成功读取 1 个整数时才进入循环体。"
-      },
       "exercise": {
         "prompt": "程序先创建 demo.txt 并写入 1 2 3，然后重新打开读取。补全循环，使用 fscanf 的返回值求和并统计个数，输出和与个数。",
         "starter": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* out = fopen(\"demo.txt\", \"w\");\n    fputs(\"1 2 3\", out);\n    fclose(out);\n\n    FILE* fp = fopen(\"demo.txt\", \"r\");\n    if (fp == nullptr) return 1;\n    int x, sum = 0, count = 0;\n    // 使用 fscanf 返回值循环读取\n    fclose(fp);\n    cout << sum << ' ' << count << endl;\n    return 0;\n}",
@@ -5533,12 +11128,6 @@ window.COURSE_DATA = {
         "写入后不关闭文件就重新读取，缓冲区内容可能尚未完整刷新。",
         "fopen 失败后继续使用空 FILE*。"
       ],
-      "example": {
-        "title": "安全的写后读",
-        "code": "FILE* fp = fopen(\"data.txt\", \"w\");\nif (!fp) return 1;\nfputs(\"hello\", fp);\nfclose(fp);\nfp = fopen(\"data.txt\", \"r\");",
-        "output": "先关闭写文件，再重新以只读方式打开。",
-        "explanation": "fclose 刷新缓冲区并释放文件资源。"
-      },
       "exercise": {
         "prompt": "读取一个不含空白的字符串，写入 data.txt，关闭后重新读取并输出。补全 fopen 模式与安全检查。",
         "starter": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    char text[50], buffer[50];\n    cin >> text;\n    FILE* out = fopen(\"data.txt\", \"?\");\n    if (out == nullptr) return 1;\n    fputs(text, out);\n    fclose(out);\n\n    FILE* in = fopen(\"data.txt\", \"?\");\n    if (in == nullptr) return 1;\n    fgets(buffer, 50, in);\n    fclose(in);\n    cout << buffer << endl;\n    return 0;\n}",
@@ -5597,12 +11186,6 @@ window.COURSE_DATA = {
         "用 while(!in.eof()) 导致重复处理最后一项。",
         "忘记包含 <fstream>。"
       ],
-      "example": {
-        "title": "写入并读取整数",
-        "code": "#include <fstream>\nusing namespace std;\nofstream out(\"n.txt\");\nout << 1 << ' ' << 2 << ' ' << 3;\nout.close();\nifstream in(\"n.txt\");\nint x;\nwhile (in >> x) { /* 处理 x */ }",
-        "output": "读取 1、2、3。",
-        "explanation": ">> 读取失败时条件为假，循环自然结束。"
-      },
       "exercise": {
         "prompt": "使用 ofstream 向 nums.txt 写入 1、2、3，关闭后用 ifstream 读取并求和，输出结果。",
         "starter": "#include <iostream>\n#include <fstream>\nusing namespace std;\n\nint main() {\n    // 写入 1 2 3\n    // 读取并求和\n    cout << sum << endl;\n    return 0;\n}",
@@ -5661,12 +11244,6 @@ window.COURSE_DATA = {
         "把 a+=a*2 误展开为 a=a+2。",
         "对表达式执行 ++。"
       ],
-      "example": {
-        "title": "复合赋值",
-        "code": "#include <iostream>\n\nint main() {\n    int a = 3;\n    a += a * 2;\n    std::cout << a;\n}",
-        "output": "9",
-        "explanation": "先算右侧 a*2 得 6，再执行 a = 3 + 6，得到 9。"
-      },
       "exercise": {
         "prompt": "令 int a=4，计算 a += a*3 后的结果并输出。",
         "starter": "#include <iostream>\n\nint main() {\n    int a = 4;\n    // 执行复合赋值并输出\n    return 0;\n}",
@@ -5716,12 +11293,6 @@ window.COURSE_DATA = {
         "把 continue 当结束整个循环。",
         "把 for 后的分号误当排版。"
       ],
-      "example": {
-        "title": "短路让右侧不执行",
-        "code": "#include <iostream>\n\nint main() {\n    int a = 0, b = 1;\n    bool r = --a && ++b;\n    std::cout << a << ' ' << b << ' ' << r;\n}",
-        "output": "0 1 0",
-        "explanation": "--a 先把 a 变为 0，左侧为假，&& 右侧 ++b 不执行。"
-      },
       "exercise": {
         "prompt": "令 a=0、b=1，执行 bool ok = a++ && ++b; 后输出 a、b、ok。",
         "starter": "#include <iostream>\n\nint main() {\n    int a = 0, b = 1;\n    // 执行短路表达式并输出\n    return 0;\n}",
@@ -5774,12 +11345,6 @@ window.COURSE_DATA = {
         "把 strlen 结果当作所需数组容量。",
         "循环访问 a[n]。"
       ],
-      "example": {
-        "title": "安全复制字符串",
-        "code": "#include <iostream>\n#include <cstring>\n\nint main() {\n    char s[10];\n    std::strcpy(s, \"hello\");\n    std::cout << s << ' ' << std::strlen(s);\n}",
-        "output": "hello 5",
-        "explanation": "数组容量 10 足以保存 5 个字符和结尾 '\\0'；strlen 返回 5。"
-      },
       "exercise": {
         "prompt": "定义 char s[6]，用 strcpy 复制 \"hello\"，输出字符串及其 strlen。",
         "starter": "#include <iostream>\n#include <cstring>\n\nint main() {\n    // 定义、复制、输出\n    return 0;\n}",
@@ -5832,12 +11397,6 @@ window.COURSE_DATA = {
         "对普通变量 p 使用 delete。",
         "new[] 后用 delete 释放。"
       ],
-      "example": {
-        "title": "指针表达式",
-        "code": "#include <iostream>\n\nint main() {\n    int a[5] = {1, 3, 5, 7, 9};\n    int* p = a + 1;\n    std::cout << *p + 1 << ' ' << *(p + 1);\n}",
-        "output": "4 5",
-        "explanation": "p 指向 a[1]=3，*p+1 得 4；p+1 指向 a[2]=5，解引用得 5。"
-      },
       "exercise": {
         "prompt": "创建 int 数组 a={2,4,6,8}，令 p=a+2，输出 *p 和 *(p-1)。",
         "starter": "#include <iostream>\n\nint main() {\n    // 定义数组和指针并输出\n    return 0;\n}",
@@ -5895,12 +11454,6 @@ window.COURSE_DATA = {
         "二分查找区间更新写错导致死循环。",
         "排序循环边界写成 <= n。"
       ],
-      "example": {
-        "title": "最大公约数",
-        "code": "#include <iostream>\n\nint gcd(int a, int b) {\n    while (b != 0) {\n        int r = a % b;\n        a = b;\n        b = r;\n    }\n    return a;\n}\n\nint main() {\n    std::cout << gcd(18, 24);\n}",
-        "output": "6",
-        "explanation": "辗转相除直到余数为 0，最后一个非零除数就是最大公约数。"
-      },
       "exercise": {
         "prompt": "编写 int gcd(int a,int b)，用辗转相除法返回最大公约数，并输出 gcd(36,60)。",
         "starter": "#include <iostream>\n\n// 定义 gcd\n\nint main() {\n    // 输出 gcd(36,60)\n    return 0;\n}",
@@ -5958,12 +11511,6 @@ window.COURSE_DATA = {
         "用 1/n 计算平均值。",
         "以为 setw 会持续影响后续所有输出。"
       ],
-      "example": {
-        "title": "字符算术的类型提升",
-        "code": "#include <iostream>\n\nint main() {\n    char ch = 'b';\n    std::cout << ch + 2 << ' ' << static_cast<char>(ch + 2);\n}",
-        "output": "100 d",
-        "explanation": "ch+2 参与算术时提升为整数；显式转回 char 才输出字符。"
-      },
       "exercise": {
         "prompt": "令 char ch='A'，分别输出 ch+1 的整数值和转换回 char 后的字符。",
         "starter": "#include <iostream>\n\nint main() {\n    char ch = 'A';\n    // 输出整数和字符\n    return 0;\n}",
@@ -6017,12 +11564,6 @@ window.COURSE_DATA = {
         "把 strlen 结果当容量，忘记再加 1。",
         "对字符串字面量使用 strcpy 作为目标。"
       ],
-      "example": {
-        "title": "字符串长度与复制",
-        "code": "char s1[] = \"abc\";\nchar s2[20];\nstrcpy(s2, s1);\ncout << strlen(s2) << endl;",
-        "output": "3",
-        "explanation": "strcpy 复制到可写数组 s2，strlen 不计算结尾 '\\0'。"
-      },
       "exercise": {
         "prompt": "读取两个单词，复制第一个到 buffer，把第二个追加到 buffer，输出连接结果、两个长度以及内容是否相等。",
         "starter": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    char a[50], b[50], buffer[120];\n    cin >> a >> b;\n    // 使用 strcpy、strcat、strlen、strcmp\n    return 0;\n}",
@@ -6082,12 +11623,6 @@ window.COURSE_DATA = {
         "putchar 的参数写成字符串。",
         "对负数调用 sqrt。"
       ],
-      "example": {
-        "title": "平方根与字符输出",
-        "code": "#include <cmath>\n#include <cstdio>\nusing namespace std;\n\nprintf(\"%.2f\\n\", sqrt(9.0));\nputchar('A');",
-        "output": "3.00\nA",
-        "explanation": "sqrt 返回浮点值，putchar 输出单个字符。"
-      },
       "exercise": {
         "prompt": "读取一个非负实数和字符，输出 sqrt(x) 与 fabs(x)，均保留两位小数，再用 putchar 输出该字符。",
         "starter": "#include <iostream>\n#include <iomanip>\n#include <cmath>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    double x;\n    char ch;\n    cin >> x >> ch;\n    // 输出 sqrt、fabs 和字符\n    return 0;\n}",
@@ -6146,12 +11681,6 @@ window.COURSE_DATA = {
         "循环从 0 开始且初始化错误。",
         "遇到相等元素时无条件更新下标，导致结果不稳定。"
       ],
-      "example": {
-        "title": "最大值",
-        "code": "int maxValue = a[0], maxIndex = 0;\nfor (int i = 1; i < n; ++i)\n    if (a[i] > maxValue) {\n        maxValue = a[i];\n        maxIndex = i;\n    }",
-        "output": "返回最大值及其下标。",
-        "explanation": "严格大于时更新，可保留第一个最大值的位置。"
-      },
       "exercise": {
         "prompt": "读取 6 个整数，输出最大值及首次出现的下标、最小值及首次出现的下标。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[6];\n    for (int i = 0; i < 6; ++i) cin >> a[i];\n    // 求最大值和最小值及下标\n    return 0;\n}",
@@ -6210,12 +11739,6 @@ window.COURSE_DATA = {
         "忘记调整有效长度。",
         "数组容量不足仍插入。"
       ],
-      "example": {
-        "title": "删除一个元素",
-        "code": "for (int i = pos; i < n - 1; ++i)\n    a[i] = a[i + 1];\n--n;",
-        "output": "后继元素整体左移一位。",
-        "explanation": "从 pos 开始向前覆盖，循环到 n-2。"
-      },
       "exercise": {
         "prompt": "已有有序数组 1 3 5 7 9。先删除值 5，再插入 6 保持有序，最后输出有效元素。补全 deleteValue 和 insertSorted。",
         "starter": "#include <iostream>\nusing namespace std;\n\nbool deleteValue(int a[], int& n, int x) {\n    // 删除 x，成功返回 true\n}\n\nbool insertSorted(int a[], int& n, int x) {\n    // 有序插入 x，成功返回 true\n}\n\nint main() {\n    int a[20] = {1,3,5,7,9}, n = 5;\n    deleteValue(a, n, 5);\n    insertSorted(a, n, 6);\n    for (int i = 0; i < n; ++i) cout << a[i] << ' ';\n    cout << endl;\n    return 0;\n}",
@@ -6275,12 +11798,6 @@ window.COURSE_DATA = {
         "连接时覆盖原字符串结尾。",
         "比较只判断长度。"
       ],
-      "example": {
-        "title": "手写复制",
-        "code": "int i = 0;\nwhile (from[i] != '\\0') {\n    to[i] = from[i];\n    ++i;\n}\nto[i] = '\\0';",
-        "output": "完整复制字符串。",
-        "explanation": "循环复制非结束字符，最后单独补 '\\0'。"
-      },
       "exercise": {
         "prompt": "读取两个单词，手写函数 copyString 和 concatString，输出复制结果与连接结果。",
         "starter": "#include <iostream>\nusing namespace std;\n\nvoid copyString(char to[], const char from[]) {\n    // 手写复制\n}\n\nvoid concatString(char to[], const char from[]) {\n    // 手写连接\n}\n\nint main() {\n    char a[50], b[50], copied[100], joined[100];\n    cin >> a >> b;\n    copyString(copied, a);\n    copyString(joined, a);\n    concatString(joined, b);\n    cout << copied << ' ' << joined << endl;\n    return 0;\n}",
@@ -6340,12 +11857,6 @@ window.COURSE_DATA = {
         "下标直接使用 ASCII 值，造成越界。",
         "统计时忘记区分大小写或先统一大小写。"
       ],
-      "example": {
-        "title": "大写转小写",
-        "code": "for (int i = 0; s[i] != '\\0'; ++i)\n    if (s[i] >= 'A' && s[i] <= 'Z')\n        s[i] = s[i] + 32;",
-        "output": "只转换大写英文字母。",
-        "explanation": "小写编码比对应大写大 32。"
-      },
       "exercise": {
         "prompt": "读取一个单词，把所有大写字母转为小写，并输出转换后的字符串以及出现次数最多的字母和次数。若并列取字母序最小者。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[100];\n    cin >> s;\n    int freq[26] = {0};\n    // 转换大小写并统计\n    return 0;\n}",

@@ -2,7 +2,7 @@ window.COURSE_DATA = {
   "meta": {
     "title": "C/C++ 高程知识复习台",
     "subtitle": "按知识点分块练习、判断掌握程度，并自动安排下一轮复习",
-    "version": 6,
+    "version": 7,
     "updatedAt": "2026-11-19",
     "sourceNote": "根据 Canvas 课程 118150 的 lesson1-8 课件整理；86 道课件例题均按课件内容录入，统一使用课件中的 using namespace std; 写法；多程序例题分块展示，课件填空保留原位置并在“课件填空答案”中给出答案；知识点卡只保留归纳与练习。"
   },
@@ -234,7 +234,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写一个完整程序，输出 Hello, C++! 后换行，并正常结束。",
-        "starter": "#include <iostream>\n\nint main() {\n    // 在这里完成输出\n\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 在这里完成输出\n\n    return 0;\n}",
         "hint": "使用 cout、字符串字面量、<< 和 endl。",
         "checks": [
           {
@@ -808,7 +808,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "声明 char 变量 grade 为 'A'、bool 变量 passed 为 true、double 变量 ratio 为 0.75，并输出三者。",
-        "starter": "#include <iostream>\n\nint main() {\n    // 声明三个变量\n\n    // 输出它们\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 声明三个变量\n\n    // 输出它们\n    return 0;\n}",
         "hint": "字符使用单引号，布尔值直接写 true。",
         "checks": [
           {
@@ -907,7 +907,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 int total 和 int count。请计算 double 类型平均值 average，并输出它。要求结果为浮点除法。",
-        "starter": "#include <iostream>\n\nint main() {\n    int total = 7;\n    int count = 2;\n    // 计算 average 并输出\n\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 7;\n    int count = 2;\n    // 计算 average 并输出\n\n    return 0;\n}",
         "hint": "将 total 或 count 中至少一个先转换为 double。",
         "checks": [
           {
@@ -1067,7 +1067,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 double value = 3.9。请使用 C 风格强制转换 (int)value 把它显式转换为 int，保存到 whole 并输出。",
-        "starter": "#include <iostream>\n\nint main() {\n    double value = 3.9;\n    // 显式转换并输出\n\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    double value = 3.9;\n    // 显式转换并输出\n\n    return 0;\n}",
         "hint": "语法是 (int)value，也可以写成 (int)(value)。",
         "checks": [
           {
@@ -7807,7 +7807,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写函数 square，接收一个 int 并返回它的平方；在 main 中输出 square(7)。",
-        "starter": "#include <iostream>\n\n// 定义 square\n\nint main() {\n    // 调用并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 square\n\nint main() {\n    // 调用并输出\n    return 0;\n}",
         "hint": "函数头可写 int square(int x)。",
         "checks": [
           {
@@ -7858,7 +7858,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 int add(int,int); 声明。请补充 add 的定义，并在 main 中输出 add(4, 6)。",
-        "starter": "#include <iostream>\n\nint add(int, int);\n\nint main() {\n    // 输出 add(4, 6)\n    return 0;\n}\n\n// 补充定义",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint add(int, int);\n\nint main() {\n    // 输出 add(4, 6)\n    return 0;\n}\n\n// 补充定义",
         "hint": "定义包含函数头和花括号中的函数体。",
         "checks": [
           {
@@ -7909,7 +7909,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 int twice(int x)，返回 2*x，不改动 main 中的变量；main 输出 twice(9)。",
-        "starter": "#include <iostream>\n\n// 定义 twice\n\nint main() {\n    // 输出 twice(9)\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 twice\n\nint main() {\n    // 输出 twice(9)\n    return 0;\n}",
         "hint": "此题只需要读取参数并返回结果。",
         "checks": [
           {
@@ -7961,7 +7961,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 void minMax(int a, int b, int& minValue, int& maxValue)，把较小值和较大值写回引用参数；main 中 a=8、b=3，输出两个结果。",
-        "starter": "#include <iostream>\n\n// 定义 minMax\n\nint main() {\n    int a = 8, b = 3, lo, hi;\n    // 调用并输出 lo、hi\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 minMax\n\nint main() {\n    int a = 8, b = 3, lo, hi;\n    // 调用并输出 lo、hi\n    return 0;\n}",
         "hint": "函数内给 minValue、maxValue 赋值即可修改 main 中的 lo、hi。",
         "checks": [
           {
@@ -8017,7 +8017,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 void sumDiff(int a, int b, int* sum, int* diff)，通过指针参数返回 a+b 和 a-b；main 输出 10 与 4 的结果。",
-        "starter": "#include <iostream>\n\n// 定义 sumDiff\n\nint main() {\n    int s, d;\n    // 调用并输出 s、d\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 sumDiff\n\nint main() {\n    int s, d;\n    // 调用并输出 s、d\n    return 0;\n}",
         "hint": "函数内用 *sum、*diff 给调用者对象赋值。",
         "checks": [
           {
@@ -8073,7 +8073,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 void addOne(int a[], int n)，把数组中每个元素加 1；main 中数组为 {1,2,3}，调用后输出 2 3 4。",
-        "starter": "#include <iostream>\n\n// 定义 addOne\n\nint main() {\n    int a[3] = {1, 2, 3};\n    // 调用并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 addOne\n\nint main() {\n    int a[3] = {1, 2, 3};\n    // 调用并输出\n    return 0;\n}",
         "hint": "遍历 i=0 到 n-1，对 a[i] 执行 ++。",
         "checks": [
           {
@@ -8129,7 +8129,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 int* findValue(int a[], int n, int target)，找到 target 时返回其地址，否则返回 NULL；main 中查找 5。",
-        "starter": "#include <iostream>\n\n// 定义 findValue\n\nint main() {\n    int a[4] = {2, 5, 8, 9};\n    // 调用并检查返回值\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 findValue\n\nint main() {\n    int a[4] = {2, 5, 8, 9};\n    // 调用并检查返回值\n    return 0;\n}",
         "hint": "循环遍历数组，匹配时写 return &a[i]。",
         "checks": [
           {
@@ -8185,7 +8185,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写递归函数 int sumTo(int n)，返回 1+2+...+n，并输出 sumTo(5)。",
-        "starter": "#include <iostream>\n\n// 定义递归 sumTo\n\nint main() {\n    // 输出 sumTo(5)\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义递归 sumTo\n\nint main() {\n    // 输出 sumTo(5)\n    return 0;\n}",
         "hint": "终止条件可为 n<=0 时返回 0，否则返回 n + sumTo(n-1)。",
         "checks": [
           {
@@ -8241,7 +8241,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写函数模板 template <typename T> T larger(T a, T b) 返回较大值；在 main 中分别调用 larger(3,8) 和 larger(2.5,1.5)。",
-        "starter": "#include <iostream>\n\n// 定义 larger 模板\n\nint main() {\n    // 两次调用并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 larger 模板\n\nint main() {\n    // 两次调用并输出\n    return 0;\n}",
         "hint": "模板头写 template <typename T>，函数返回类型和两个参数都使用 T。",
         "checks": [
           {
@@ -8297,7 +8297,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 int callCount()，使用静态局部变量记录函数被调用次数，每次返回当前次数；main 连续调用三次并输出。",
-        "starter": "#include <iostream>\n\n// 定义 callCount\n\nint main() {\n    // 连续调用三次并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 callCount\n\nint main() {\n    // 连续调用三次并输出\n    return 0;\n}",
         "hint": "函数体内写 static int count = 0; return ++count;",
         "checks": [
           {
@@ -9357,7 +9357,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "定义 struct Point，成员 int x、int y；创建 p 并初始化为 (3,5)，输出 x 和 y。",
-        "starter": "#include <iostream>\n\n// 定义 Point\n\nint main() {\n    // 创建 p 并输出成员\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 Point\n\nint main() {\n    // 创建 p 并输出成员\n    return 0;\n}",
         "hint": "结构体花括号后要有分号；可用 Point p = {3,5};。",
         "checks": [
           {
@@ -9413,7 +9413,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 struct Point { int x; int y; }; 和 Point p = {2,4};。请用结构指针 ptr 把 x 改为 9，并输出 p.x。",
-        "starter": "#include <iostream>\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p = {2, 4};\n    // 创建指针、修改 x、输出 p.x\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p = {2, 4};\n    // 创建指针、修改 x、输出 p.x\n    return 0;\n}",
         "hint": "先写 Point* ptr = &p;，再用 ptr->x。",
         "checks": [
           {
@@ -9465,7 +9465,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "定义 struct Book { char title[30]; int pages; }; 创建 b，把 title 设为 \"C++\"、pages 设为 320，再复制给 c 并输出 c.title 和 c.pages。",
-        "starter": "#include <iostream>\n#include <cstring>\n\n// 定义 Book\n\nint main() {\n    // 初始化 b、复制给 c、输出\n    return 0;\n}",
+        "starter": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\n// 定义 Book\n\nint main() {\n    // 初始化 b、复制给 c、输出\n    return 0;\n}",
         "hint": "字符数组用 strcpy；结构整体可用 c = b。",
         "checks": [
           {
@@ -9521,7 +9521,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 Student a[2] = {{\"A\",70},{\"B\",90}};。若 a[0].score > a[1].score，就交换两个完整结构，最后输出 a[0].name。",
-        "starter": "#include <iostream>\n\nstruct Student { const char* name; int score; };\n\nint main() {\n    Student a[2] = {{\"A\", 70}, {\"B\", 90}};\n    // 按 score 升序交换并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Student { const char* name; int score; };\n\nint main() {\n    Student a[2] = {{\"A\", 70}, {\"B\", 90}};\n    // 按 score 升序交换并输出\n    return 0;\n}",
         "hint": "用临时 Student t 保存整个元素。",
         "checks": [
           {
@@ -9577,7 +9577,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "定义 Node { int data; Node* next; };，用 new 创建 p，设置 data=12、next=NULL，输出 data 后 delete p。",
-        "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // new、初始化、输出、delete\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // new、初始化、输出、delete\n    return 0;\n}",
         "hint": "先写 Node* p = new Node;，再逐成员赋值：p->data = 12; p->next = NULL;。",
         "checks": [
           {
@@ -9633,7 +9633,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "定义 Node { int data; Node* next; }; 创建三个动态结点，数据为 1、2、3，按顺序连接；用 p=p->next 遍历输出，最后释放全部结点。",
-        "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // 创建并连接结点\n    // 遍历输出\n    // 释放\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // 创建并连接结点\n    // 遍历输出\n    // 释放\n    return 0;\n}",
         "hint": "可以创建 a、b、c 三个指针，连接 a->b->c，最后 c->next=NULL。",
         "checks": [
           {
@@ -9689,7 +9689,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 Node* insertAfter(Node* node, int x)，在 node 后插入值为 x 的新结点并返回新结点；main 中在头结点后插入 2 并输出链表。",
-        "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\n// 定义 insertAfter\n\nint main() {\n    // 测试插入\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\n// 定义 insertAfter\n\nint main() {\n    // 测试插入\n    return 0;\n}",
         "hint": "核心顺序：新结点先接 node->next，再让 node->next 指向新结点。",
         "checks": [
           {
@@ -9745,7 +9745,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 Node* deleteHead(Node* head)，删除并释放首结点，返回新表头；main 中链表 1->2，删除后输出 2。",
-        "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\n// 定义 deleteHead\n\nint main() {\n    // 建立 1->2，调用删除，输出新表头\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\n// 定义 deleteHead\n\nint main() {\n    // 建立 1->2，调用删除，输出新表头\n    return 0;\n}",
         "hint": "先判断空表；用临时指针保存旧 head，再移动 head。",
         "checks": [
           {
@@ -10566,7 +10566,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "用 C++ 输出 int 类型 123 和 char 类型 '7' 的 sizeof，理解数值类型与字符类型的存储差异。",
-        "starter": "#include <iostream>\n\nint main() {\n    // 输出两个 sizeof\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 输出两个 sizeof\n    return 0;\n}",
         "hint": "分别写 sizeof(int) 和 sizeof(char)。",
         "checks": [
           {
@@ -11248,7 +11248,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "令 int a=4，计算 a += a*3 后的结果并输出。",
-        "starter": "#include <iostream>\n\nint main() {\n    int a = 4;\n    // 执行复合赋值并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 4;\n    // 执行复合赋值并输出\n    return 0;\n}",
         "hint": "复合赋值右侧作为一个整体先求值。",
         "checks": [
           {
@@ -11297,7 +11297,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "令 a=0、b=1，执行 bool ok = a++ && ++b; 后输出 a、b、ok。",
-        "starter": "#include <iostream>\n\nint main() {\n    int a = 0, b = 1;\n    // 执行短路表达式并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 0, b = 1;\n    // 执行短路表达式并输出\n    return 0;\n}",
         "hint": "a++ 先取旧值 0 作为左操作数，随后 a 变为 1。",
         "checks": [
           {
@@ -11349,7 +11349,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "定义 char s[6]，用 strcpy 复制 \"hello\"，输出字符串及其 strlen。",
-        "starter": "#include <iostream>\n#include <cstring>\n\nint main() {\n    // 定义、复制、输出\n    return 0;\n}",
+        "starter": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    // 定义、复制、输出\n    return 0;\n}",
         "hint": "容量至少为 5+1。",
         "checks": [
           {
@@ -11401,7 +11401,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "创建 int 数组 a={2,4,6,8}，令 p=a+2，输出 *p 和 *(p-1)。",
-        "starter": "#include <iostream>\n\nint main() {\n    // 定义数组和指针并输出\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 定义数组和指针并输出\n    return 0;\n}",
         "hint": "p=a+2 指向 a[2]。",
         "checks": [
           {
@@ -11458,7 +11458,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "编写 int gcd(int a,int b)，用辗转相除法返回最大公约数，并输出 gcd(36,60)。",
-        "starter": "#include <iostream>\n\n// 定义 gcd\n\nint main() {\n    // 输出 gcd(36,60)\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\n// 定义 gcd\n\nint main() {\n    // 输出 gcd(36,60)\n    return 0;\n}",
         "hint": "循环中先算 r=a%b，再更新 a=b、b=r。",
         "checks": [
           {
@@ -11515,7 +11515,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "令 char ch='A'，分别输出 ch+1 的整数值和转换回 char 后的字符。",
-        "starter": "#include <iostream>\n\nint main() {\n    char ch = 'A';\n    // 输出整数和字符\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char ch = 'A';\n    // 输出整数和字符\n    return 0;\n}",
         "hint": "第二次输出需要 (char)(ch+1)。",
         "checks": [
           {

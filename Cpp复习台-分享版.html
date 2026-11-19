@@ -1838,9 +1838,9 @@ window.COURSE_DATA = {
   "meta": {
     "title": "C/C++ 高程知识复习台",
     "subtitle": "按知识点分块练习、判断掌握程度，并自动安排下一轮复习",
-    "version": 5,
+    "version": 6,
     "updatedAt": "2026-11-19",
-    "sourceNote": "根据 Canvas 课程 118150 的 lesson1-8 课件整理；86 道课件例题均按课件原文录入，多程序例题分块展示，课件填空保留原位置并在“课件填空答案”中给出答案；知识点卡只保留归纳与练习，不再放自编示例。"
+    "sourceNote": "根据 Canvas 课程 118150 的 lesson1-8 课件整理；86 道课件例题均按课件内容录入，统一使用课件中的 using namespace std; 写法；多程序例题分块展示，课件填空保留原位置并在“课件填空答案”中给出答案；知识点卡只保留归纳与练习。"
   },
   "lessons": [
     {
@@ -1912,12 +1912,12 @@ window.COURSE_DATA = {
       "overview": "课件第一个完整程序：用 #define 定义符号常量 PI，从键盘读入半径 r，计算并输出圆面积。它同时展示了 C++ 程序最基本的骨架。",
       "keyPoints": [
         "#include <iostream> 把输入输出头文件内容插入源文件，cin、cout 才能使用。",
-        "using namespace std; 之后可以直接写 cin、cout，不必写 std::cin、std::cout。",
+        "using namespace std; 之后可以直接写 cin、cout，不必再加命名空间限定。",
         "#define PI 3.14 是编译预处理中的符号常量，预处理阶段直接把 PI 替换成 3.14。",
         "main 函数是程序入口，int main() 表示返回 int，return 0 表示正常结束。"
       ],
       "pitfalls": [
-        "漏写 using namespace std; 时，必须写成 std::cin、std::cout。",
+        "漏写 using namespace std; 时，必须给 cin、cout 加上命名空间限定。",
         "把 #define PI 3.14 后面的分号写上，会把分号也替换进表达式。",
         "system(\"pause\") 需要 <cstdlib>（旧式写法常由 iostream 间接带入），只用于暂停观察结果。"
       ],
@@ -1936,7 +1936,7 @@ window.COURSE_DATA = {
           {
             "section": 0,
             "line": 2,
-            "text": "std 是标准库命名空间。加了这一行，cin、cout 可以直接写；不加就要写 std::cin>>r;。"
+            "text": "std 是标准库命名空间。加了这一行，cin、cout 可以直接写；不加就要给标准库对象加命名空间限定。"
           },
           {
             "section": 0,
@@ -2065,13 +2065,13 @@ window.COURSE_DATA = {
       ],
       "pitfalls": [
         "把 main 写成 Main；C++ 区分大小写。",
-        "忘记包含 <iostream> 却直接使用 std::cout。",
+        "忘记写 using namespace std;，却直接使用 cout。",
         "把函数定义写在另一个函数内部。"
       ],
       "exercise": {
         "prompt": "编写一个完整程序，输出 Hello, C++! 后换行，并正常结束。",
         "starter": "#include <iostream>\n\nint main() {\n    // 在这里完成输出\n\n    return 0;\n}",
-        "hint": "使用 std::cout、字符串字面量、<< 和 std::endl。",
+        "hint": "使用 cout、字符串字面量、<< 和 endl。",
         "checks": [
           {
             "label": "包含 iostream 头文件",
@@ -2083,17 +2083,17 @@ window.COURSE_DATA = {
           },
           {
             "label": "输出指定文本",
-            "pattern": "std\\s*::\\s*cout\\s*<<\\s*\"Hello,\\s*C\\+\\+!\""
+            "pattern": "\\bcout\\s*<<\\s*\"Hello,\\s*C\\+\\+!\""
           },
           {
             "label": "输出后换行",
-            "pattern": "(?:std\\s*::\\s*endl|['\"]\\\\n['\"])"
+            "pattern": "(?:endl|['\"]\\\\n['\"])"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, C++!\" << std::endl;\n    return 0;\n}",
-        "explanation": "这道题考查程序骨架与最基本的输出。可以写成 std::endl，也可以在字符串末尾写 \\n。",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, C++!\" << endl;\n    return 0;\n}",
+        "explanation": "这道题考查程序骨架与最基本的输出。可以写成 endl，也可以在字符串末尾写 \\n。",
         "commonMistakes": [
-          "漏写 std:: 命名空间限定。",
+          "漏写 using namespace std;。",
           "漏掉 main 函数或 return 0。",
           "字符串引号不配对。"
         ]
@@ -2123,7 +2123,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "补全一个名为 add 的函数定义，接收两个 int 并返回它们的和；main 已经调用它。",
-        "starter": "#include <iostream>\n\nint add(int a, int b);\n\n// 在这里补充函数定义\n\nint main() {\n    std::cout << add(2, 3);\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint add(int a, int b);\n\n// 在这里补充函数定义\n\nint main() {\n    cout << add(2, 3);\n    return 0;\n}",
         "hint": "函数定义需要返回类型、函数名、参数列表和函数体。",
         "checks": [
           {
@@ -2135,7 +2135,7 @@ window.COURSE_DATA = {
             "pattern": "\\breturn\\s+[^;]*(?:a\\s*\\+\\s*b|b\\s*\\+\\s*a)\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    std::cout << add(2, 3);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint add(int a, int b) {\n    return a + b;\n}\n\nint main() {\n    cout << add(2, 3);\n    return 0;\n}",
         "explanation": "函数定义提供函数体，使链接器能够找到 add 的实现。返回表达式可以写 a + b 或 b + a。",
         "commonMistakes": [
           "只在声明后加分号，仍然没有函数体。",
@@ -2597,7 +2597,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "声明并初始化两个变量：int 类型 score 为 90，double 类型 rate 为 0.5。",
-        "starter": "#include <iostream>\n\nint main() {\n    // 声明并初始化 score 和 rate\n\n    std::cout << score << \" \" << rate;\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 声明并初始化 score 和 rate\n\n    cout << score << \" \" << rate;\n    return 0;\n}",
         "hint": "可以在变量名后用 = 或花括号初始化。",
         "checks": [
           {
@@ -2609,7 +2609,7 @@ window.COURSE_DATA = {
             "pattern": "\\bdouble\\s+rate\\s*(?:=\\s*0?\\.5|\\{\\s*0?\\.5\\s*\\})\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int score{90};\n    double rate{0.5};\n    std::cout << score << \" \" << rate;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score=90;\n    double rate=0.5;\n    cout << score << \" \" << rate;\n    return 0;\n}",
         "explanation": "声明时直接初始化最稳妥。花括号初始化既清晰，也能帮助发现不允许的窄化转换。",
         "commonMistakes": [
           "只声明不赋值，随后直接读取。",
@@ -2661,10 +2661,10 @@ window.COURSE_DATA = {
           },
           {
             "label": "输出三个变量",
-            "pattern": "std\\s*::\\s*cout[\\s\\S]*(?:grade[\\s\\S]*passed[\\s\\S]*ratio|grade[\\s\\S]*ratio[\\s\\S]*passed|passed[\\s\\S]*grade[\\s\\S]*ratio|passed[\\s\\S]*ratio[\\s\\S]*grade|ratio[\\s\\S]*grade[\\s\\S]*passed|ratio[\\s\\S]*passed[\\s\\S]*grade)"
+            "pattern": "\\bcout\\s*<<[\\s\\S]*(?:grade[\\s\\S]*passed[\\s\\S]*ratio|grade[\\s\\S]*ratio[\\s\\S]*passed|passed[\\s\\S]*grade[\\s\\S]*ratio|passed[\\s\\S]*ratio[\\s\\S]*grade|ratio[\\s\\S]*grade[\\s\\S]*passed|ratio[\\s\\S]*passed[\\s\\S]*grade)"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    char grade = 'A';\n    bool passed = true;\n    double ratio = 0.75;\n    std::cout << grade << \" \" << passed << \" \" << ratio;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char grade = 'A';\n    bool passed = true;\n    double ratio = 0.75;\n    cout << grade << \" \" << passed << \" \" << ratio;\n    return 0;\n}",
         "explanation": "类型名称和字面量形式必须匹配：字符用单引号，布尔值写 true/false，浮点数写小数点。",
         "commonMistakes": [
           "把 'A' 写成 \"A\"。",
@@ -2677,47 +2677,47 @@ window.COURSE_DATA = {
     {
       "id": "l2-const",
       "lessonId": "lesson2",
-      "title": "const 与 constexpr",
+      "title": "const 与符号常量",
       "tags": [
-        "常量",
-        "只读",
-        "编译期"
+        "const",
+        "符号常量",
+        "#define"
       ],
-      "overview": "const 表示对象在初始化后不可通过该名称修改；constexpr 进一步强调表达式可在编译期求值。",
+      "overview": "const 定义只读变量，必须在定义时初始化；#define 也可以定义符号常量，预处理时直接替换。",
       "keyPoints": [
-        "const 变量必须在创建时初始化。",
-        "const 有助于表达意图并防止误修改。",
-        "constexpr 变量需要可用常量表达式初始化。",
-        "函数参数使用 const 引用可避免复制，同时禁止函数修改实参。"
+        "const 变量在定义时必须初始化，之后不能通过变量名修改。",
+        "#define 定义的符号常量在预处理阶段做文本替换。",
+        "#define 行末不加分号，符号常量一般用大写字母。",
+        "const 变量有类型，编译器可以检查类型错误。"
       ],
       "pitfalls": [
-        "先声明 const 变量、稍后再赋值。",
-        "把 const 误认为“任何上下文都一定是编译期常量”。",
-        "函数参数写成 const 后仍尝试修改。"
+        "先写 const int maxStudents; 再在下一行赋值。",
+        "在 const 定义后再次赋值。",
+        "把 #define 写成语句并在行末加分号。"
       ],
       "exercise": {
-        "prompt": "声明编译期常量 int maxStudents 为 60，以及只读 double 变量 passRate 为 0.6。",
-        "starter": "#include <iostream>\n\nint main() {\n    // 完成两个常量声明\n\n    std::cout << maxStudents << \" \" << passRate;\n    return 0;\n}",
-        "hint": "需要编译期常量时使用 constexpr；仅表示只读时 const 即可。",
+        "prompt": "声明只读 int maxStudents 为 60，以及只读 double passRate 为 0.6。",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 完成两个常量声明\n\n    cout << maxStudents << \" \" << passRate;\n    return 0;\n}",
+        "hint": "两个变量都用 const，并在定义时初始化。",
         "checks": [
           {
-            "label": "maxStudents 使用 constexpr 且为 60",
-            "pattern": "\\bconstexpr\\s+int\\s+maxStudents\\s*(?:=\\s*60|\\{\\s*60\\s*\\})\\s*;"
+            "label": "maxStudents 使用 const int 且为 60",
+            "pattern": "\\bconst\\s+int\\s+maxStudents\\s*=\\s*60\\s*;"
           },
           {
             "label": "passRate 使用 const double 且为 0.6",
-            "pattern": "\\bconst\\s+double\\s+passRate\\s*(?:=\\s*0?\\.6|\\{\\s*0?\\.6\\s*\\})\\s*;"
+            "pattern": "\\bconst\\s+double\\s+passRate\\s*=\\s*0?\\.6\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    constexpr int maxStudents = 60;\n    const double passRate = 0.6;\n    std::cout << maxStudents << \" \" << passRate;\n    return 0;\n}",
-        "explanation": "两者都必须初始化。constexpr 表达更强的编译期保证，const 主要表达只读语义。",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    const int maxStudents = 60;\n    const double passRate = 0.6;\n    cout << maxStudents << \" \" << passRate;\n    return 0;\n}",
+        "explanation": "const 变量必须在定义时初始化，之后不能再赋值修改。",
         "commonMistakes": [
           "先写 const int maxStudents; 再在下一行赋值。",
-          "把 constexpr 写成 constexprt。",
-          "修改 const 变量。"
+          "在 const 定义后再次赋值。",
+          "把 #define 写成语句并在行末加分号。"
         ]
       },
-      "masteryHint": "能解释 const 与 constexpr 的共同点和区别。"
+      "masteryHint": "能使用 const 和 #define 定义符号常量。"
     },
     {
       "id": "l2-arithmetic",
@@ -2752,22 +2752,22 @@ window.COURSE_DATA = {
           },
           {
             "label": "除法前进行浮点转换",
-            "pattern": "(?:static_cast\\s*<\\s*double\\s*>\\s*\\(\\s*(?:total|count)\\s*\\)|(?:double\\s*)?\\(\\s*(?:total|count)\\s*\\))"
+            "pattern": "\\(\\s*double\\s*\\)\\s*\\(?\\s*(?:total|count)\\s*\\)?"
           },
           {
             "label": "用 total 除以 count",
-            "pattern": "(?:total\\s*/\\s*count|count\\s*/\\s*total)"
+            "pattern": "\\(\\s*double\\s*\\)\\s*\\(?\\s*(?:total|count)\\s*\\)?\\s*/\\s*(?:total|count)"
           },
           {
             "label": "输出 average",
-            "pattern": "std\\s*::\\s*cout[\\s\\S]*<<\\s*average\\s*;"
+            "pattern": "\\bcout\\s*<<\\s*average\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int total = 7;\n    int count = 2;\n    double average = static_cast<double>(total) / count;\n    std::cout << average;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int total = 7;\n    int count = 2;\n    double average = (double)(total) / count;\n    cout << average;\n    return 0;\n}",
         "explanation": "整数除以整数会先按整数规则计算。转换必须发生在除法之前。",
         "commonMistakes": [
           "写成 double average = total / count;，得到 3 后再转为 3.0。",
-          "写成 double(total / count)，转换时机仍然太晚。",
+          "写成 (double)(total / count)，转换时机仍然太晚。",
           "把 count 放在分子导致算成 2/7。"
         ]
       },
@@ -2798,7 +2798,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 int x = 5。请用两条独立语句：先把前置自增结果赋给 int a，再把后置自增结果赋给 int b。",
-        "starter": "#include <iostream>\n\nint main() {\n    int x = 5;\n    // 分别创建 a 和 b\n\n    std::cout << x << \" \" << a << \" \" << b;\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    // 分别创建 a 和 b\n\n    cout << x << \" \" << a << \" \" << b;\n    return 0;\n}",
         "hint": "前置写作 ++x，后置写作 x++。",
         "checks": [
           {
@@ -2814,7 +2814,7 @@ window.COURSE_DATA = {
             "pattern": "int\\s+a[^;]*;[\\s\\S]*int\\s+b[^;]*;"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int x = 5;\n    int a = ++x;\n    int b = x++;\n    std::cout << x << \" \" << a << \" \" << b;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    int a = ++x;\n    int b = x++;\n    cout << x << \" \" << a << \" \" << b;\n    return 0;\n}",
         "explanation": "拆分语句后求值顺序清楚，也不会把多个副作用塞进同一个复杂表达式。",
         "commonMistakes": [
           "写成 int a = x++; int b = ++x;，得到不同结果。",
@@ -2850,7 +2850,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 int score。请创建 bool passed，当 score 在 0 到 100（含端点）时设为 true。",
-        "starter": "#include <iostream>\n\nint main() {\n    int score = 88;\n    // 创建 passed\n\n    std::cout << passed;\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 88;\n    // 创建 passed\n\n    cout << passed;\n    return 0;\n}",
         "hint": "使用两个比较，并用 && 连接。",
         "checks": [
           {
@@ -2870,7 +2870,7 @@ window.COURSE_DATA = {
             "pattern": "(?:score\\s*>=\\s*0\\s*&&\\s*score\\s*<=\\s*100|score\\s*<=\\s*100\\s*&&\\s*score\\s*>=\\s*0)"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int score = 88;\n    bool passed = score >= 0 && score <= 100;\n    std::cout << passed;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int score = 88;\n    bool passed = score >= 0 && score <= 100;\n    cout << passed;\n    return 0;\n}",
         "explanation": "每个比较单独写完整，再通过 && 组合，才能正确表达闭区间。",
         "commonMistakes": [
           "写成 0 <= score <= 100。",
@@ -2886,15 +2886,15 @@ window.COURSE_DATA = {
       "title": "隐式转换、显式转换与溢出",
       "tags": [
         "类型转换",
-        "static_cast",
+        "强制转换",
         "溢出"
       ],
-      "overview": "不同类型混合运算时会进行转换。隐式转换方便但可能丢失信息；需要明确意图时使用 static_cast 等显式转换。",
+      "overview": "不同类型混合运算时会进行转换。隐式转换方便但可能丢失信息；需要明确意图时使用 C 风格强制转换，例如 (int)value。",
       "keyPoints": [
-        "double 转 int 会丢弃小数部分，不会自动四舍五入。",
-        "有符号整数溢出是严重错误，不能依赖其回绕结果。",
-        "花括号初始化能阻止某些危险的窄化转换。",
-        "显式转换应尽量使用 static_cast，而不是随意使用 C 风格强制转换。"
+        "赋值和混合运算可能发生隐式类型转换。",
+        "把浮点数转成整数会向零方向截断小数部分。",
+        "显式转换应写成 (类型)表达式，并清楚说明转换目的。",
+        "超出目标类型范围时结果不可靠。"
       ],
       "pitfalls": [
         "认为 3.9 转 int 会得到 4。",
@@ -2902,28 +2902,28 @@ window.COURSE_DATA = {
         "把浮点数精度误差误认为编译器随机出错。"
       ],
       "exercise": {
-        "prompt": "已有 double value = 3.9。请使用 static_cast 把它显式转换为 int，保存到 whole 并输出。",
+        "prompt": "已有 double value = 3.9。请使用 C 风格强制转换 (int)value 把它显式转换为 int，保存到 whole 并输出。",
         "starter": "#include <iostream>\n\nint main() {\n    double value = 3.9;\n    // 显式转换并输出\n\n    return 0;\n}",
-        "hint": "语法是 static_cast<int>(value)。",
+        "hint": "语法是 (int)value，也可以写成 (int)(value)。",
         "checks": [
           {
             "label": "声明 int whole",
             "pattern": "\\bint\\s+whole\\s*="
           },
           {
-            "label": "使用 static_cast<int>(value)",
-            "pattern": "static_cast\\s*<\\s*int\\s*>\\s*\\(\\s*value\\s*\\)"
+            "label": "使用 (int) 强制转换 value",
+            "pattern": "\\(\\s*int\\s*\\)\\s*\\(?\\s*value\\s*\\)?"
           },
           {
             "label": "输出 whole",
-            "pattern": "std\\s*::\\s*cout[\\s\\S]*<<\\s*whole\\s*;"
+            "pattern": "\\bcout\\s*<<\\s*whole\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    double value = 3.9;\n    int whole = static_cast<int>(value);\n    std::cout << whole;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    double value = 3.9;\n    int whole = (int)(value);\n    cout << whole;\n    return 0;\n}",
         "explanation": "显式转换让读者知道这里故意把浮点数转成整数，并接受小数部分被截断。",
         "commonMistakes": [
-          "使用 std::round 却声称发生了截断。",
-          "转换语法写成 static_cast<int>value。",
+          "使用 round 却声称发生了截断。",
+          "转换语法写成 (int value)，漏掉右括号。",
           "认为输出会是 4。"
         ]
       },
@@ -2953,7 +2953,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有 a、b、c。请计算 (a + b) * c，保存到 int result。必须显式表达先加后乘。",
-        "starter": "#include <iostream>\n\nint main() {\n    int a = 2;\n    int b = 3;\n    int c = 4;\n    // 计算 result\n\n    std::cout << result;\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 2;\n    int b = 3;\n    int c = 4;\n    // 计算 result\n\n    cout << result;\n    return 0;\n}",
         "hint": "括号会提高 a + b 的计算优先级。",
         "checks": [
           {
@@ -2969,7 +2969,7 @@ window.COURSE_DATA = {
             "pattern": "\\(\\s*a\\s*\\+\\s*b\\s*\\)\\s*\\*\\s*c"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int a = 2;\n    int b = 3;\n    int c = 4;\n    int result = (a + b) * c;\n    std::cout << result;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 2;\n    int b = 3;\n    int c = 4;\n    int result = (a + b) * c;\n    cout << result;\n    return 0;\n}",
         "explanation": "括号强制先算 a + b，再乘 c，得到 20。",
         "commonMistakes": [
           "写成 a + b * c，得到 14。",
@@ -3136,7 +3136,7 @@ window.COURSE_DATA = {
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // 定义字符并输出整数与字符\n    return 0;\n}",
         "sampleInput": "",
         "expectedOutput": "66 B",
-        "hint": "使用 static_cast<int>(c) 输出整数值，再用 cout 输出字符。",
+        "hint": "使用 (int)c 输出整数值，再用 cout 输出字符。",
         "checks": [
           {
             "label": "定义八进制字符常量",
@@ -3144,14 +3144,14 @@ window.COURSE_DATA = {
           },
           {
             "label": "转换为整数输出",
-            "pattern": "static_cast\\s*<\\s*int\\s*>\\s*\\(\\s*c\\s*\\)|\\bint\\s*\\(\\s*c\\s*\\)"
+            "pattern": "\\(\\s*int\\s*\\)\\s*\\(?\\s*c\\s*\\)?"
           },
           {
             "label": "输出字符本身",
             "pattern": "\\bcout\\s*<<[\\s\\S]*<<\\s*c\\b"
           }
         ],
-        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char c = '\\102';\n    cout << static_cast<int>(c) << ' ' << c << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char c = '\\102';\n    cout << (int)(c) << ' ' << c << endl;\n    return 0;\n}",
         "explanation": "八进制 102 转为十进制是 66，对应字符 B；转换为 int 后输出的是编码值。",
         "commonMistakes": [
           "把 '\\102' 当成十进制 102。",
@@ -4153,7 +4153,7 @@ window.COURSE_DATA = {
             "pattern": "\\bcout\\s*<<"
           }
         ],
-        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int year;\n    cin >> year;\n    bool leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;\n    if (leap) {\n        cout << \"leap\" << endl;\n    } else {\n        cout << \"common\" << endl;\n    }\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int year;\n    cin >> year;\n    int leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;\n    if (leap) {\n        cout << \"leap\" << endl;\n    } else {\n        cout << \"common\" << endl;\n    }\n    return 0;\n}",
         "explanation": "先判断普通闰年条件，再与整百年条件用 || 合并。括号确保判断逻辑符合题意。",
         "commonMistakes": [
           "写成 year%4==0 || year%400==0，漏掉“不能被 100 整除”。",
@@ -4545,7 +4545,7 @@ window.COURSE_DATA = {
             "pattern": "prime[\\s\\S]*composite|composite[\\s\\S]*prime"
           }
         ],
-        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    bool isPrime = n >= 2;\n    for (int i = 2; i <= n / i; ++i) {\n        if (n % i == 0) {\n            isPrime = false;\n            break;\n        }\n    }\n    cout << (isPrime ? \"prime\" : \"composite\") << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int isPrime = n >= 2;\n    for (int i = 2; i <= n / i; ++i) {\n        if (n % i == 0) {\n            isPrime = 0;\n            break;\n        }\n    }\n    cout << (isPrime ? \"prime\" : \"composite\") << endl;\n    return 0;\n}",
         "explanation": "i<=n/i 等价于 i*i<=n，但可减少大数乘法溢出风险。",
         "commonMistakes": [
           "从 i=1 开始试除。",
@@ -4824,7 +4824,7 @@ window.COURSE_DATA = {
       "overview": "cin >> 字符串会在空白处停止。需要处理整行或逐字符统计时，应使用 getline 或 getchar，并正确识别字符类别和结束条件。",
       "keyPoints": [
         "cin >> s 通常只读取一个不含空白的单词。",
-        "getline(cin, s) 可以读取一整行。",
+        "cin.getline(s, n) 可以把一整行读入字符数组。",
         "getchar() 返回 int，便于与 EOF 比较。",
         "字母范围可写成 ch>='A'&&ch<='Z' 等。",
         "数字字符的范围是 '0' 到 '9'。"
@@ -4837,18 +4837,18 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "读取一整行，统计字母、数字和其它字符的数量，依次用空格输出。",
-        "starter": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string s;\n    getline(cin, s);\n    int letters = 0, digits = 0, other = 0;\n    // 统计三类字符\n    cout << letters << ' ' << digits << ' ' << other << endl;\n    return 0;\n}",
-        "sampleInput": "Ab3!",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[200];\n    cin.getline(s, 200);\n    int letters = 0, digits = 0, other = 0;\n    // 统计三类字符\n    cout << letters << ' ' << digits << ' ' << other << endl;\n    return 0;\n}",
+        "sampleInput": "Ab3!\n",
         "expectedOutput": "2 1 1",
-        "hint": "遍历 s 的每个字符，先判断字母，再判断数字，其余归入 other。",
+        "hint": "用下标遍历 s，先判断字母，再判断数字，其余归入 other。",
         "checks": [
           {
             "label": "读取一整行",
-            "pattern": "\\bgetline\\s*\\("
+            "pattern": "cin\\s*\\.\\s*getline\\s*\\("
           },
           {
-            "label": "遍历字符串",
-            "pattern": "\\bfor\\s*\\([^)]*:[^)]*\\bs\\b\\)|\\bs\\s*\\.\\s*size\\s*\\("
+            "label": "按下标遍历字符数组",
+            "pattern": "for\\s*\\(\\s*int\\s+\\w+\\s*=\\s*0\\s*;[\\s\\S]*s\\s*\\["
           },
           {
             "label": "判断大写或小写字母",
@@ -4859,7 +4859,7 @@ window.COURSE_DATA = {
             "pattern": "'0'[\\s\\S]*'9'"
           }
         ],
-        "solution": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string s;\n    getline(cin, s);\n    int letters = 0, digits = 0, other = 0;\n    for (char ch : s) {\n        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) ++letters;\n        else if (ch >= '0' && ch <= '9') ++digits;\n        else ++other;\n    }\n    cout << letters << ' ' << digits << ' ' << other << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char s[200];\n    cin.getline(s, 200);\n    int letters = 0, digits = 0, other = 0;\n    for (int i = 0; s[i] != '\\0'; ++i) {\n        if ((s[i] >= 'A' && s[i] <= 'Z') || (s[i] >= 'a' && s[i] <= 'z')) ++letters;\n        else if (s[i] >= '0' && s[i] <= '9') ++digits;\n        else ++other;\n    }\n    cout << letters << ' ' << digits << ' ' << other << endl;\n    return 0;\n}",
         "explanation": "样例中 A、b 是字母，3 是数字，! 是其它字符。",
         "commonMistakes": [
           "使用 cin>>s，空格后的内容会丢失。",
@@ -6051,13 +6051,15 @@ window.COURSE_DATA = {
             "pattern": "\\bcout\\s*<<"
           }
         ],
-        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[5];\n    for (int i = 0; i < 5; ++i) cin >> a[i];\n    for (int i = 0; i < 4; ++i) {\n        for (int j = 0; j < 4 - i; ++j) {\n            if (a[j] > a[j + 1]) {\n                int t = a[j];\n                a[j] = a[j + 1];\n                a[j + 1] = t;\n            }\n        }\n    }\n    for (int x : a) cout << x << ' ';\n    cout << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[5];\n    for (int i = 0; i < 5; ++i) cin >> a[i];\n    for (int i = 0; i < 4; ++i) {\n        for (int j = 0; j < 4 - i; ++j) {\n            if (a[j] > a[j + 1]) {\n                int t = a[j];\n                a[j] = a[j + 1];\n                a[j + 1] = t;\n            }\n        }\n    }\n    for (int i = 0; i < 5; ++i) cout << a[i] << ' ';\n    cout << endl;\n    return 0;\n}",
         "explanation": "每轮冒泡把当前未排序部分的最大值送到末尾，因此内层终点逐轮前移。",
         "commonMistakes": [
           "内层条件写成 j<5，访问 a[5] 越界。",
           "升序却用 a[j] < a[j+1] 交换。",
           "外层轮数不足，数组没有完全有序。"
-        ]
+        ],
+        "sampleInput": "5 3 8 1 2\n",
+        "expectedOutput": "1 2 3 5 8"
       },
       "masteryHint": "能分别写出选择排序和冒泡排序，并说明各自交换次数的特点。"
     },
@@ -7184,21 +7186,21 @@ window.COURSE_DATA = {
       "lessonId": "lesson5",
       "title": "空指针、赋值与初始化",
       "tags": [
-        "nullptr",
+        "NULL",
         "NULL",
         "初始化",
         "指针赋值"
       ],
-      "overview": "指针变量必须在使用前指向有效对象，或者明确设为空指针。现代 C++ 使用 nullptr 表示不指向任何对象，解引用空指针属于严重错误。",
+      "overview": "指针变量必须在使用前指向有效对象，或者明确设为空指针。现代 C++ 使用 NULL 表示不指向任何对象，解引用空指针属于严重错误。",
       "keyPoints": [
-        "空指针可初始化为 nullptr。",
+        "空指针可初始化为 NULL。",
         "同类型指针之间可以赋值，表示指向同一对象。",
         "不能把普通整数直接赋给指针变量。",
         "指针赋值改变的是“指向哪里”，解引用赋值改变的是“指向对象的值”。",
-        "使用可能为空的指针前应先判断 p!=nullptr。"
+        "使用可能为空的指针前应先判断 p!=NULL。"
       ],
       "pitfalls": [
-        "认为 p=nullptr 会自动释放对象。",
+        "认为 p=NULL 会自动释放对象。",
         "对空指针执行 *p。",
         "用 delete 释放从未 new 的普通变量地址。",
         "混淆 p=&x 与 *p=x。"
@@ -7206,7 +7208,7 @@ window.COURSE_DATA = {
       "exercise": {
         "prompt": "读取整数 value，让指针 p 指向它；只有 p 不为空时输出 *p。",
         "starter": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int value;\n    cin >> value;\n    int *p = &value;\n    // 判空后输出\n    return 0;\n}",
-        "hint": "判断 p != nullptr 后再访问 *p。",
+        "hint": "判断 p != NULL 后再访问 *p。",
         "checks": [
           {
             "label": "定义并初始化指针",
@@ -7214,18 +7216,18 @@ window.COURSE_DATA = {
           },
           {
             "label": "判断指针非空",
-            "pattern": "p\\s*!=\\s*nullptr|nullptr\\s*!=\\s*p"
+            "pattern": "p\\s*!=\\s*NULL|NULL\\s*!=\\s*p"
           },
           {
             "label": "通过指针输出",
             "pattern": "\\bcout\\s*<<\\s*\\*\\s*p"
           }
         ],
-        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int value;\n    cin >> value;\n    int *p = &value;\n    if (p != nullptr) {\n        cout << *p << endl;\n    }\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int value;\n    cin >> value;\n    int *p = &value;\n    if (p != NULL) {\n        cout << *p << endl;\n    }\n    return 0;\n}",
         "explanation": "p 指向局部变量 value，只要 value 仍在作用域内，p 就保持有效。",
         "commonMistakes": [
           "把 if(p) 理解为判断 *p 是否为 0；它实际判断指针是否非空。",
-          "把 nullptr 当作数值 0 进行指针加减。",
+          "把 NULL 当作普通数值 0 进行指针加减。",
           "返回局部变量地址，函数结束后指针悬空。"
         ]
       },
@@ -7497,7 +7499,7 @@ window.COURSE_DATA = {
             "pattern": "\\+\\+\\s*\\w+|\\w+\\s*\\+\\+"
           }
         ],
-        "solution": "#include <iostream>\n#include <cctype>\nusing namespace std;\n\nint main() {\n    char s[200];\n    cin.getline(s, 200);\n    const char *p = s;\n    int count = 0;\n    while (*p != '\\0') {\n        if (isalpha(static_cast<unsigned char>(*p))) ++count;\n        ++p;\n    }\n    cout << count << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\n#include <cctype>\nusing namespace std;\n\nint main() {\n    char s[200];\n    cin.getline(s, 200);\n    const char *p = s;\n    int count = 0;\n    while (*p != '\\0') {\n        if (isalpha((unsigned char)(*p))) ++count;\n        ++p;\n    }\n    cout << count << endl;\n    return 0;\n}",
         "explanation": "p 在字符串有效区域内移动；isalpha 判断当前字符是否为字母。",
         "commonMistakes": [
           "忘记移动 p，造成死循环。",
@@ -8144,38 +8146,38 @@ window.COURSE_DATA = {
       "example": {
         "title": "例6.7 指针参数交换两个变量的值",
         "source": "课件 lesson6 · P21",
-        "code": "#include <iostream>\nvoid swap(int * ,int * );\nint main()\n{\nint a,b;\ncin>>a>>b;\nswap(&a,&b);\ncout<<\"a=\"<<a<<\" b=\"<<b<<endl;\nsystem(\"pause\");\nreturn 0;\n}\nvoid swap(int *x,int *y)\n{ int temp=*x;*x=*y;*y=temp; }",
+        "code": "#include <iostream>\nusing namespace std;\nvoid swap(int * ,int * );\nint main()\n{\nint a,b;\ncin>>a>>b;\nswap(&a,&b);\ncout<<\"a=\"<<a<<\" b=\"<<b<<endl;\nsystem(\"pause\");\nreturn 0;\n}\nvoid swap(int *x,int *y)\n{ int temp=*x;*x=*y;*y=temp; }",
         "output": "输入 10 20 时输出：a=20 b=10",
         "explanation": "x 存放 a 的地址，*x 就是 a；y 存放 b 的地址，*y 就是 b。temp=*x 保存 a 的值，*x=*y 把 b 的值写到 a，*y=temp 把原 a 的值写到 b。课件还给出反例：只交换 x、y 两个指针，a、b 的内容不会变。",
         "notes": [
           {
             "section": 0,
-            "line": 2,
+            "line": 3,
             "text": "函数原型，两个形参都是 int 指针。"
           },
           {
             "section": 0,
-            "line": 7,
+            "line": 8,
             "text": "实参必须是地址，才能让形参指向 a、b。"
           },
           {
             "section": 0,
-            "line": 12,
+            "line": 13,
             "text": "x、y 存放地址。"
           },
           {
             "section": 0,
-            "line": 13,
+            "line": 14,
             "text": "保存 x 所指变量（a）的值。"
           },
           {
             "section": 0,
-            "line": 13,
+            "line": 14,
             "text": "把 y 所指变量（b）的值写到 a。"
           },
           {
             "section": 0,
-            "line": 13,
+            "line": 14,
             "text": "把保存的 a 原值写到 b。"
           }
         ]
@@ -9657,7 +9659,7 @@ window.COURSE_DATA = {
             "pattern": "\\bsquare\\s*\\(\\s*7\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nint square(int x) {\n    return x * x;\n}\n\nint main() {\n    std::cout << square(7);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint square(int x) {\n    return x * x;\n}\n\nint main() {\n    cout << square(7);\n    return 0;\n}",
         "explanation": "函数把平方计算封装起来。参数 x 是形参，调用 square(7) 时复制实参 7 给 x。",
         "commonMistakes": [
           "函数体写在 main 内部。",
@@ -9708,7 +9710,7 @@ window.COURSE_DATA = {
             "pattern": "\\badd\\s*\\(\\s*4\\s*,\\s*6\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nint add(int, int);\n\nint main() {\n    std::cout << add(4, 6);\n    return 0;\n}\n\nint add(int a, int b) {\n    return a + b;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint add(int, int);\n\nint main() {\n    cout << add(4, 6);\n    return 0;\n}\n\nint add(int a, int b) {\n    return a + b;\n}",
         "explanation": "声明解决调用顺序问题，定义提供真正实现。",
         "commonMistakes": [
           "只保留声明，没有函数体。",
@@ -9759,7 +9761,7 @@ window.COURSE_DATA = {
             "pattern": "\\btwice\\s*\\(\\s*9\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nint twice(int x) {\n    return 2 * x;\n}\n\nint main() {\n    std::cout << twice(9);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint twice(int x) {\n    return 2 * x;\n}\n\nint main() {\n    cout << twice(9);\n    return 0;\n}",
         "explanation": "twice 接收的是值副本，但计算结果通过 return 返回给 main。",
         "commonMistakes": [
           "参数写成引用，虽然本题仍可运行，但语义不再是只读值传递。",
@@ -9815,7 +9817,7 @@ window.COURSE_DATA = {
             "pattern": "\\bminMax\\s*\\(\\s*a\\s*,\\s*b\\s*,\\s*lo\\s*,\\s*hi\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nvoid minMax(int a, int b, int& minValue, int& maxValue) {\n    if (a < b) {\n        minValue = a;\n        maxValue = b;\n    } else {\n        minValue = b;\n        maxValue = a;\n    }\n}\n\nint main() {\n    int a = 8, b = 3, lo, hi;\n    minMax(a, b, lo, hi);\n    std::cout << lo << ' ' << hi;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nvoid minMax(int a, int b, int& minValue, int& maxValue) {\n    if (a < b) {\n        minValue = a;\n        maxValue = b;\n    } else {\n        minValue = b;\n        maxValue = a;\n    }\n}\n\nint main() {\n    int a = 8, b = 3, lo, hi;\n    minMax(a, b, lo, hi);\n    cout << lo << ' ' << hi;\n    return 0;\n}",
         "explanation": "引用参数让函数能同时写出两个结果。调用时直接传 lo、hi。",
         "commonMistakes": [
           "把 lo、hi 传成地址，导致参数类型不匹配。",
@@ -9871,7 +9873,7 @@ window.COURSE_DATA = {
             "pattern": "\\bsumDiff\\s*\\([^)]*&\\s*s\\s*,\\s*&\\s*d\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nvoid sumDiff(int a, int b, int* sum, int* diff) {\n    *sum = a + b;\n    *diff = a - b;\n}\n\nint main() {\n    int s, d;\n    sumDiff(7, 3, &s, &d);\n    std::cout << s << ' ' << d;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nvoid sumDiff(int a, int b, int* sum, int* diff) {\n    *sum = a + b;\n    *diff = a - b;\n}\n\nint main() {\n    int s, d;\n    sumDiff(7, 3, &s, &d);\n    cout << s << ' ' << d;\n    return 0;\n}",
         "explanation": "指针参数通过解引用写入调用者对象。",
         "commonMistakes": [
           "写成 sum = a + b，只修改函数内指针副本。",
@@ -9927,7 +9929,7 @@ window.COURSE_DATA = {
             "pattern": "\\baddOne\\s*\\(\\s*a\\s*,\\s*3\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nvoid addOne(int a[], int n) {\n    for (int i = 0; i < n; ++i) {\n        ++a[i];\n    }\n}\n\nint main() {\n    int a[3] = {1, 2, 3};\n    addOne(a, 3);\n    for (int i = 0; i < 3; ++i) {\n        std::cout << a[i] << ' ';\n    }\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nvoid addOne(int a[], int n) {\n    for (int i = 0; i < n; ++i) {\n        ++a[i];\n    }\n}\n\nint main() {\n    int a[3] = {1, 2, 3};\n    addOne(a, 3);\n    for (int i = 0; i < 3; ++i) {\n        cout << a[i] << ' ';\n    }\n    return 0;\n}",
         "explanation": "数组参数传递的是地址，长度必须额外传入。",
         "commonMistakes": [
           "函数内用 sizeof(a) 求元素个数。",
@@ -9951,7 +9953,7 @@ window.COURSE_DATA = {
       "keyPoints": [
         "声明形式如 char* findChar(char s[], char ch)。",
         "返回数组中某元素的地址时，数组必须由调用者持有，且在调用后仍存在。",
-        "找不到目标时可返回 nullptr/NULL，调用者必须检查。",
+        "找不到目标时可返回 NULL/NULL，调用者必须检查。",
         "const char* 表示不能通过该指针修改所指字符。",
         "返回局部数组或局部变量地址会产生悬空指针。"
       ],
@@ -9962,7 +9964,7 @@ window.COURSE_DATA = {
         "返回指向已经 delete 的内存的指针。"
       ],
       "exercise": {
-        "prompt": "编写 int* findValue(int a[], int n, int target)，找到 target 时返回其地址，否则返回 nullptr；main 中查找 5。",
+        "prompt": "编写 int* findValue(int a[], int n, int target)，找到 target 时返回其地址，否则返回 NULL；main 中查找 5。",
         "starter": "#include <iostream>\n\n// 定义 findValue\n\nint main() {\n    int a[4] = {2, 5, 8, 9};\n    // 调用并检查返回值\n    return 0;\n}",
         "hint": "循环遍历数组，匹配时写 return &a[i]。",
         "checks": [
@@ -9976,14 +9978,14 @@ window.COURSE_DATA = {
           },
           {
             "label": "找不到返回空指针",
-            "pattern": "\\breturn\\s+(?:nullptr|NULL)\\s*;"
+            "pattern": "\\breturn\\s+(?:NULL|NULL)\\s*;"
           },
           {
             "label": "检查返回值",
             "pattern": "\\bif\\s*\\(\\s*\\w+\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nint* findValue(int a[], int n, int target) {\n    for (int i = 0; i < n; ++i) {\n        if (a[i] == target) return &a[i];\n    }\n    return nullptr;\n}\n\nint main() {\n    int a[4] = {2, 5, 8, 9};\n    int* p = findValue(a, 4, 5);\n    if (p) std::cout << *p;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint* findValue(int a[], int n, int target) {\n    for (int i = 0; i < n; ++i) {\n        if (a[i] == target) return &a[i];\n    }\n    return NULL;\n}\n\nint main() {\n    int a[4] = {2, 5, 8, 9};\n    int* p = findValue(a, 4, 5);\n    if (p) cout << *p;\n    return 0;\n}",
         "explanation": "返回指针后，调用者要通过解引用读取值，并检查是否为空。",
         "commonMistakes": [
           "返回局部变量 i 的地址。",
@@ -10039,7 +10041,7 @@ window.COURSE_DATA = {
             "pattern": "\\bsumTo\\s*\\(\\s*5\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nint sumTo(int n) {\n    if (n <= 0) return 0;\n    return n + sumTo(n - 1);\n}\n\nint main() {\n    std::cout << sumTo(5);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint sumTo(int n) {\n    if (n <= 0) return 0;\n    return n + sumTo(n - 1);\n}\n\nint main() {\n    cout << sumTo(5);\n    return 0;\n}",
         "explanation": "每次把 n 减 1，最终到达 0 的直接答案。",
         "commonMistakes": [
           "缺少 n<=0 的终止条件。",
@@ -10095,7 +10097,7 @@ window.COURSE_DATA = {
             "pattern": "larger\\s*\\(\\s*3\\s*,\\s*8\\s*\\)[\\s\\S]*larger\\s*\\(\\s*2\\.5\\s*,\\s*1\\.5\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\ntemplate <typename T>\nT larger(T a, T b) {\n    return a > b ? a : b;\n}\n\nint main() {\n    std::cout << larger(3, 8) << ' ';\n    std::cout << larger(2.5, 1.5);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\ntemplate <typename T>\nT larger(T a, T b) {\n    return a > b ? a : b;\n}\n\nint main() {\n    cout << larger(3, 8) << ' ';\n    cout << larger(2.5, 1.5);\n    return 0;\n}",
         "explanation": "函数模板在调用时由实参类型生成具体函数版本。",
         "commonMistakes": [
           "模板头漏掉 typename 或 class。",
@@ -10151,7 +10153,7 @@ window.COURSE_DATA = {
             "pattern": "(?:callCount\\s*\\(\\s*\\)[\\s\\S]*){3}"
           }
         ],
-        "solution": "#include <iostream>\n\nint callCount() {\n    static int count = 0;\n    return ++count;\n}\n\nint main() {\n    std::cout << callCount() << ' ';\n    std::cout << callCount() << ' ';\n    std::cout << callCount();\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint callCount() {\n    static int count = 0;\n    return ++count;\n}\n\nint main() {\n    cout << callCount() << ' ';\n    cout << callCount() << ' ';\n    cout << callCount();\n    return 0;\n}",
         "explanation": "静态局部变量只初始化一次，但在代码块外不可见。",
         "commonMistakes": [
           "写成普通 int count = 0，每次调用都会重新归零。",
@@ -11192,7 +11194,7 @@ window.COURSE_DATA = {
       "exercise": {
         "prompt": "定义 struct Point，成员 int x、int y；创建 p 并初始化为 (3,5)，输出 x 和 y。",
         "starter": "#include <iostream>\n\n// 定义 Point\n\nint main() {\n    // 创建 p 并输出成员\n    return 0;\n}",
-        "hint": "结构体花括号后要有分号；可用 Point p{3,5};。",
+        "hint": "结构体花括号后要有分号；可用 Point p = {3,5};。",
         "checks": [
           {
             "label": "定义 struct Point",
@@ -11211,7 +11213,7 @@ window.COURSE_DATA = {
             "pattern": "\\w+\\s*\\.\\s*(?:x|y)"
           }
         ],
-        "solution": "#include <iostream>\n\nstruct Point {\n    int x;\n    int y;\n};\n\nint main() {\n    Point p{3, 5};\n    std::cout << p.x << ' ' << p.y;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Point {\n    int x;\n    int y;\n};\n\nint main() {\n    Point p = {3, 5};\n    cout << p.x << ' ' << p.y;\n    return 0;\n}",
         "explanation": "结构变量 p 持有两个成员，使用点运算符访问。",
         "commonMistakes": [
           "结构体定义末尾漏分号。",
@@ -11246,8 +11248,8 @@ window.COURSE_DATA = {
         "结构指针未初始化就访问成员。"
       ],
       "exercise": {
-        "prompt": "已有 struct Point { int x; int y; }; 和 Point p{2,4};。请用结构指针 ptr 把 x 改为 9，并输出 p.x。",
-        "starter": "#include <iostream>\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p{2, 4};\n    // 创建指针、修改 x、输出 p.x\n    return 0;\n}",
+        "prompt": "已有 struct Point { int x; int y; }; 和 Point p = {2,4};。请用结构指针 ptr 把 x 改为 9，并输出 p.x。",
+        "starter": "#include <iostream>\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p = {2, 4};\n    // 创建指针、修改 x、输出 p.x\n    return 0;\n}",
         "hint": "先写 Point* ptr = &p;，再用 ptr->x。",
         "checks": [
           {
@@ -11263,7 +11265,7 @@ window.COURSE_DATA = {
             "pattern": "\\bp\\s*\\.\\s*x\\b"
           }
         ],
-        "solution": "#include <iostream>\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p{2, 4};\n    Point* ptr = &p;\n    ptr->x = 9;\n    std::cout << p.x;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Point { int x; int y; };\n\nint main() {\n    Point p = {2, 4};\n    Point* ptr = &p;\n    ptr->x = 9;\n    cout << p.x;\n    return 0;\n}",
         "explanation": "ptr->x 等价于 (*ptr).x。",
         "commonMistakes": [
           "写 ptr.x，把结构指针当结构变量。",
@@ -11300,7 +11302,7 @@ window.COURSE_DATA = {
       "exercise": {
         "prompt": "定义 struct Book { char title[30]; int pages; }; 创建 b，把 title 设为 \"C++\"、pages 设为 320，再复制给 c 并输出 c.title 和 c.pages。",
         "starter": "#include <iostream>\n#include <cstring>\n\n// 定义 Book\n\nint main() {\n    // 初始化 b、复制给 c、输出\n    return 0;\n}",
-        "hint": "字符数组用 std::strcpy；结构整体可用 c = b。",
+        "hint": "字符数组用 strcpy；结构整体可用 c = b。",
         "checks": [
           {
             "label": "定义 Book 和成员",
@@ -11319,7 +11321,7 @@ window.COURSE_DATA = {
             "pattern": "\\bc\\s*\\.\\s*(?:title|pages)"
           }
         ],
-        "solution": "#include <iostream>\n#include <cstring>\n\nstruct Book {\n    char title[30];\n    int pages;\n};\n\nint main() {\n    Book b{};\n    std::strcpy(b.title, \"C++\");\n    b.pages = 320;\n    Book c = b;\n    std::cout << c.title << ' ' << c.pages;\n    return 0;\n}",
+        "solution": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nstruct Book {\n    char title[30];\n    int pages;\n};\n\nint main() {\n    Book b;\n    strcpy(b.title, \"C++\");\n    b.pages = 320;\n    Book c = b;\n    cout << c.title << ' ' << c.pages;\n    return 0;\n}",
         "explanation": "结构整体赋值会复制各成员；字符数组成员仍要遵守数组规则。",
         "commonMistakes": [
           "写 b.title = \"C++\"。",
@@ -11375,7 +11377,7 @@ window.COURSE_DATA = {
             "pattern": "a\\s*\\[\\s*0\\s*\\]\\s*\\.\\s*name"
           }
         ],
-        "solution": "#include <iostream>\n\nstruct Student { const char* name; int score; };\n\nint main() {\n    Student a[2] = {{\"A\", 70}, {\"B\", 90}};\n    if (a[0].score > a[1].score) {\n        Student t = a[0];\n        a[0] = a[1];\n        a[1] = t;\n    }\n    std::cout << a[0].name;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Student { const char* name; int score; };\n\nint main() {\n    Student a[2] = {{\"A\", 70}, {\"B\", 90}};\n    if (a[0].score > a[1].score) {\n        Student t = a[0];\n        a[0] = a[1];\n        a[1] = t;\n    }\n    cout << a[0].name;\n    return 0;\n}",
         "explanation": "比较某个成员，交换整个结构元素，相关数据才会保持一致。",
         "commonMistakes": [
           "只交换 score。",
@@ -11410,9 +11412,9 @@ window.COURSE_DATA = {
         "只 delete 链表头结点，未释放后续结点。"
       ],
       "exercise": {
-        "prompt": "定义 Node { int data; Node* next; };，用 new 创建 p，设置 data=12、next=nullptr，输出 data 后 delete p。",
+        "prompt": "定义 Node { int data; Node* next; };，用 new 创建 p，设置 data=12、next=NULL，输出 data 后 delete p。",
         "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // new、初始化、输出、delete\n    return 0;\n}",
-        "hint": "可用 Node* p = new Node{12, nullptr};。",
+        "hint": "先写 Node* p = new Node;，再逐成员赋值：p->data = 12; p->next = NULL;。",
         "checks": [
           {
             "label": "使用 new Node",
@@ -11420,18 +11422,18 @@ window.COURSE_DATA = {
           },
           {
             "label": "初始化 data 为 12",
-            "pattern": "(?:data\\s*=\\s*12|Node\\s*\\{[^}]*12)"
+            "pattern": "\\w+\\s*->\\s*data\\s*=\\s*12\\s*;"
           },
           {
             "label": "next 置空",
-            "pattern": "(?:next\\s*=\\s*nullptr|Node\\s*\\{[^}]*nullptr)"
+            "pattern": "\\w+\\s*->\\s*next\\s*=\\s*NULL\\s*;"
           },
           {
             "label": "delete 指针",
             "pattern": "\\bdelete\\s+\\w+\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    Node* p = new Node{12, nullptr};\n    std::cout << p->data;\n    delete p;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    Node* p = new Node;\n    p->data = 12;\n    p->next = NULL;\n    cout << p->data;\n    delete p;\n    return 0;\n}",
         "explanation": "动态结点需要显式初始化和释放。",
         "commonMistakes": [
           "只写 Node* p;，没有分配对象。",
@@ -11451,9 +11453,9 @@ window.COURSE_DATA = {
         "next",
         "遍历"
       ],
-      "overview": "单链表由头指针和若干结点组成。每个结点含数据域与指向后继的 next；最后一个结点的 next 为 nullptr。",
+      "overview": "单链表由头指针和若干结点组成。每个结点含数据域与指向后继的 next；最后一个结点的 next 为 NULL。",
       "keyPoints": [
-        "空链表用 head == nullptr 表示。",
+        "空链表用 head == NULL 表示。",
         "访问结点成员用 p->data、p->next。",
         "遍历时工作指针应写 p = p->next，不能写 p++。",
         "正序建表通常维护 tail，在表尾追加。",
@@ -11468,7 +11470,7 @@ window.COURSE_DATA = {
       "exercise": {
         "prompt": "定义 Node { int data; Node* next; }; 创建三个动态结点，数据为 1、2、3，按顺序连接；用 p=p->next 遍历输出，最后释放全部结点。",
         "starter": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    // 创建并连接结点\n    // 遍历输出\n    // 释放\n    return 0;\n}",
-        "hint": "可以创建 a、b、c 三个指针，连接 a->b->c，最后 c->next=nullptr。",
+        "hint": "可以创建 a、b、c 三个指针，连接 a->b->c，最后 c->next=NULL。",
         "checks": [
           {
             "label": "创建 Node 指针",
@@ -11487,11 +11489,11 @@ window.COURSE_DATA = {
             "pattern": "\\bdelete\\s+\\w+\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    Node* a = new Node{1, nullptr};\n    Node* b = new Node{2, nullptr};\n    Node* c = new Node{3, nullptr};\n    a->next = b;\n    b->next = c;\n    for (Node* p = a; p != nullptr; p = p->next) {\n        std::cout << p->data << ' ';\n    }\n    delete a;\n    delete b;\n    delete c;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\nint main() {\n    Node* a = new Node;\n    Node* b = new Node;\n    Node* c = new Node;\n    a->data = 1; a->next = b;\n    b->data = 2; b->next = c;\n    c->data = 3; c->next = NULL;\n    for (Node* p = a; p != NULL; p = p->next) {\n        cout << p->data << ' ';\n    }\n    delete a;\n    delete b;\n    delete c;\n    return 0;\n}",
         "explanation": "链表结点地址不一定连续，必须通过 next 跳转。",
         "commonMistakes": [
           "写 p++ 遍历动态结点。",
-          "没有把 c->next 初始化为 nullptr。",
+          "没有把 c->next 初始化为 NULL。",
           "只释放 a，遗漏 b、c。"
         ]
       },
@@ -11511,7 +11513,7 @@ window.COURSE_DATA = {
       "keyPoints": [
         "在 front 之后插入：newnode->next = front->next; front->next = newnode。",
         "在表头前插入要修改 head，并返回新的表头。",
-        "在表尾后插入要令 newnode->next = nullptr。",
+        "在表尾后插入要令 newnode->next = NULL。",
         "按有序插入时需分别处理表头、中间、表尾。",
         "插入可能改变 head，所以函数通常返回 Node*。"
       ],
@@ -11543,7 +11545,7 @@ window.COURSE_DATA = {
             "pattern": "\\w+\\s*->\\s*next\\s*=\\s*\\w+"
           }
         ],
-        "solution": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nNode* insertAfter(Node* node, int x) {\n    Node* nn = new Node{x, node->next};\n    node->next = nn;\n    return nn;\n}\n\nint main() {\n    Node* head = new Node{1, nullptr};\n    insertAfter(head, 2);\n    for (Node* p = head; p; p = p->next) std::cout << p->data << ' ';\n    delete head->next;\n    delete head;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\nNode* insertAfter(Node* node, int x) {\n    Node* nn = new Node;\n    nn->data = x;\n    nn->next = node->next;\n    node->next = nn;\n    return nn;\n}\n\nint main() {\n    Node* head = new Node;\n    head->data = 1;\n    head->next = NULL;\n    insertAfter(head, 2);\n    for (Node* p = head; p; p = p->next) cout << p->data << ' ';\n    delete head->next;\n    delete head;\n    return 0;\n}",
         "explanation": "先用新结点保存原后继，再改写前驱指针。",
         "commonMistakes": [
           "先改前驱，导致原后继丢失。",
@@ -11569,7 +11571,7 @@ window.COURSE_DATA = {
         "删除表头：head = p->next; delete p。",
         "删除中间/尾部：q->next = p->next; delete p。",
         "删除可能改变 head，因此函数通常返回新的 Node*。",
-        "查找失败时 p 会到 nullptr，不能再访问 p->data。"
+        "查找失败时 p 会到 NULL，不能再访问 p->data。"
       ],
       "pitfalls": [
         "只写 q->next=p->next，却忘记 delete p，造成泄漏。",
@@ -11588,7 +11590,7 @@ window.COURSE_DATA = {
           },
           {
             "label": "处理空链表",
-            "pattern": "\\bif\\s*\\(\\s*!\\s*\\w+\\s*\\)|\\bif\\s*\\(\\s*\\w+\\s*==\\s*nullptr\\s*\\)"
+            "pattern": "\\bif\\s*\\(\\s*!\\s*\\w+\\s*\\)|\\bif\\s*\\(\\s*\\w+\\s*==\\s*NULL\\s*\\)"
           },
           {
             "label": "head 指向后继",
@@ -11599,7 +11601,7 @@ window.COURSE_DATA = {
             "pattern": "\\bdelete\\s+\\w+\\s*;"
           }
         ],
-        "solution": "#include <iostream>\n\nstruct Node { int data; Node* next; };\n\nNode* deleteHead(Node* head) {\n    if (!head) return nullptr;\n    Node* old = head;\n    head = head->next;\n    delete old;\n    return head;\n}\n\nint main() {\n    Node* head = new Node{1, new Node{2, nullptr}};\n    head = deleteHead(head);\n    std::cout << head->data;\n    delete head;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Node { int data; Node* next; };\n\nNode* deleteHead(Node* head) {\n    if (!head) return NULL;\n    Node* old = head;\n    head = head->next;\n    delete old;\n    return head;\n}\n\nint main() {\n    Node* head = new Node;\n    head->data = 1;\n    head->next = new Node;\n    head->next->data = 2;\n    head->next->next = NULL;\n    head = deleteHead(head);\n    cout << head->data;\n    delete head;\n    return 0;\n}",
         "explanation": "先保存待删结点，移动 head，再释放保存的结点。",
         "commonMistakes": [
           "直接 delete head 后再访问 head->next。",
@@ -11623,9 +11625,9 @@ window.COURSE_DATA = {
       "keyPoints": [
         "长度从 0 开始计数。",
         "工作指针从 head 开始，每轮执行 p = p->next。",
-        "空链表的 head 为 nullptr，长度为 0。",
+        "空链表的 head 为 NULL，长度为 0。",
         "按序号查找通常规定 1 表示第一个结点。",
-        "找不到目标序号时返回 nullptr。"
+        "找不到目标序号时返回 NULL。"
       ],
       "pitfalls": [
         "用 p++ 遍历动态结点。",
@@ -11634,11 +11636,11 @@ window.COURSE_DATA = {
         "访问空指针的 data 或 next。"
       ],
       "exercise": {
-        "prompt": "补全 length 和 findKth。findKth 中 1 表示第一个结点，越界返回 nullptr。程序输出链表长度和第 2 个结点的数据。",
-        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int value) : data(value), next(nullptr) {}\n};\n\nint length(Node* head) {\n    // 统计结点个数\n}\n\nNode* findKth(Node* head, int k) {\n    // 返回第 k 个结点\n}\n\nint main() {\n    Node* head = new Node(10);\n    head->next = new Node(20);\n    head->next->next = new Node(30);\n    Node* second = findKth(head, 2);\n    cout << length(head) << ' ' << (second ? second->data : -1) << endl;\n    return 0;\n}",
+        "prompt": "补全 length 和 findKth。findKth 中 1 表示第一个结点，越界返回 NULL。程序输出链表长度和第 2 个结点的数据。",
+        "starter": "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int value) : data(value), next(NULL) {}\n};\n\nint length(Node* head) {\n    // 统计结点个数\n}\n\nNode* findKth(Node* head, int k) {\n    // 返回第 k 个结点\n}\n\nint main() {\n    Node* head = new Node(10);\n    head->next = new Node(20);\n    head->next->next = new Node(30);\n    Node* second = findKth(head, 2);\n    cout << length(head) << ' ' << (second ? second->data : -1) << endl;\n    return 0;\n}",
         "sampleInput": "",
         "expectedOutput": "3 20",
-        "hint": "长度循环到 p==nullptr；findKth 从序号 1 开始计数。",
+        "hint": "长度循环到 p==NULL；findKth 从序号 1 开始计数。",
         "checks": [
           {
             "label": "定义 length",
@@ -11654,14 +11656,14 @@ window.COURSE_DATA = {
           },
           {
             "label": "找不到时返回空指针",
-            "pattern": "\\breturn\\s+(?:nullptr|NULL)\\s*;"
+            "pattern": "\\breturn\\s+(?:NULL|NULL)\\s*;"
           }
         ],
-        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int value) : data(value), next(nullptr) {}\n};\n\nint length(Node* head) {\n    int count = 0;\n    for (Node* p = head; p != nullptr; p = p->next) ++count;\n    return count;\n}\n\nNode* findKth(Node* head, int k) {\n    if (k < 1) return nullptr;\n    Node* p = head;\n    int index = 1;\n    while (p != nullptr && index < k) {\n        p = p->next;\n        ++index;\n    }\n    return p;\n}\n\nint main() {\n    Node* head = new Node(10);\n    head->next = new Node(20);\n    head->next->next = new Node(30);\n    Node* second = findKth(head, 2);\n    cout << length(head) << ' ' << (second ? second->data : -1) << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int value) : data(value), next(NULL) {}\n};\n\nint length(Node* head) {\n    int count = 0;\n    for (Node* p = head; p != NULL; p = p->next) ++count;\n    return count;\n}\n\nNode* findKth(Node* head, int k) {\n    if (k < 1) return NULL;\n    Node* p = head;\n    int index = 1;\n    while (p != NULL && index < k) {\n        p = p->next;\n        ++index;\n    }\n    return p;\n}\n\nint main() {\n    Node* head = new Node(10);\n    head->next = new Node(20);\n    head->next->next = new Node(30);\n    Node* second = findKth(head, 2);\n    cout << length(head) << ' ' << (second ? second->data : -1) << endl;\n    return 0;\n}",
         "explanation": "两个函数都从 head 出发，沿 next 前进；findKth 用 index 从 1 开始计数。",
         "commonMistakes": [
           "findKth 从 0 开始却把 k=1 当第二个结点。",
-          "遍历条件写成 p->next != nullptr 导致漏掉尾结点。",
+          "遍历条件写成 p->next != NULL 导致漏掉尾结点。",
           "找不到时返回 head。"
         ]
       },
@@ -11693,7 +11695,7 @@ window.COURSE_DATA = {
         "释放后继续访问指针，形成悬空指针。"
       ],
       "exercise": {
-        "prompt": "使用 malloc 创建一个 Node，令 data=7、next=nullptr，再统计后释放该结点。程序输出 data。",
+        "prompt": "使用 malloc 创建一个 Node，令 data=7、next=NULL，再统计后释放该结点。程序输出 data。",
         "starter": "#include <iostream>\n#include <cstdlib>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n};\n\nint main() {\n    // 使用 malloc 创建、初始化并释放结点\n    return 0;\n}",
         "sampleInput": "",
         "expectedOutput": "7",
@@ -11709,17 +11711,17 @@ window.COURSE_DATA = {
           },
           {
             "label": "初始化 next",
-            "pattern": "\\bp\\s*->\\s*next\\s*=\\s*(?:nullptr|NULL)"
+            "pattern": "\\bp\\s*->\\s*next\\s*=\\s*(?:NULL|NULL)"
           },
           {
             "label": "使用 free 释放",
             "pattern": "\\bfree\\s*\\(\\s*p\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n#include <cstdlib>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n};\n\nint main() {\n    Node* p = (Node*)malloc(sizeof(Node));\n    if (p == nullptr) return 1;\n    p->data = 7;\n    p->next = nullptr;\n    cout << p->data << endl;\n    free(p);\n    return 0;\n}",
+        "solution": "#include <iostream>\n#include <cstdlib>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n};\n\nint main() {\n    Node* p = (Node*)malloc(sizeof(Node));\n    if (p == NULL) return 1;\n    p->data = 7;\n    p->next = NULL;\n    cout << p->data << endl;\n    free(p);\n    return 0;\n}",
         "explanation": "malloc 分配后先检查空指针，再显式初始化成员；最后用 free 释放。",
         "commonMistakes": [
-          "malloc 后不检查 nullptr。",
+          "malloc 后不检查 NULL。",
           "对 malloc 得到的指针使用 delete。",
           "忘记初始化 next。"
         ]
@@ -12416,7 +12418,7 @@ window.COURSE_DATA = {
             "pattern": "\\bstd\\s*::\\s*cout|\\bcout"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    std::cout << sizeof(int) << ' ' << sizeof(char);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << sizeof(int) << ' ' << sizeof(char);\n    return 0;\n}",
         "explanation": "sizeof 给出类型占用的字节数；具体 int 宽度依环境，常见为 4。",
         "commonMistakes": [
           "把 sizeof(int) 误写成 sizeof(123)。",
@@ -12453,7 +12455,7 @@ window.COURSE_DATA = {
       "exercise": {
         "prompt": "声明 FILE* fp，以写模式打开 out.txt；若打开失败返回 1，成功时写入 \"OK\" 并关闭文件。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 定义、打开、检查、写入、关闭\n    return 0;\n}",
-        "hint": "模式字符串写 \"w\"；打开后用 std::fputs 或 fprintf。",
+        "hint": "模式字符串写 \"w\"；打开后用 fputs 或 fprintf。",
         "checks": [
           {
             "label": "声明 FILE 指针",
@@ -12465,7 +12467,7 @@ window.COURSE_DATA = {
           },
           {
             "label": "检查空指针",
-            "pattern": "\\bif\\s*\\(\\s*!\\s*\\w+\\s*\\)|\\bif\\s*\\(\\s*\\w+\\s*==\\s*(?:nullptr|NULL)\\s*\\)"
+            "pattern": "\\bif\\s*\\(\\s*!\\s*\\w+\\s*\\)|\\bif\\s*\\(\\s*\\w+\\s*==\\s*(?:NULL|NULL)\\s*\\)"
           },
           {
             "label": "写入 OK",
@@ -12476,10 +12478,10 @@ window.COURSE_DATA = {
             "pattern": "\\bfclose\\s*\\("
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"out.txt\", \"w\");\n    if (!fp) return 1;\n    std::fputs(\"OK\", fp);\n    std::fclose(fp);\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* fp = fopen(\"out.txt\", \"w\");\n    if (!fp) return 1;\n    fputs(\"OK\", fp);\n    fclose(fp);\n    return 0;\n}",
         "explanation": "打开、检查、使用、关闭构成完整文件生命周期。",
         "commonMistakes": [
-          "使用 std::fopen 却写成 fopen。",
+          "使用 fopen 却写成 fopen。",
           "打开失败后仍继续写入。",
           "写完不关闭。"
         ]
@@ -12505,7 +12507,7 @@ window.COURSE_DATA = {
         "a 追加，不存在则创建。",
         "b 表示二进制模式，如 rb、wb、ab。",
         "+ 允许读写，如 r+、w+、a+。",
-        "fopen 失败返回 nullptr/NULL，必须检查。"
+        "fopen 失败返回 NULL/NULL，必须检查。"
       ],
       "pitfalls": [
         "用 w 打开已有文件却以为会保留原内容。",
@@ -12535,7 +12537,7 @@ window.COURSE_DATA = {
             "pattern": "\\bfclose\\s*\\("
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"log.txt\", \"a\");\n    if (!fp) return 1;\n    std::fputs(\"new\\n\", fp);\n    std::fclose(fp);\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* fp = fopen(\"log.txt\", \"a\");\n    if (!fp) return 1;\n    fputs(\"new\\n\", fp);\n    fclose(fp);\n    return 0;\n}",
         "explanation": "a 模式保留原内容，并在末尾追加。",
         "commonMistakes": [
           "使用 w，覆盖原日志。",
@@ -12575,7 +12577,7 @@ window.COURSE_DATA = {
         "checks": [
           {
             "label": "检查 fopen",
-            "pattern": "\\bif\\s*\\(\\s*!\\s*\\w+\\s*\\)|\\bif\\s*\\(\\s*\\w+\\s*==\\s*(?:nullptr|NULL)\\s*\\)"
+            "pattern": "\\bif\\s*\\(\\s*!\\s*\\w+\\s*\\)|\\bif\\s*\\(\\s*\\w+\\s*==\\s*(?:NULL|NULL)\\s*\\)"
           },
           {
             "label": "写入 done",
@@ -12586,7 +12588,7 @@ window.COURSE_DATA = {
             "pattern": "\\bif\\s*\\(\\s*(?:std\\s*::\\s*)?fclose\\s*\\([^)]*\\)\\s*!=\\s*0\\s*\\)"
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"out.txt\", \"w\");\n    if (!fp) return 1;\n    std::fputs(\"done\", fp);\n    if (std::fclose(fp) != 0) return 2;\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* fp = fopen(\"out.txt\", \"w\");\n    if (!fp) return 1;\n    fputs(\"done\", fp);\n    if (fclose(fp) != 0) return 2;\n    return 0;\n}",
         "explanation": "fclose 不仅释放资源，也可能暴露写入失败。",
         "commonMistakes": [
           "只在 fopen 后检查，不检查 fclose。",
@@ -12642,7 +12644,7 @@ window.COURSE_DATA = {
             "pattern": "\\bfclose\\s*\\("
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"input.txt\", \"r\");\n    if (!fp) return 1;\n    int ch;\n    while ((ch = std::fgetc(fp)) != EOF) {\n        std::putchar(ch);\n    }\n    std::fclose(fp);\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* fp = fopen(\"input.txt\", \"r\");\n    if (!fp) return 1;\n    int ch;\n    while ((ch = fgetc(fp)) != EOF) {\n        putchar(ch);\n    }\n    fclose(fp);\n    return 0;\n}",
         "explanation": "用 int 接收 fgetc，才能正确区分普通字符和 EOF。",
         "commonMistakes": [
           "写 while(!feof(fp)) { ch=fgetc(fp); putchar(ch); }，可能多处理一次 EOF。",
@@ -12698,7 +12700,7 @@ window.COURSE_DATA = {
             "pattern": "while\\s*\\(\\s*(?:std\\s*::\\s*)?fgets\\s*\\("
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"lines.txt\", \"w\");\n    if (!fp) return 1;\n    std::fputs(\"alpha\\n\", fp);\n    std::fputs(\"beta\\n\", fp);\n    std::fclose(fp);\n\n    fp = std::fopen(\"lines.txt\", \"r\");\n    if (!fp) return 2;\n    char s[100];\n    while (std::fgets(s, 100, fp)) {\n        std::fputs(s, stdout);\n    }\n    std::fclose(fp);\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* fp = fopen(\"lines.txt\", \"w\");\n    if (!fp) return 1;\n    fputs(\"alpha\\n\", fp);\n    fputs(\"beta\\n\", fp);\n    fclose(fp);\n\n    fp = fopen(\"lines.txt\", \"r\");\n    if (!fp) return 2;\n    char s[100];\n    while (fgets(s, 100, fp)) {\n        fputs(s, stdout);\n    }\n    fclose(fp);\n    return 0;\n}",
         "explanation": "字符串读写适合按行或按整段文本处理。",
         "commonMistakes": [
           "认为 fputs 自动换行。",
@@ -12754,7 +12756,7 @@ window.COURSE_DATA = {
             "pattern": "(?:cout|printf|fprintf)[^;]*(?:\\w+\\s*\\+\\s*\\w+)"
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"numbers.txt\", \"w\");\n    if (!fp) return 1;\n    std::fprintf(fp, \"%d %d\", 12, 34);\n    std::fclose(fp);\n\n    fp = std::fopen(\"numbers.txt\", \"r\");\n    if (!fp) return 2;\n    int a, b;\n    if (std::fscanf(fp, \"%d %d\", &a, &b) == 2) {\n        std::printf(\"%d\", a + b);\n    }\n    std::fclose(fp);\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* fp = fopen(\"numbers.txt\", \"w\");\n    if (!fp) return 1;\n    fprintf(fp, \"%d %d\", 12, 34);\n    fclose(fp);\n\n    fp = fopen(\"numbers.txt\", \"r\");\n    if (!fp) return 2;\n    int a, b;\n    if (fscanf(fp, \"%d %d\", &a, &b) == 2) {\n        printf(\"%d\", a + b);\n    }\n    fclose(fp);\n    return 0;\n}",
         "explanation": "格式化读写得到的是可阅读的文本，不是原始对象内存。",
         "commonMistakes": [
           "fscanf 漏掉 &。",
@@ -12790,7 +12792,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "把 int 数组 a[3]={1,2,3} 以二进制写入 data.bin，再以 rb 模式读回到 b[3] 并输出 b[2]。",
-        "starter": "#include <cstdio>\n\nint main() {\n    int a[3] = {1, 2, 3};\n    int b[3] = {};\n    // 块写入并读回\n    return 0;\n}",
+        "starter": "#include <cstdio>\n\nint main() {\n    int a[3] = {1, 2, 3};\n    int b[3] = {0, 0, 0};\n    // 块写入并读回\n    return 0;\n}",
         "hint": "写：fwrite(a, sizeof(a[0]), 3, fp)；读参数形状相同。",
         "checks": [
           {
@@ -12814,7 +12816,7 @@ window.COURSE_DATA = {
             "pattern": "b\\s*\\[\\s*2\\s*\\]"
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    int a[3] = {1, 2, 3};\n    int b[3] = {};\n    FILE* fp = std::fopen(\"data.bin\", \"wb\");\n    if (!fp) return 1;\n    std::fwrite(a, sizeof(a[0]), 3, fp);\n    std::fclose(fp);\n\n    fp = std::fopen(\"data.bin\", \"rb\");\n    if (!fp) return 2;\n    std::fread(b, sizeof(b[0]), 3, fp);\n    std::fclose(fp);\n    std::printf(\"%d\", b[2]);\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    int a[3] = {1, 2, 3};\n    int b[3] = {0, 0, 0};\n    FILE* fp = fopen(\"data.bin\", \"wb\");\n    if (!fp) return 1;\n    fwrite(a, sizeof(a[0]), 3, fp);\n    fclose(fp);\n\n    fp = fopen(\"data.bin\", \"rb\");\n    if (!fp) return 2;\n    fread(b, sizeof(b[0]), 3, fp);\n    fclose(fp);\n    printf(\"%d\", b[2]);\n    return 0;\n}",
         "explanation": "块读写保留对象内存表示，size 和 count 要匹配。",
         "commonMistakes": [
           "使用文本模式 w/r 处理二进制块。",
@@ -12851,7 +12853,7 @@ window.COURSE_DATA = {
       "exercise": {
         "prompt": "打开 data.bin 为 rb，使用 fseek 从文件末尾向前移动 sizeof(int) 字节，再用 fread 读取最后一个 int 并输出。",
         "starter": "#include <cstdio>\n\nint main() {\n    // 定位到最后一个 int 并读取\n    return 0;\n}",
-        "hint": "fseek(fp, -static_cast<long>(sizeof(int)), SEEK_END)。",
+        "hint": "fseek(fp, -(long)(sizeof(int)), SEEK_END)。",
         "checks": [
           {
             "label": "以 rb 打开",
@@ -12870,7 +12872,7 @@ window.COURSE_DATA = {
             "pattern": "fread\\s*\\([^;]*sizeof\\s*\\(\\s*int\\s*\\)\\s*,\\s*1"
           }
         ],
-        "solution": "#include <cstdio>\n\nint main() {\n    FILE* fp = std::fopen(\"data.bin\", \"rb\");\n    if (!fp) return 1;\n    int last = 0;\n    std::fseek(fp, -static_cast<long>(sizeof(int)), SEEK_END);\n    if (std::fread(&last, sizeof(int), 1, fp) == 1) {\n        std::printf(\"%d\", last);\n    }\n    std::fclose(fp);\n    return 0;\n}",
+        "solution": "#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* fp = fopen(\"data.bin\", \"rb\");\n    if (!fp) return 1;\n    int last = 0;\n    fseek(fp, -(long)(sizeof(int)), SEEK_END);\n    if (fread(&last, sizeof(int), 1, fp) == 1) {\n        printf(\"%d\", last);\n    }\n    fclose(fp);\n    return 0;\n}",
         "explanation": "fseek 的偏移单位是字节；负偏移从指定基准向前移动。",
         "commonMistakes": [
           "把偏移写成 -1 元素。",
@@ -12896,7 +12898,7 @@ window.COURSE_DATA = {
         "fscanf(fp, \"%d\", &x) 成功读取一个整数时返回 1。",
         "while (fscanf(...) == 1) 能在读取失败时立即停止。",
         "feof 只有在一次读取尝试遇到文件结束后才为真。",
-        "fgets 成功返回缓冲区地址，失败或到末尾返回 nullptr。",
+        "fgets 成功返回缓冲区地址，失败或到末尾返回 NULL。",
         "fread 成功返回实际读取的元素块数。"
       ],
       "pitfalls": [
@@ -12907,7 +12909,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "程序先创建 demo.txt 并写入 1 2 3，然后重新打开读取。补全循环，使用 fscanf 的返回值求和并统计个数，输出和与个数。",
-        "starter": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* out = fopen(\"demo.txt\", \"w\");\n    fputs(\"1 2 3\", out);\n    fclose(out);\n\n    FILE* fp = fopen(\"demo.txt\", \"r\");\n    if (fp == nullptr) return 1;\n    int x, sum = 0, count = 0;\n    // 使用 fscanf 返回值循环读取\n    fclose(fp);\n    cout << sum << ' ' << count << endl;\n    return 0;\n}",
+        "starter": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* out = fopen(\"demo.txt\", \"w\");\n    fputs(\"1 2 3\", out);\n    fclose(out);\n\n    FILE* fp = fopen(\"demo.txt\", \"r\");\n    if (fp == NULL) return 1;\n    int x, sum = 0, count = 0;\n    // 使用 fscanf 返回值循环读取\n    fclose(fp);\n    cout << sum << ' ' << count << endl;\n    return 0;\n}",
         "sampleInput": "",
         "expectedOutput": "6 3",
         "hint": "循环条件写 fscanf(fp, \"%d\", &x) == 1。",
@@ -12929,7 +12931,7 @@ window.COURSE_DATA = {
             "pattern": "\\+\\+\\s*count|count\\s*\\+?=\\s*1"
           }
         ],
-        "solution": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* out = fopen(\"demo.txt\", \"w\");\n    fputs(\"1 2 3\", out);\n    fclose(out);\n\n    FILE* fp = fopen(\"demo.txt\", \"r\");\n    if (fp == nullptr) return 1;\n    int x, sum = 0, count = 0;\n    while (fscanf(fp, \"%d\", &x) == 1) {\n        sum += x;\n        ++count;\n    }\n    fclose(fp);\n    cout << sum << ' ' << count << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    FILE* out = fopen(\"demo.txt\", \"w\");\n    fputs(\"1 2 3\", out);\n    fclose(out);\n\n    FILE* fp = fopen(\"demo.txt\", \"r\");\n    if (fp == NULL) return 1;\n    int x, sum = 0, count = 0;\n    while (fscanf(fp, \"%d\", &x) == 1) {\n        sum += x;\n        ++count;\n    }\n    fclose(fp);\n    cout << sum << ' ' << count << endl;\n    return 0;\n}",
         "explanation": "fscanf 成功读取一个整数返回 1；读取失败后立即结束循环，避免处理旧值。",
         "commonMistakes": [
           "写成 while(!feof(fp)) 后直接累加 x。",
@@ -12956,7 +12958,7 @@ window.COURSE_DATA = {
         "Windows 字符串路径中的反斜杠写成 \\\\，例如 C:\\\\temp\\\\a.txt。",
         "w 模式会创建空文件或截断已有文件。",
         "r 模式要求文件已存在。",
-        "每次 fopen 后都应检查是否返回 nullptr。"
+        "每次 fopen 后都应检查是否返回 NULL。"
       ],
       "pitfalls": [
         "路径写成 C:\\temp\\a.txt 时被当成转义字符。",
@@ -12966,7 +12968,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "读取一个不含空白的字符串，写入 data.txt，关闭后重新读取并输出。补全 fopen 模式与安全检查。",
-        "starter": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    char text[50], buffer[50];\n    cin >> text;\n    FILE* out = fopen(\"data.txt\", \"?\");\n    if (out == nullptr) return 1;\n    fputs(text, out);\n    fclose(out);\n\n    FILE* in = fopen(\"data.txt\", \"?\");\n    if (in == nullptr) return 1;\n    fgets(buffer, 50, in);\n    fclose(in);\n    cout << buffer << endl;\n    return 0;\n}",
+        "starter": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    char text[50], buffer[50];\n    cin >> text;\n    FILE* out = fopen(\"data.txt\", \"?\");\n    if (out == NULL) return 1;\n    fputs(text, out);\n    fclose(out);\n\n    FILE* in = fopen(\"data.txt\", \"?\");\n    if (in == NULL) return 1;\n    fgets(buffer, 50, in);\n    fclose(in);\n    cout << buffer << endl;\n    return 0;\n}",
         "sampleInput": "C++",
         "expectedOutput": "C++",
         "hint": "第一次打开用于写，模式用 w；第二次用于读，模式用 r。",
@@ -12981,19 +12983,19 @@ window.COURSE_DATA = {
           },
           {
             "label": "检查打开失败",
-            "pattern": "\\bif\\s*\\([^)]*(?:==\\s*(?:nullptr|NULL)|!\\s*\\w+)\\s*\\)"
+            "pattern": "\\bif\\s*\\([^)]*(?:==\\s*(?:NULL|NULL)|!\\s*\\w+)\\s*\\)"
           },
           {
             "label": "写入后关闭",
             "pattern": "\\bfputs\\s*\\([\\s\\S]*\\bfclose\\s*\\(\\s*out\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    char text[50], buffer[50];\n    cin >> text;\n    FILE* out = fopen(\"data.txt\", \"w\");\n    if (out == nullptr) return 1;\n    fputs(text, out);\n    fclose(out);\n\n    FILE* in = fopen(\"data.txt\", \"r\");\n    if (in == nullptr) return 1;\n    fgets(buffer, 50, in);\n    fclose(in);\n    cout << buffer << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\n#include <cstdio>\nusing namespace std;\n\nint main() {\n    char text[50], buffer[50];\n    cin >> text;\n    FILE* out = fopen(\"data.txt\", \"w\");\n    if (out == NULL) return 1;\n    fputs(text, out);\n    fclose(out);\n\n    FILE* in = fopen(\"data.txt\", \"r\");\n    if (in == NULL) return 1;\n    fgets(buffer, 50, in);\n    fclose(in);\n    cout << buffer << endl;\n    return 0;\n}",
         "explanation": "w 模式先清空或创建文件，fclose 后再用 r 读取。两个 fopen 都检查了失败。",
         "commonMistakes": [
           "用 r 模式写入。",
           "写入后不关闭文件。",
-          "fopen 返回 nullptr 后继续使用指针。"
+          "fopen 返回 NULL 后继续使用指针。"
         ]
       },
       "masteryHint": "能正确选择文本文件读写模式并处理路径与打开失败。"
@@ -13094,7 +13096,7 @@ window.COURSE_DATA = {
             "pattern": "(?:cout|printf)[^;]*a"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int a = 4;\n    a += a * 3;\n    std::cout << a;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 4;\n    a += a * 3;\n    cout << a;\n    return 0;\n}",
         "explanation": "a += a*3 等价于 a = a + (a*3)。",
         "commonMistakes": [
           "误认为结果是 12。",
@@ -13147,7 +13149,7 @@ window.COURSE_DATA = {
             "pattern": "(?:cout|printf)[^;]*a[^;]*b"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int a = 0, b = 1;\n    bool ok = a++ && ++b;\n    std::cout << a << ' ' << b << ' ' << ok;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a = 0, b = 1;\n    bool ok = a++ && ++b;\n    cout << a << ' ' << b << ' ' << ok;\n    return 0;\n}",
         "explanation": "a++ 的旧值 0 使左侧为假，因此 ++b 被短路。",
         "commonMistakes": [
           "认为 b 会变成 2。",
@@ -13199,7 +13201,7 @@ window.COURSE_DATA = {
             "pattern": "\\b(?:std\\s*::\\s*)?strlen\\s*\\("
           }
         ],
-        "solution": "#include <iostream>\n#include <cstring>\n\nint main() {\n    char s[6];\n    std::strcpy(s, \"hello\");\n    std::cout << s << ' ' << std::strlen(s);\n    return 0;\n}",
+        "solution": "#include <iostream>\n#include <cstring>\nusing namespace std;\n\nint main() {\n    char s[6];\n    strcpy(s, \"hello\");\n    cout << s << ' ' << strlen(s);\n    return 0;\n}",
         "explanation": "字符数组必须给结尾 '\\0' 留空间。",
         "commonMistakes": [
           "分配 s[5] 存 \"hello\"。",
@@ -13255,7 +13257,7 @@ window.COURSE_DATA = {
             "pattern": "\\*\\s*\\(\\s*p\\s*-\\s*1\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    int a[4] = {2, 4, 6, 8};\n    int* p = a + 2;\n    std::cout << *p << ' ' << *(p - 1);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a[4] = {2, 4, 6, 8};\n    int* p = a + 2;\n    cout << *p << ' ' << *(p - 1);\n    return 0;\n}",
         "explanation": "指针加整数按元素移动，不按字节手动计算。",
         "commonMistakes": [
           "把 p=a+2 当第二个元素。",
@@ -13312,7 +13314,7 @@ window.COURSE_DATA = {
             "pattern": "\\bgcd\\s*\\(\\s*36\\s*,\\s*60\\s*\\)"
           }
         ],
-        "solution": "#include <iostream>\n\nint gcd(int a, int b) {\n    while (b != 0) {\n        int r = a % b;\n        a = b;\n        b = r;\n    }\n    return a;\n}\n\nint main() {\n    std::cout << gcd(36, 60);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint gcd(int a, int b) {\n    while (b != 0) {\n        int r = a % b;\n        a = b;\n        b = r;\n    }\n    return a;\n}\n\nint main() {\n    cout << gcd(36, 60);\n    return 0;\n}",
         "explanation": "辗转相除法通过不断用除数替换被除数、余数替换除数收敛。",
         "commonMistakes": [
           "循环条件写成 b==0。",
@@ -13350,22 +13352,22 @@ window.COURSE_DATA = {
       "exercise": {
         "prompt": "令 char ch='A'，分别输出 ch+1 的整数值和转换回 char 后的字符。",
         "starter": "#include <iostream>\n\nint main() {\n    char ch = 'A';\n    // 输出整数和字符\n    return 0;\n}",
-        "hint": "第二次输出需要 static_cast<char>(ch+1)。",
+        "hint": "第二次输出需要 (char)(ch+1)。",
         "checks": [
           {
             "label": "输出 ch+1",
-            "pattern": "(?:cout|printf)[^;]*ch\\s*\\+\\s*1"
+            "pattern": "\\bcout\\s*<<[^;]*ch\\s*\\+\\s*1"
           },
           {
             "label": "转换为 char",
-            "pattern": "static_cast\\s*<\\s*char\\s*>\\s*\\(\\s*ch\\s*\\+\\s*1\\s*\\)"
+            "pattern": "\\(\\s*char\\s*\\)\\s*\\(?\\s*ch\\s*\\+\\s*1\\s*\\)?"
           },
           {
             "label": "至少两次输出",
-            "pattern": "(?:std\\s*::\\s*cout\\s*<<[\\s\\S]*){2}"
+            "pattern": "(?:\\bcout\\s*<<[\\s\\S]*){2}"
           }
         ],
-        "solution": "#include <iostream>\n\nint main() {\n    char ch = 'A';\n    std::cout << ch + 1 << ' ';\n    std::cout << static_cast<char>(ch + 1);\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint main() {\n    char ch = 'A';\n    cout << ch + 1 << ' ';\n    cout << (char)(ch + 1);\n    return 0;\n}",
         "explanation": "字符参与算术会提升为整数，只有转换回 char 才按字符输出。",
         "commonMistakes": [
           "两次都写 ch+1，第二项仍输出整数。",
@@ -13445,7 +13447,7 @@ window.COURSE_DATA = {
         "fabs",
         "gets"
       ],
-      "overview": "期中常用库函数分布在 <cstdio>、<cmath> 等头文件。gets 不安全且已从现代标准移除，练习时应优先使用 fgets 或 std::cin.getline。",
+      "overview": "期中常用库函数分布在 <cstdio>、<cmath> 等头文件。gets 不安全且已从现代标准移除，练习时应优先使用 fgets 或 cin.getline。",
       "keyPoints": [
         "getchar 读取一个字符，putchar 输出一个字符。",
         "puts 输出字符串并自动追加换行。",
@@ -13577,7 +13579,7 @@ window.COURSE_DATA = {
       ],
       "exercise": {
         "prompt": "已有有序数组 1 3 5 7 9。先删除值 5，再插入 6 保持有序，最后输出有效元素。补全 deleteValue 和 insertSorted。",
-        "starter": "#include <iostream>\nusing namespace std;\n\nbool deleteValue(int a[], int& n, int x) {\n    // 删除 x，成功返回 true\n}\n\nbool insertSorted(int a[], int& n, int x) {\n    // 有序插入 x，成功返回 true\n}\n\nint main() {\n    int a[20] = {1,3,5,7,9}, n = 5;\n    deleteValue(a, n, 5);\n    insertSorted(a, n, 6);\n    for (int i = 0; i < n; ++i) cout << a[i] << ' ';\n    cout << endl;\n    return 0;\n}",
+        "starter": "#include <iostream>\nusing namespace std;\n\nint deleteValue(int a[], int& n, int x) {\n    // 删除 x，成功返回 1\n}\n\nint insertSorted(int a[], int& n, int x) {\n    // 有序插入 x，成功返回 1\n}\n\nint main() {\n    int a[20] = {1,3,5,7,9}, n = 5;\n    deleteValue(a, n, 5);\n    insertSorted(a, n, 6);\n    for (int i = 0; i < n; ++i) cout << a[i] << ' ';\n    cout << endl;\n    return 0;\n}",
         "sampleInput": "",
         "expectedOutput": "1 3 6 7 9",
         "hint": "删除向左覆盖；插入时先找 pos，再从 i=n 向 pos 递减移动。",
@@ -13599,7 +13601,7 @@ window.COURSE_DATA = {
             "pattern": "a\\s*\\[\\s*i\\s*\\]\\s*=\\s*a\\s*\\[\\s*i\\s*-\\s*1\\s*\\]"
           }
         ],
-        "solution": "#include <iostream>\nusing namespace std;\n\nbool deleteValue(int a[], int& n, int x) {\n    for (int i = 0; i < n; ++i) {\n        if (a[i] == x) {\n            for (int j = i; j < n - 1; ++j) a[j] = a[j + 1];\n            --n;\n            return true;\n        }\n    }\n    return false;\n}\n\nbool insertSorted(int a[], int& n, int x) {\n    if (n >= 20) return false;\n    int pos = 0;\n    while (pos < n && a[pos] < x) ++pos;\n    for (int i = n; i > pos; --i) a[i] = a[i - 1];\n    a[pos] = x;\n    ++n;\n    return true;\n}\n\nint main() {\n    int a[20] = {1,3,5,7,9}, n = 5;\n    deleteValue(a, n, 5);\n    insertSorted(a, n, 6);\n    for (int i = 0; i < n; ++i) cout << a[i] << ' ';\n    cout << endl;\n    return 0;\n}",
+        "solution": "#include <iostream>\nusing namespace std;\n\nint deleteValue(int a[], int& n, int x) {\n    for (int i = 0; i < n; ++i) {\n        if (a[i] == x) {\n            for (int j = i; j < n - 1; ++j) a[j] = a[j + 1];\n            --n;\n            return 1;\n        }\n    }\n    return 0;\n}\n\nint insertSorted(int a[], int& n, int x) {\n    if (n >= 20) return 0;\n    int pos = 0;\n    while (pos < n && a[pos] < x) ++pos;\n    for (int i = n; i > pos; --i) a[i] = a[i - 1];\n    a[pos] = x;\n    ++n;\n    return 1;\n}\n\nint main() {\n    int a[20] = {1,3,5,7,9}, n = 5;\n    deleteValue(a, n, 5);\n    insertSorted(a, n, 6);\n    for (int i = 0; i < n; ++i) cout << a[i] << ' ';\n    cout << endl;\n    return 0;\n}",
         "explanation": "删除左移、插入右移，移动方向都由数据依赖关系决定。",
         "commonMistakes": [
           "插入从前往后移动，覆盖后续元素。",
